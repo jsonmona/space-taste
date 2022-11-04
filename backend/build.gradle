@@ -1,0 +1,36 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.1'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'java'
+    // id 'org.springframework.experimental.aot' version '0.12.1'
+}
+
+group = 'cf.spacetaste'
+version = '0.1.0'
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+repositories {
+    maven { url 'https://repo.spring.io/release' }
+    mavenCentral()
+}
+
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-core'
+        exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-websocket'
+    }
+    implementation "org.apache.tomcat.experimental:tomcat-embed-programmatic:${dependencyManagement.importedProperties["tomcat.version"]}"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.named('bootBuildImage') {
+    builder = 'paketobuildpacks/builder:tiny'
+    imageName = "space-taste-backend:${project.version}"
+    // environment = ['BP_NATIVE_IMAGE': 'true']
+}
