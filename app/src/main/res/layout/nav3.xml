@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:text="맛집 등록"
+        android:textStyle="bold"
         android:textSize="20sp"
         android:gravity="center" />
 
@@ -20,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_margin="20dp">
+            android:layout_margin="20dp"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/nav3_1"
@@ -62,7 +64,7 @@
                 android:text="맛집 카테고리"
                 android:textStyle="bold"/>
 
-            <!--    이부분은 메뉴형식으로 변경하기-->
+            <!--   spinner이용해서 카테고리 선택 -->
             <Spinner
                 android:id="@+id/spinner"
                 android:layout_width="wrap_content"
@@ -79,7 +81,7 @@
                 android:textStyle="bold"/>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center">
 
@@ -89,7 +91,7 @@
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
-                    android:background="@color/black"
+                    android:background="#A9A9A9"
                     android:maxWidth="200dp"
                     android:maxHeight="200dp"
                     android:onClick="onClick" />
@@ -99,9 +101,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="30dp"
                     android:onClick="onClick"
                     android:text="사진 선택"
-                    android:textSize="15sp" />
+                    android:textSize="12dp" />
             </LinearLayout>
 
             <EditText
@@ -134,12 +137,14 @@
 
                 <RatingBar
                     style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:id="@+id/rate1"
+                    android:isIndicator = "false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="100dp"
                     android:numStars="5"
-                    android:rating="1"
-                    android:stepSize="2" />
+                    android:rating="5"
+                    android:stepSize="0.5" />
             </LinearLayout>
 
             <LinearLayout
@@ -156,12 +161,14 @@
 
                 <RatingBar
                     style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:id="@+id/rate2"
+                    android:isIndicator = "false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="100dp"
                     android:numStars="5"
-                    android:rating="1"
-                    android:stepSize="2" />
+                    android:rating="5"
+                    android:stepSize="0.5" />
             </LinearLayout>
 
             <LinearLayout
@@ -178,12 +185,14 @@
 
                 <RatingBar
                     style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:id="@+id/rate3"
+                    android:isIndicator = "false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="100dp"
                     android:numStars="5"
-                    android:rating="1"
-                    android:stepSize="2" />
+                    android:rating="5"
+                    android:stepSize="0.5" />
             </LinearLayout>
 
             <LinearLayout
@@ -196,16 +205,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:text="친절" />
+                    android:text="청결" />
 
                 <RatingBar
                     style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:id="@+id/rate4"
+                    android:isIndicator = "false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="100dp"
                     android:numStars="5"
-                    android:rating="1"
-                    android:stepSize="2" />
+                    android:rating="5"
+                    android:stepSize="0.5" />
             </LinearLayout>
 
             <TextView
@@ -216,19 +227,62 @@
                 android:textSize="15dp"
                 android:text="해시태그"
                 android:textStyle="bold"/>
-
-            <RadioGroup
-                android:id="@+id/nav3_tagGroup"
+            <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+                <TableRow>
+                    <CheckBox
+                        android:id="@+id/nav3_tag1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:text="분위기 좋은"/>
+                    <CheckBox
+                        android:id="@+id/nav3_tag4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:text="가성비 좋은"/>
+                    <CheckBox
+                        android:id="@+id/nav3_tag3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:text="뷰가 좋은"/>
+                    <CheckBox
+                        android:id="@+id/nav3_tag2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:text="친절한"/>
 
-                <RadioButton
-                    android:id="@+id/nav3_tag1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12dp"
-                    android:text="분위기 좋은" />
-            </RadioGroup>
+
+                </TableRow>
+                <TableRow>
+                    <CheckBox
+                        android:id="@+id/nav3_tag7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:text="데이트"/>
+                    <CheckBox
+                        android:id="@+id/nav3_tag6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:text="혼밥하기 좋은"/>
+
+                    <CheckBox
+                        android:id="@+id/nav3_tag5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_span="2"
+                        android:textSize="12dp"
+                        android:text="특별한 메뉴가 있는"/>
+
+                </TableRow>
+
+            </TableLayout>
 
             <TextView
                 android:id="@+id/nav3_7"
@@ -244,7 +298,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
-                android:hint="코멘트" />
+                android:hint="코멘트"
+                android:maxLength="30"
+                android:layout_marginBottom="20dp"/>
         </LinearLayout>
     </ScrollView>
     //하단 고정
