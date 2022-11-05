@@ -10,13 +10,14 @@
         android:layout_height="40dp"
         android:text="맛집 등록"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="25dp"
         android:gravity="center" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="15dp"
-                android:text="맛집 이름"
+                android:text="식당 이름"
                 android:textStyle="bold"/>
 
             <EditText
@@ -45,179 +46,48 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="15dp"
-                android:text="맛집 위치"
+                android:text="식당 위치"
                 android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/nav3_Addr"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="12dp"
-                android:hint="위치를 입력하세요" />
-
-            <TextView
-                android:id="@+id/nav3_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="15dp"
-                android:text="맛집 카테고리"
-                android:textStyle="bold"/>
-
-            <!--   spinner이용해서 카테고리 선택 -->
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
-
-            <TextView
-                android:id="@+id/nav3_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="15dp"
-                android:text="메뉴 소개 및 추천 메뉴"
-                android:textStyle="bold"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:orientation="horizontal">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_addr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/menu_image"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:adjustViewBounds="true"
-                    android:background="#A9A9A9"
-                    android:maxWidth="200dp"
-                    android:maxHeight="200dp"
-                    android:onClick="onClick" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_addr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:hint="주소를 입력하세요"
+                        android:inputType="text"
+                        android:minLines="2" />
 
-                <Button
-                    android:id="@+id/btn_UploadPicture"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="30dp"
-                    android:onClick="onClick"
-                    android:text="사진 선택"
-                    android:textSize="12dp" />
+                    <Button
+                        android:id="@+id/button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/orange"
+                        android:text="주소검색" />
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
-
-            <EditText
-                android:id="@+id/nav3_menu"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_addrDetail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="12dp"
-                android:hint="메뉴에 대해 입력해주세요" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/nav3_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="15dp"
-                android:text="별점"
-                android:textStyle="bold"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/nav3_5_1"
-                    android:layout_width="68dp"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_addrDetail"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
-                    android:text="맛" />
-
-                <RatingBar
-                    style="@style/Widget.AppCompat.RatingBar.Small"
-                    android:id="@+id/rate1"
-                    android:isIndicator = "false"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="100dp"
-                    android:numStars="5"
-                    android:rating="5"
-                    android:stepSize="0.5" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/nav3_5_2"
-                    android:layout_width="68dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
-                    android:text="가격" />
-
-                <RatingBar
-                    style="@style/Widget.AppCompat.RatingBar.Small"
-                    android:id="@+id/rate2"
-                    android:isIndicator = "false"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="100dp"
-                    android:numStars="5"
-                    android:rating="5"
-                    android:stepSize="0.5" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/nav3_5_3"
-                    android:layout_width="68dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
-                    android:text="친절" />
-
-                <RatingBar
-                    style="@style/Widget.AppCompat.RatingBar.Small"
-                    android:id="@+id/rate3"
-                    android:isIndicator = "false"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="100dp"
-                    android:numStars="5"
-                    android:rating="5"
-                    android:stepSize="0.5" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/nav3_5_4"
-                    android:layout_width="68dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
-                    android:text="청결" />
-
-                <RatingBar
-                    style="@style/Widget.AppCompat.RatingBar.Small"
-                    android:id="@+id/rate4"
-                    android:isIndicator = "false"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="100dp"
-                    android:numStars="5"
-                    android:rating="5"
-                    android:stepSize="0.5" />
-            </LinearLayout>
+                    android:hint="주소 나머지 부분을 입력해주세요"
+                    android:background="@color/white"
+                    android:inputType="text"
+                    android:minLines="2" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/nav3_6"
@@ -227,80 +97,42 @@
                 android:textSize="15dp"
                 android:text="해시태그"
                 android:textStyle="bold"/>
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TableRow>
-                    <CheckBox
-                        android:id="@+id/nav3_tag1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:text="분위기 좋은"/>
-                    <CheckBox
-                        android:id="@+id/nav3_tag4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:text="가성비 좋은"/>
-                    <CheckBox
-                        android:id="@+id/nav3_tag3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:text="뷰가 좋은"/>
-                    <CheckBox
-                        android:id="@+id/nav3_tag2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:text="친절한"/>
 
-
-                </TableRow>
-                <TableRow>
-                    <CheckBox
-                        android:id="@+id/nav3_tag7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:text="데이트"/>
-                    <CheckBox
-                        android:id="@+id/nav3_tag6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:text="혼밥하기 좋은"/>
-
-                    <CheckBox
-                        android:id="@+id/nav3_tag5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_span="2"
-                        android:textSize="12dp"
-                        android:text="특별한 메뉴가 있는"/>
-
-                </TableRow>
-
-            </TableLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnHashTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="해시태그"
+                android:textStyle="bold"
+                android:textSize="12dp"/>
 
             <TextView
-                android:id="@+id/nav3_7"
+                android:id="@+id/nav3_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="15dp"
-                android:text="30자 이내 코멘트"
+                android:text="대표 사진 (식당 사진)"
                 android:textStyle="bold"/>
 
-            <EditText
-                android:id="@+id/nav3_comment"
-                android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/selectImageBtn"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12dp"
-                android:hint="코멘트"
-                android:maxLength="30"
-                android:layout_marginBottom="20dp"/>
+                android:text="사진 선택"
+                android:textStyle="bold"
+                android:textSize="12dp"/>
+
+            <ImageView
+                android:id="@+id/add_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:maxWidth="200dp"
+                android:maxHeight="200dp"
+                android:onClick="onClick" />
+
         </LinearLayout>
     </ScrollView>
     //하단 고정
@@ -313,6 +145,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
+            android:backgroundTint="@color/orange"
             android:text="등록하기" />
     </LinearLayout>
 

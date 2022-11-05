@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">Space Taste</string>
+
+    <string-array name="HashTag">
+        <item>한식</item>
+        <item>양식</item>
+        <item>중식</item>
+        <item>양식</item>
+        <item>세계음식</item>
+        <item>뷔페</item>
+        <item>카페</item>
+        <item>주점</item>
+        <item>조용한</item>
+        <item>시끌벅적한</item>
+        <item>대화하기 좋은</item>
+        <item>가성비 좋은</item>
+        <item>고급스러운</item>
+        <item>가벼운</item>
+        <item>양이 많은</item>
+        <item>다이어트</item>
+        <item>건강한</item>
+        <item>비건</item>
+        <item>아침식사</item>
+        <item>점심식사</item>
+        <item>저녁식사</item>
+        <item>혼밥하기 좋은</item>
+        <item>야외 테라스</item>
+        <item>좌식 테이블</item>
+        <item>입식 테이블</item>
+        <item>주차하기 편한</item>
+    </string-array>
 </resources>
