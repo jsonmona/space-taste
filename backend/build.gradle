@@ -10,11 +10,6 @@ version = '0.1.0'
 sourceCompatibility = '17'
 targetCompatibility = '17'
 
-repositories {
-    maven { url 'https://repo.spring.io/release' }
-    mavenCentral()
-}
-
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web') {
         exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-core'
