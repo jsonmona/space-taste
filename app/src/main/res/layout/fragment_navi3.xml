@@ -48,31 +48,20 @@
                 android:textSize="15dp"
                 android:text="식당 위치"
                 android:textStyle="bold"/>
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_addr"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_addr"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_addr"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_addr"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:hint="주소를 입력하세요"
-                        android:inputType="text"
-                        android:minLines="2" />
-
-                    <Button
-                        android:id="@+id/button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="주소검색" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:hint="주소를 입력하세요"
+                    android:inputType="text"
+                    android:minLines="2" />
+            </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_addrDetail"
                 android:layout_width="match_parent"

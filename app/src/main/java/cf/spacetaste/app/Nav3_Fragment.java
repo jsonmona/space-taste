@@ -70,42 +70,33 @@ public class Nav3_Fragment extends Fragment {
                 showDialog();
             }
         });
+
         et_addr = (EditText) view.findViewById(R.id.et_addr);
+        //block touch
         et_addr.setFocusable(false);
         et_addr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("주소설정페이지", "주소입력창 클릭");
-                int status = NetworkStatus.getConnectivityStatus(getActivity().getApplicationContext());
-                if(status == NetworkStatus.TYPE_MOBILE || status == NetworkStatus.TYPE_WIFI) {
-                    Log.i("주소설정페이지", "주소입력창 클릭");
-                    Intent i = new Intent(getActivity().getApplicationContext(), Nav3_Fragment_addr.class);
-                    // 주소결과
-                    startActivityForResult(i, SEARCH_ADDRESS_ACTIVITY);
-                }else {
-                    Toast.makeText(getActivity().getApplicationContext(), "인터넷 연결을 확인해주세요.", Toast.LENGTH_SHORT).show();
-                }
+                //주소 검색 웹뷰 화면으로 이동
+                Intent intent = new Intent(getActivity(), Nav3_Fragment_addr.class);
+                getSearchResult.launch(intent);
             }
         });
 
         return view;
     }
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        Log.i("test", "onActivityResult");
-
-        switch (requestCode) {
-            case SEARCH_ADDRESS_ACTIVITY:
-                if (resultCode == getActivity().RESULT_OK) {
-                    String data = intent.getExtras().getString("data");
-                    if (data != null) {
-                        Log.i("test", "data:" + data);
+    private final ActivityResultLauncher<Intent> getSearchResult =registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                //Nav3_Fraagment_addr로부터의 결과 값이 이곳으로 전달된다..(setResult에 의해)
+                if (result.getResultCode() == getActivity().RESULT_OK){
+                    if(result.getData() != null){
+                        String data = result.getData().getStringExtra("data");
                         et_addr.setText(data);
                     }
                 }
-                break;
-        }
-    }
+            }
+    );
 
     ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -168,26 +159,6 @@ public class Nav3_Fragment extends Fragment {
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-    }
-    public static class NetworkStatus {
-        public static final int TYPE_WIFI = 1;
-        public static final int TYPE_MOBILE = 2;
-        public static final int TYPE_NOT_CONNECTED = 3;
-
-        public static int getConnectivityStatus(Context context){ //해당 context의 서비스를 사용하기위해서 context객체를 받는다.
-            ConnectivityManager manager = (ConnectivityManager) context.getSystemService(context.CONNECTIVITY_SERVICE);
-
-            NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-            if(networkInfo != null){
-                int type = networkInfo.getType();
-                if(type == ConnectivityManager.TYPE_MOBILE){//쓰리지나 LTE로 연결된것(모바일을 뜻한다.)
-                    return TYPE_MOBILE;
-                }else if(type == ConnectivityManager.TYPE_WIFI){//와이파이 연결된것
-                    return TYPE_WIFI;
-                }
-            }
-            return TYPE_NOT_CONNECTED;  //연결이 되지않은 상태
-        }
     }
 
 }
