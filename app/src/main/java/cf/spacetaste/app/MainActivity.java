@@ -1,6 +1,6 @@
 package cf.spacetaste.app;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,48 +8,65 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+    FrameLayout main_ly;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btn = (Button) findViewById(R.id.btn);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Nav3.class);
-                startActivity(intent);
-            }
-        });
+        init(); //객체 정의
+        SettingListener(); //리스너 등록
+
+        //맨 처음 시작할 탭 설정
+//        bottomNavigationView.setSelectedItemId(R.id.home);
+    }
+    private void init() {
+        main_ly = findViewById(R.id.main_ly);
+        bottomNavigationView = findViewById(R.id.bottomNavi);
     }
 
+    private void SettingListener() {
+        //선택 리스너 등록
+        bottomNavigationView.setOnNavigationItemSelectedListener(new TabSelectedListener());
+    }
+    class TabSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            switch (menuItem.getItemId()) {
+                case R.id.navbar1: {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_ly, new Nav3_Fragment())
+                            .commit();
+                    return true;
+                }
+                case R.id.navbar2: {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_ly, new Nav3_Fragment())
+                            .commit();
+                    return true;
+                }
+                case R.id.navbar3: {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_ly, new Nav3_Fragment())
+                            .commit();
+                    return true;
+                }
+                case R.id.navbar4: {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_ly, new Nav3_Fragment())
+                            .commit();
+                    return true;
+                }
+            }
 
-//    private BottomNavigationView.OnNavigationItemSelectedListener OnNavigationItemSelectedListener;{
-//        OnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-//
-//            @Override
-//            public boolean setOnNavigationItemSelectedListener(@Nullable MenuItem item){
-//
-//                switch (item.getItemId()){
-//                    case R.id.navbar1:
-//                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
-//                        startActivity(intent);
-//                    case R.id.navbar2:
-//                        Intent intent2 = new Intent(MainActivity.this, MainActivity.class);
-//                        startActivity(intent2);
-//                    case R.id.navbar3:
-//                        Intent intent3 = new Intent(MainActivity.this, Nav3.class);
-//                        startActivity(intent3);
-//                    case R.id.navbar4:
-//                        Intent intent4 = new Intent(MainActivity.this, MainActivity.class);
-//                        startActivity(intent4);
-//                }
-//            }
-//        };
-//    }
+            return false;
+        }
+    }
 }

@@ -7,7 +7,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class Nav3_addr extends AppCompatActivity {
+public class Nav3_Fragment_addr extends AppCompatActivity {
 
     private WebView browser;
 
@@ -15,7 +15,7 @@ public class Nav3_addr extends AppCompatActivity {
     {
         @JavascriptInterface
         @SuppressWarnings("unused")
-        public void processDATA(String data) {
+        public void onResult(String data) {
             Bundle extra = new Bundle();
             Intent intent = new Intent();
             extra.putString("data", data);
@@ -29,7 +29,7 @@ public class Nav3_addr extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.nav3_web_view);
+        setContentView(R.layout.fragment_navi3_web_view);
 
         browser = (WebView) findViewById(R.id.webView);
         browser.getSettings().setJavaScriptEnabled(true);
@@ -38,7 +38,7 @@ public class Nav3_addr extends AppCompatActivity {
         browser.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                browser.loadUrl("javascript:sample2_execDaumPostcode();");
+                browser.evaluateJavascript("start();",null);
             }
         });
 
