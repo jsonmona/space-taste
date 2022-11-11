@@ -1,6 +1,8 @@
 package cf.spacetaste.app;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,5 +22,10 @@ public class MainActivity extends AppCompatActivity {
                     .add(R.id.fragment_container, Navi1_Fragment.class, null)
                     .commit();
         }
+    }
+
+    protected void showMatzipList() {
+        Intent intent = new Intent(MainActivity.this, MatzipListActivity.class);
+        startActivity(intent);
     }
 }

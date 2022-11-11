@@ -1,18 +1,27 @@
 package cf.spacetaste.app;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
-
-import cf.spacetaste.app.databinding.Navi1FragmentBinding;
 import cf.spacetaste.app.databinding.Navi1ItemBinding;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+public class MatzipTagAdapter extends RecyclerView.Adapter<MatzipTagAdapter.ViewHolder> {
 
     private ArrayList<MatzipTag> matzipTagList;
+
+    public interface OnItemClickListner {
+        void onItemClicked(int position, String data);
+    }
+
+    private MatzipListAdapter.OnItemClickListner itemClickListner;
+
+    public void setOnItemClickedListner(MatzipListAdapter.OnItemClickListner listner) {
+        itemClickListner = listner;
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private Navi1ItemBinding binding;
@@ -27,7 +36,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         }
     }
 
-    public CustomAdapter(ArrayList<MatzipTag> matzipTagList) {
+    public MatzipTagAdapter(ArrayList<MatzipTag> matzipTagList) {
         this.matzipTagList = matzipTagList;
     }
 
@@ -36,6 +45,19 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
         Navi1ItemBinding binding = Navi1ItemBinding.inflate(LayoutInflater.from(viewGroup.getContext()), viewGroup, false);
+        MatzipTagAdapter.ViewHolder viewHolder = new MatzipTagAdapter.ViewHolder(binding);
+        binding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String data = "";
+                int position = viewHolder.getAdapterPosition();
+                System.out.println(position);
+                if (position != RecyclerView.NO_POSITION) {
+                    data = "wow";
+                }
+                itemClickListner.onItemClicked(position, data);
+            }
+        });
         return new ViewHolder(binding);
     }
 
