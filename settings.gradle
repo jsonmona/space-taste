@@ -17,5 +17,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Space Taste"
+include ':common'
 include ':app'
 include ':backend'
