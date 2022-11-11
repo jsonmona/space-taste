@@ -11,8 +11,9 @@ import java.util.List;
 @EqualsAndHashCode
 @Getter
 @ToString
-public class MatzipBasicInfo {
+public class MatzipBasicInfoDTO {
     private String name;
     private String address;
     private List<String> hashtags;
+    private String photoBase64;
 }
