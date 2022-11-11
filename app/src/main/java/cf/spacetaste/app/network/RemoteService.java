@@ -2,6 +2,8 @@ package cf.spacetaste.app.network;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Base64;
 import android.util.Base64OutputStream;
 import cf.spacetaste.app.data.MatzipInfo;
@@ -25,12 +27,16 @@ public class RemoteService {
     private static final String SERVER_URL = "https://api.space-taste.cf";
 
     private Context context;
+    private Looper mainLooper;
+    private Handler handler;
     private ExecutorService es;
     private Retrofit retrofit;
     private RetrofitService service;
 
     public RemoteService(Context context) {
         this.context = context;
+        this.mainLooper = context.getMainLooper();
+        this.handler = new Handler(mainLooper);
         this.es = Executors.newCachedThreadPool();
         this.retrofit = new Retrofit.Builder()
                 .baseUrl(SERVER_URL)
@@ -38,6 +44,15 @@ public class RemoteService {
                 .build();
         this.service = retrofit.create(RetrofitService.class);
     }
+
+    private void runOnUiThread(Runnable r) {
+        if (Thread.currentThread() == mainLooper.getThread()) {
+            r.run();
+        } else {
+            handler.post(r);
+        }
+    }
+
     public void createMatzip(String name, String baseAddress, String detailAddress, List<String> hashtags, Uri photo, AsyncResultPromise<MatzipInfo> cb) {
         es.submit(() -> {
             try {
@@ -70,14 +85,14 @@ public class RemoteService {
                             info.setAddress(body.getAddress());
                             info.setHashtags(body.getHashtags());
                             info.setPhotoUrl(body.getPhotoUrl());
-                            cb.onResult(true, info);
+                            runOnUiThread(() -> cb.onResult(true, info));
                         }
                     }
 
                     @Override
                     public void onFailure(Call<MatzipInfoDTO> call, Throwable t) {
                         t.printStackTrace();
-                        cb.onResult(false, null);
+                        runOnUiThread(() -> cb.onResult(false, null));
                     }
                 });
             } catch(IOException e) {
