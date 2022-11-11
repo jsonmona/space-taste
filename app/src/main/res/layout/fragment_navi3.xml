@@ -33,13 +33,21 @@
                 android:textSize="15dp"
                 android:text="식당 이름"
                 android:textStyle="bold"/>
-
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/nav3_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="12dp"
-                android:hint="이름을 입력하세요" />
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nav3_etname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="이름을 입력하세요"
+                    android:background="@color/white"
+                    android:textSize="12dp"
+                    android:inputType="text"
+                    android:minLines="2" />
+            </com.google.android.material.textfield.TextInputLayout>
             <TextView
                 android:id="@+id/nav3_2"
                 android:layout_width="wrap_content"
@@ -59,6 +67,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:hint="주소를 입력하세요"
+                    android:textSize="12dp"
                     android:inputType="text"
                     android:minLines="2" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -73,6 +82,7 @@
                     android:layout_height="wrap_content"
                     android:hint="주소 나머지 부분을 입력해주세요"
                     android:background="@color/white"
+                    android:textSize="12dp"
                     android:inputType="text"
                     android:minLines="2" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -120,20 +130,32 @@
                 android:maxWidth="200dp"
                 android:maxHeight="200dp"
                 android:onClick="onClick" />
+            <Button
+                android:id="@+id/addbtn"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/add_image"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:text="등록하기" />
 
         </LinearLayout>
     </ScrollView>
     //하단 고정
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:text="등록하기" />
+
+<!--        <Button-->
+<!--            android:id="@+id/addbtn"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="등록하기" />-->
+
     </LinearLayout>
 
 

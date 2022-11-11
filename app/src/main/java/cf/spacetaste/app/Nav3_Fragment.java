@@ -38,10 +38,9 @@ public class Nav3_Fragment extends Fragment {
     private View view;
     private Uri uri;
     private ImageView imageView;
-    private Button selectImageBtn,btnHashTag;
+    private Button selectImageBtn,btnHashTag,addbtn;
     private List<String> SelectedHashTag;
     private AlertDialog.Builder builder;
-    private static final int SEARCH_ADDRESS_ACTIVITY = 10000;
     private EditText et_addr;
 
     public Nav3_Fragment() {
@@ -80,6 +79,13 @@ public class Nav3_Fragment extends Fragment {
                 //주소 검색 웹뷰 화면으로 이동
                 Intent intent = new Intent(getActivity(), Nav3_Fragment_addr.class);
                 getSearchResult.launch(intent);
+            }
+        });
+        addbtn = view.findViewById(R.id.addbtn);
+        addbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "추가되었습니다. 첫번째로 리뷰를 남겨주세요", Toast.LENGTH_SHORT).show();
             }
         });
 
