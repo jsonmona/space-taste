@@ -16,6 +16,11 @@ dependencies {
         exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-websocket'
     }
     implementation "org.apache.tomcat.experimental:tomcat-embed-programmatic:${dependencyManagement.importedProperties["tomcat.version"]}"
+    implementation project(':common')
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.9'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
