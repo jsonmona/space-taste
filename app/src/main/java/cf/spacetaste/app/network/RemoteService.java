@@ -5,8 +5,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Base64;
 import android.util.Base64OutputStream;
+import cf.spacetaste.app.data.AuthResponse;
 import cf.spacetaste.app.data.MatzipCreateRequest;
 import cf.spacetaste.app.data.MatzipInfo;
+import cf.spacetaste.common.AuthRequestDTO;
+import cf.spacetaste.common.AuthResponseDTO;
 import cf.spacetaste.common.MatzipBasicInfoDTO;
 import cf.spacetaste.common.MatzipInfoDTO;
 import retrofit2.Call;
@@ -105,6 +108,26 @@ public class RemoteService {
                 });
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        });
+    }
+
+    public void checkUserAuth(String kakaoAccessToken, AsyncResultPromise<AuthResponse> cb) {
+        service.checkUserAuth(new AuthRequestDTO(kakaoAccessToken)).enqueue(new Callback<AuthResponseDTO>() {
+            @Override
+            public void onResponse(Call<AuthResponseDTO> call, Response<AuthResponseDTO> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    runOnUiThread(() -> cb.onResult(true, new AuthResponse(response.body().isNewUser())));
+                } else {
+                    System.err.println("failed with status="+response.code());
+                    runOnUiThread(() -> cb.onResult(false, null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponseDTO> call, Throwable t) {
+                t.printStackTrace();
+                runOnUiThread(() -> cb.onResult(false, null));
             }
         });
     }
