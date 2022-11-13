@@ -8,7 +8,6 @@ import android.util.Base64OutputStream;
 import cf.spacetaste.app.data.AuthResponse;
 import cf.spacetaste.app.data.MatzipCreateRequest;
 import cf.spacetaste.app.data.MatzipInfo;
-import cf.spacetaste.common.AuthRequestDTO;
 import cf.spacetaste.common.AuthResponseDTO;
 import cf.spacetaste.common.MatzipBasicInfoDTO;
 import cf.spacetaste.common.MatzipInfoDTO;
@@ -113,7 +112,7 @@ public class RemoteService {
     }
 
     public void checkUserAuth(String kakaoAccessToken, AsyncResultPromise<AuthResponse> cb) {
-        service.checkUserAuth(new AuthRequestDTO(kakaoAccessToken)).enqueue(new Callback<AuthResponseDTO>() {
+        service.checkUserAuth(kakaoAccessToken).enqueue(new Callback<AuthResponseDTO>() {
             @Override
             public void onResponse(Call<AuthResponseDTO> call, Response<AuthResponseDTO> response) {
                 if (response.isSuccessful() && response.body() != null) {
