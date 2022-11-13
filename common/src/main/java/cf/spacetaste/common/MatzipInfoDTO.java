@@ -5,14 +5,16 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.List;
+import java.util.ArrayList;
 
 @AllArgsConstructor
 @EqualsAndHashCode
 @Getter
 @ToString
-public class MatzipBasicInfo {
+public class MatzipInfoDTO {
+    private int matzipId;
     private String name;
     private String address;
-    private List<String> hashtags;
+    private ArrayList<String> hashtags;
+    private String photoUrl;
 }
