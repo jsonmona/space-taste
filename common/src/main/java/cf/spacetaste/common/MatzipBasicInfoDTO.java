@@ -13,7 +13,9 @@ import java.util.List;
 @ToString
 public class MatzipBasicInfoDTO {
     private String name;
-    private String address;
+    private String bcode;
+    private String baseAddress;
+    private String detailAddress;
     private List<String> hashtags;
     private String photoBase64;
 }

@@ -1,14 +1,11 @@
 package cf.spacetaste.app;
 
 import android.content.Context;
-import android.net.Uri;
 import androidx.annotation.NonNull;
+import cf.spacetaste.app.data.MatzipCreateRequest;
 import cf.spacetaste.app.data.MatzipInfo;
 import cf.spacetaste.app.network.AsyncResultPromise;
 import cf.spacetaste.app.network.RemoteService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AppState {
     private static volatile AppState instance;
@@ -31,13 +28,9 @@ public class AppState {
         return instance;
     }
 
-    public void createMatzip(String name, String baseAddress, String detailAddress, List<String> hashtags, Uri photo, AsyncResultPromise<MatzipInfo> cb) {
-        if (name == null || baseAddress == null || detailAddress == null)
-            throw new NullPointerException("name and addresses should be not null");
+    public void createMatzip(MatzipCreateRequest req, AsyncResultPromise<MatzipInfo> cb) {
+        req.validate();
 
-        if (hashtags == null)
-            hashtags = new ArrayList<>();
-
-        remoteService.createMatzip(name, baseAddress, detailAddress, hashtags, photo, cb);
+        remoteService.createMatzip(req, cb);
     }
 }

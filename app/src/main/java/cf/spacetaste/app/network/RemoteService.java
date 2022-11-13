@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Base64;
 import android.util.Base64OutputStream;
+import cf.spacetaste.app.data.MatzipCreateRequest;
 import cf.spacetaste.app.data.MatzipInfo;
 import cf.spacetaste.common.MatzipBasicInfoDTO;
 import cf.spacetaste.common.MatzipInfoDTO;
@@ -53,15 +54,15 @@ public class RemoteService {
         }
     }
 
-    public void createMatzip(String name, String baseAddress, String detailAddress, List<String> hashtags, Uri photo, AsyncResultPromise<MatzipInfo> cb) {
+    public void createMatzip(MatzipCreateRequest req, AsyncResultPromise<MatzipInfo> cb) {
         es.submit(() -> {
             try {
                 String photoData = null;
-                if (photo != null) {
+                if (req.getPhoto() != null) {
                     ByteArrayOutputStream bout = new ByteArrayOutputStream();
                     Base64OutputStream encoder = new Base64OutputStream(bout, Base64.NO_PADDING | Base64.NO_WRAP);
                     byte[] buf = new byte[4096];
-                    try (InputStream in = context.getContentResolver().openInputStream(photo)) {
+                    try (InputStream in = context.getContentResolver().openInputStream(req.getPhoto())) {
                         while (true) {
                             int len = in.read(buf);
                             if (len <= 0)
@@ -73,11 +74,18 @@ public class RemoteService {
                     }
                 }
 
-                MatzipBasicInfoDTO info = new MatzipBasicInfoDTO(name, baseAddress + " " + detailAddress, hashtags, photoData);
+                MatzipBasicInfoDTO info = new MatzipBasicInfoDTO(
+                        req.getName(),
+                        req.getBcode(),
+                        req.getBaseAddress(),
+                        req.getDetailAddress(),
+                        req.getHashtags(),
+                        photoData
+                );
                 service.createMatzip(info).enqueue(new Callback<MatzipInfoDTO>() {
                     @Override
                     public void onResponse(Call<MatzipInfoDTO> call, Response<MatzipInfoDTO> response) {
-                        if (response.isSuccessful()) {
+                        if (response.isSuccessful() && response.body() != null) {
                             MatzipInfoDTO body = response.body();
                             MatzipInfo info = new MatzipInfo();
                             info.setMatzipId(body.getMatzipId());
@@ -86,6 +94,9 @@ public class RemoteService {
                             info.setHashtags(body.getHashtags());
                             info.setPhotoUrl(body.getPhotoUrl());
                             runOnUiThread(() -> cb.onResult(true, info));
+                        } else {
+                            System.err.println("failed with status="+response.code());
+                            runOnUiThread(() -> cb.onResult(false, null));
                         }
                     }
 
@@ -95,7 +106,7 @@ public class RemoteService {
                         runOnUiThread(() -> cb.onResult(false, null));
                     }
                 });
-            } catch(IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
