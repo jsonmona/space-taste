@@ -1,17 +1,25 @@
 package cf.spacetaste.app.data;
 
 import lombok.Data;
+import lombok.NonNull;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class MatzipInfo {
-    private int matzipId;
-    private String name;
-    private String baseAddress;
-    private String detailAddress;
-    private ArrayList<String> hashtags;
+    private final int matzipId;
 
-    // maybe null
-    private String photoUrl;
+    @NonNull
+    private final String name;
+
+    @NonNull
+    private final String baseAddress;
+
+    @NonNull
+    private final String detailAddress;
+
+    @NonNull
+    private final List<String> hashtags;
+
+    private final String photoUrl;
 }

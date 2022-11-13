@@ -36,16 +36,11 @@ public class AppState {
         req.validate();
 
         //remoteService.createMatzip(req, cb);
-        Log.w(TAG, "STUB createMatzip("+ req +")");
-        MatzipInfo mockedResult = new MatzipInfo();
-        mockedResult.setMatzipId(123);
-        mockedResult.setHashtags(req.getHashtags());
-        mockedResult.setBaseAddress(req.getBaseAddress());
-        mockedResult.setDetailAddress(req.getDetailAddress());
-        cb.onResult(true, mockedResult);
+        Log.w(TAG, "STUB createMatzip(" + req + ")");
+        cb.onResult(true, new MatzipInfo(123, req.getName(), req.getBaseAddress(), req.getDetailAddress(), req.getHashtags(), null));
     }
 
-    public void checkUserAuth(String kakaoAccessToken, AsyncResultPromise<AuthResponse> cb) {
+    public void login(String kakaoAccessToken, AsyncResultPromise<AuthResponse> cb) {
         remoteService.checkUserAuth(kakaoAccessToken, cb);
     }
 }
