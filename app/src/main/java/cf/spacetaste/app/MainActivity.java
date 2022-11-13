@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.common.util.Utility;
@@ -30,15 +31,14 @@ public class MainActivity extends AppCompatActivity {
         Function2<OAuthToken, Throwable, Unit> callback = (token, error) -> {
             if (error != null) {
                 error.printStackTrace();
-            } else if (token != null) {
-                UserApiClient.getInstance().me((user, throwable) -> {
-                    if (throwable != null) {
-                        Log.w(TAG, "invoke: " + throwable.getLocalizedMessage());
-                    } else if (user != null) {
-                        String accessToken = token.getAccessToken();
-                        System.out.println("accessToken: " + accessToken);
+            }
+            else if (token != null) {
+                String accessToken = token.getAccessToken();
+                AppState.getInstance(this).checkUserAuth(accessToken, (success, result) -> {
+                    if (success) {System.out.println(result);}
+                    else {
+                        Toast.makeText(this,"네트워크에 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     }
-                    return null;
                 });
             }
             return null;
