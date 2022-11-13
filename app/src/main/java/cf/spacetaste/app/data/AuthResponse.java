@@ -1,10 +1,8 @@
 package cf.spacetaste.app.data;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
-@AllArgsConstructor
+@Data
 public class AuthResponse {
-    private boolean isNewUser;
+    private final boolean isNewUser;
 }

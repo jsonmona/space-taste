@@ -1,11 +1,13 @@
 package cf.spacetaste.app.data;
 
 import android.net.Uri;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.ArrayList;
 
 @Data
+@AllArgsConstructor
 public class MatzipCreateRequest {
     private String name;
     private String bcode;

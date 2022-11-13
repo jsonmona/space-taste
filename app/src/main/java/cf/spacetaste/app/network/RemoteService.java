@@ -86,12 +86,14 @@ public class RemoteService {
                     public void onResponse(Call<MatzipInfoDTO> call, Response<MatzipInfoDTO> response) {
                         if (response.isSuccessful() && response.body() != null) {
                             MatzipInfoDTO body = response.body();
-                            MatzipInfo info = new MatzipInfo();
-                            info.setMatzipId(body.getMatzipId());
-                            info.setName(body.getName());
-                            info.setBaseAddress(body.getAddress());
-                            info.setHashtags(body.getHashtags());
-                            info.setPhotoUrl(body.getPhotoUrl());
+                            MatzipInfo info = new MatzipInfo(
+                                    body.getMatzipId(),
+                                    body.getName(),
+                                    body.getAddress(),
+                                    "",
+                                    body.getHashtags(),
+                                    body.getPhotoUrl()
+                            );
                             runOnUiThread(() -> cb.onResult(true, info));
                         } else {
                             System.err.println("failed with status="+response.code());
