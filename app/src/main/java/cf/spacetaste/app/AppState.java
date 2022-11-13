@@ -3,6 +3,7 @@ package cf.spacetaste.app;
 import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
+import cf.spacetaste.app.data.AuthResponse;
 import cf.spacetaste.app.data.MatzipCreateRequest;
 import cf.spacetaste.app.data.MatzipInfo;
 import cf.spacetaste.app.network.AsyncResultPromise;
@@ -42,5 +43,9 @@ public class AppState {
         mockedResult.setBaseAddress(req.getBaseAddress());
         mockedResult.setDetailAddress(req.getDetailAddress());
         cb.onResult(true, mockedResult);
+    }
+
+    public void checkUserAuth(String kakaoAccessToken, AsyncResultPromise<AuthResponse> cb) {
+        remoteService.checkUserAuth(kakaoAccessToken, cb);
     }
 }
