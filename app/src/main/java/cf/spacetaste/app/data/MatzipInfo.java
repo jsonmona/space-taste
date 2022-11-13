@@ -8,7 +8,8 @@ import java.util.ArrayList;
 public class MatzipInfo {
     private int matzipId;
     private String name;
-    private String address;
+    private String baseAddress;
+    private String detailAddress;
     private ArrayList<String> hashtags;
 
     // maybe null

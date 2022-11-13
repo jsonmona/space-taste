@@ -1,7 +1,6 @@
 package cf.spacetaste.app.network;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Base64;
@@ -19,8 +18,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -90,7 +87,7 @@ public class RemoteService {
                             MatzipInfo info = new MatzipInfo();
                             info.setMatzipId(body.getMatzipId());
                             info.setName(body.getName());
-                            info.setAddress(body.getAddress());
+                            info.setBaseAddress(body.getAddress());
                             info.setHashtags(body.getHashtags());
                             info.setPhotoUrl(body.getPhotoUrl());
                             runOnUiThread(() -> cb.onResult(true, info));

@@ -1,6 +1,7 @@
 package cf.spacetaste.app;
 
 import android.content.Context;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import cf.spacetaste.app.data.MatzipCreateRequest;
 import cf.spacetaste.app.data.MatzipInfo;
@@ -8,6 +9,8 @@ import cf.spacetaste.app.network.AsyncResultPromise;
 import cf.spacetaste.app.network.RemoteService;
 
 public class AppState {
+    private static final String TAG = AppState.class.getSimpleName();
+
     private static volatile AppState instance;
 
     private Context context;
@@ -31,6 +34,13 @@ public class AppState {
     public void createMatzip(MatzipCreateRequest req, AsyncResultPromise<MatzipInfo> cb) {
         req.validate();
 
-        remoteService.createMatzip(req, cb);
+        //remoteService.createMatzip(req, cb);
+        Log.w(TAG, "STUB createMatzip("+ req +")");
+        MatzipInfo mockedResult = new MatzipInfo();
+        mockedResult.setMatzipId(123);
+        mockedResult.setHashtags(req.getHashtags());
+        mockedResult.setBaseAddress(req.getBaseAddress());
+        mockedResult.setDetailAddress(req.getDetailAddress());
+        cb.onResult(true, mockedResult);
     }
 }
