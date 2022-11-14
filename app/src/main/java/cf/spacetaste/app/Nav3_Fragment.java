@@ -97,8 +97,9 @@ public class Nav3_Fragment extends Fragment {
                 //Nav3_Fraagment_addr로부터의 결과 값이 이곳으로 전달된다..(setResult에 의해)
                 if (result.getResultCode() == getActivity().RESULT_OK){
                     if(result.getData() != null){
-                        String data = result.getData().getStringExtra("data");
-                        et_addr.setText(data);
+                        String address = result.getData().getStringExtra("address");
+                        String bcode = result.getData().getStringExtra("bcode");
+                        et_addr.setText(address);
                     }
                 }
             }

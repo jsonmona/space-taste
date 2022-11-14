@@ -40,10 +40,11 @@ public class Nav3_Fragment_addr extends AppCompatActivity {
     {
         @JavascriptInterface
         @SuppressWarnings("unused")
-        public void onResult(String data){
+        public void onResult(String address, String bcode){
             //다음 주소 검색 API의 결과 값이 브릿지 통로를 통해 전달 받음(from Javascript)
             Intent intent = new Intent();
-            intent.putExtra("data",data);
+            intent.putExtra("address",address);
+            intent.putExtra("bcode",bcode);
             setResult(RESULT_OK,intent);
             finish();
         }
