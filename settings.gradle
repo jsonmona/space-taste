@@ -2,15 +2,21 @@ pluginManagement {
     repositories {
         gradlePluginPortal()
         google()
+        maven { url 'https://repo.spring.io/release' }
         mavenCentral()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://repo.spring.io/release' }
     }
 }
+
 rootProject.name = "Space Taste"
+include ':common'
 include ':app'
+include ':backend'
