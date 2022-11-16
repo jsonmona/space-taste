@@ -26,6 +26,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Nav3_Fragment_addr"/>
+        <activity android:name=".AddReview"/>
     </application>
 
 
