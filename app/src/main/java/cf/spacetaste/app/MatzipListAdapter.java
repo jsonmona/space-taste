@@ -1,7 +1,10 @@
 package cf.spacetaste.app;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +44,7 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
 
     public MatzipListAdapter(ArrayList<MatzipList> matzipList, Context context) {
         this.matzipList = matzipList;
+        this.context = context;
     }
 
     // Create new views (invoked by the layout manager)
@@ -59,23 +63,18 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
         viewHolder.getBinding().matzipName.setText(matzipList.get(position).matzipName);
         viewHolder.getBinding().rating.setText(matzipList.get(position).matzipRating + "");
         viewHolder.getBinding().starRating.setRating(matzipList.get(position).matzipRating);
-        viewHolder.getBinding().address.setText(matzipList.get(position).matzipAddress);
+        viewHolder.getBinding().address1.setText(matzipList.get(position).matzipAddress1);
+        viewHolder.getBinding().address2.setText(matzipList.get(position).matzipAddress2);
         viewHolder.getBinding().userProfile.setImageResource(matzipList.get(position).userProfile);
         viewHolder.getBinding().review.setText(matzipList.get(position).review);
 
-//        for (int i = 0; i < matzipList.get(position).tagList.size(); i++) {
-//            TextView textView = new TextView(context);
-//
-//            DisplayMetrics dm = context.getResources().getDisplayMetrics();
-//            textView.setText(matzipList.get(position).tagList.get(position));
-//            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
-//                    LinearLayout.LayoutParams.WRAP_CONTENT,
-//                    LinearLayout.LayoutParams.WRAP_CONTENT);
-//            param.topMargin = Math.round(5 * dm.density);
-//            textView.setLayoutParams(param);
-//            textView.setTextSize(Math.round(12 * dm.density));
-//            viewHolder.getBinding().tagLayout.addView(textView);
-//        }
+        for (int i = 0; i < matzipList.get(position).tagList.size(); i++) {
+            TextView textView = new TextView(context.getApplicationContext());
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
+            textView.setText(matzipList.get(position).tagList.get(i));
+            textView.setGravity(Gravity.RIGHT);
+            viewHolder.getBinding().tagLayout.addView(textView);
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -12,19 +12,19 @@ import cf.spacetaste.app.databinding.Navi1ItemBinding;
 public class MatzipTagAdapter extends RecyclerView.Adapter<MatzipTagAdapter.ViewHolder> {
 
     private ArrayList<MatzipTag> matzipTagList;
+    private MatzipListAdapter.OnItemClickListner itemClickListner;
 
     public interface OnItemClickListner {
         void onItemClicked(int position, String data);
     }
 
-    private MatzipListAdapter.OnItemClickListner itemClickListner;
-
     public void setOnItemClickedListner(MatzipListAdapter.OnItemClickListner listner) {
-        itemClickListner = listner;
+        this.itemClickListner = listner;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private Navi1ItemBinding binding;
+        private int tagIdx;
 
         public ViewHolder(Navi1ItemBinding binding) {
             super(binding.getRoot());
@@ -49,16 +49,10 @@ public class MatzipTagAdapter extends RecyclerView.Adapter<MatzipTagAdapter.View
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String data = "";
-                int position = viewHolder.getAdapterPosition();
-                System.out.println(position);
-                if (position != RecyclerView.NO_POSITION) {
-                    data = "wow";
-                }
-                itemClickListner.onItemClicked(position, data);
+                itemClickListner.onItemClicked(viewHolder.getAdapterPosition()," 눌렸다아");
             }
         });
-        return new ViewHolder(binding);
+        return viewHolder;
     }
 
     // Replace the contents of a view (invoked by the layout manager)

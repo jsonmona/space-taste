@@ -25,36 +25,31 @@ public class MatzipListActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         list = new ArrayList<>();
-        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383\n1F (경도상가 1층)"
-                ,"\"큼지막한 알곱창이 푸짐하게 들어가있어요\"", R.drawable.gukbap, 3.87f, new ArrayList<String>()));
-        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383\n1F (경도상가 1층)"
-                ,"\"큼지막한 알곱창이 푸짐하게 들어가있어요\"", R.drawable.gukbap, 0.87f, new ArrayList<String>()));
-        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383\n1F (경도상가 1층)"
-                ,"\"큼지막한 알곱창이 푸짐하게 들어가있어요\"", R.drawable.gukbap, 3.87f, new ArrayList<String>()));
-        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383\n1F (경도상가 1층)"
-                ,"\"큼지막한 알곱창이 푸짐하게 들어가있어요\"", R.drawable.gukbap, 4.87f, new ArrayList<String>()));
-        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383\n1F (경도상가 1층)"
-                ,"\"큼지막한 알곱창이 푸짐하게 들어가있어요\"", R.drawable.gukbap, 1.87f, new ArrayList<String>()));
-        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383\n1F (경도상가 1층)"
-                ,"\"큼지막한 알곱창이 푸짐하게 들어가있어요\"", R.drawable.gukbap, 3.87f, new ArrayList<String>()));
-        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383\n1F (경도상가 1층)"
-                ,"\"큼지막한 알곱창이 푸짐하게 들어가있어요\"", R.drawable.gukbap, 0.87f, new ArrayList<String>()));
-        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383\n1F (경도상가 1층)"
-                ,"\"큼지막한 알곱창이 푸짐하게 들어가있어요\"", R.drawable.gukbap, 3.87f, new ArrayList<String>()));
-        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383\n1F (경도상가 1층)"
-                ,"\"큼지막한 알곱창이 푸짐하게 들어가있어요\"", R.drawable.gukbap, 4.87f, new ArrayList<String>()));
-        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383\n1F (경도상가 1층)"
-                ,"\"큼지막한 알곱창이 푸짐하게 들어가있어요\"", R.drawable.gukbap, 1.87f, new ArrayList<String>()));
-        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383\n1F (경도상가 1층)"
-                ,"\"큼지막한 알곱창이 푸짐하게 들어가있어요\"", R.drawable.gukbap, 3.87f, new ArrayList<String>()));
-        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383\n1F (경도상가 1층)"
-                ,"\"큼지막한 알곱창이 푸짐하게 들어가있어요\"", R.drawable.gukbap, 0.87f, new ArrayList<String>()));
-        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383\n1F (경도상가 1층)"
-                ,"\"큼지막한 알곱창이 푸짐하게 들어가있어요\"", R.drawable.gukbap, 3.87f, new ArrayList<String>()));
-        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383\n1F (경도상가 1층)"
-                ,"\"큼지막한 알곱창이 푸짐하게 들어가있어요\"", R.drawable.gukbap, 4.87f, new ArrayList<String>()));
-        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383\n1F (경도상가 1층)"
-                ,"\"큼지막한 알곱창이 푸짐하게 들어가있어요\"", R.drawable.gukbap, 1.87f, new ArrayList<String>()));
+        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울특별시 성동구 성수동2가 성덕정15길 6-9", "1F (경도상가 1층)"
+                ,"큼지막한 알곱창이 푸짐하게 들어가있어요큼지막한 알곱창이 푸짐하게 들어가있어요큼지막한 알곱창이 푸짐하게 들어가있어요", R.drawable.gukbap, 3.87f, new ArrayList<String>()));
+        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383","1F (경도상가 1층)"
+                ,"큼지막한 알곱창이 푸짐하게 들어가있어요", R.drawable.gukbap, 0.87f, new ArrayList<String>()));
+        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383", "1F (경도상가 1층)"
+                ,"큼지막한 알곱창이 푸짐하게 들어가있어",  R.drawable.gukbap, 3.87f, new ArrayList<String>()));
+        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383" , "1F (경도상가 1층)"
+                ,"큼지막한 알곱창이 푸짐하게 들어가있어요", R.drawable.gukbap, 4.87f, new ArrayList<String>()));
+        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울특별시 성동구 성수동2가 성덕정15길 6-9", "1F (경도상가 1층)"
+                ,"큼지막한 알곱창이 푸짐하게 들어가있어요큼지막한 알곱창이 푸짐하게 들어가있어요큼지막한 알곱창이 푸짐하게 들어가있어요", R.drawable.gukbap, 3.87f, new ArrayList<String>()));
+        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383","1F (경도상가 1층)"
+                ,"큼지막한 알곱창이 푸짐하게 들어가있어요", R.drawable.gukbap, 0.87f, new ArrayList<String>()));
+        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383", "1F (경도상가 1층)"
+                ,"큼지막한 알곱창이 푸짐하게 들어가있어요", R.drawable.gukbap, 3.87f, new ArrayList<String>()));
+        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383" , "1F (경도상가 1층)"
+                ,"큼지막한 알곱창이 푸짐하게 들어가있어요", R.drawable.gukbap, 4.87f, new ArrayList<String>()));
+        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울특별시 성동구 성수동2가 성덕정15길 6-9", "1F (경도상가 1층)"
+                ,"큼지막한 알곱창이 푸짐하게 들어가있어요큼지막한 알곱창이 푸짐하게 들어가있어요큼지막한 알곱창이 푸짐하게 들어가있어요\"", R.drawable.gukbap, 3.87f, new ArrayList<String>()));
+        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383","1F (경도상가 1층)"
+                ,"큼지막한 알곱창이 푸짐하게 들어가있어요", R.drawable.gukbap, 0.87f, new ArrayList<String>()));
+        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383", "1F (경도상가 1층)"
+                ,"큼지막한 알곱창이 푸짐하게 들어가있어요", R.drawable.gukbap, 3.87f, new ArrayList<String>()));
+        list.add(new MatzipList(R.drawable.gukbap, "화목순대국", "서울 영등포구 여의대방로 383" , "1F (경도상가 1층)"
+                ,"큼지막한 알곱창이 푸짐하게 들어가있어요", R.drawable.gukbap, 4.87f, new ArrayList<String>()));
+
 
         adapter = new MatzipListAdapter(list, getApplicationContext());
         adapter.setOnItemClickedListner(new MatzipListAdapter.OnItemClickListner() {
@@ -75,16 +70,18 @@ class MatzipList {
 
     int matzipImage;
     String matzipName;
-    String matzipAddress;
+    String matzipAddress1;
+    String matzipAddress2;
     int userProfile;
     String review;
     float matzipRating;
     ArrayList<String> tagList;
 
-    public MatzipList(int matzipImage, String matzipName, String matzipAddress, String review, int userProfile, float matzipRating, ArrayList<String> tagList) {
+    public MatzipList(int matzipImage, String matzipName, String matzipAddress1, String matzipAddress2, String review, int userProfile, float matzipRating, ArrayList<String> tagList) {
         this.matzipImage = matzipImage;
         this.matzipName = matzipName;
-        this.matzipAddress = matzipAddress;
+        this.matzipAddress1 = matzipAddress1;
+        this.matzipAddress2 = matzipAddress2;
         this.userProfile = userProfile;
         this.review = review;
         this.matzipRating = matzipRating;

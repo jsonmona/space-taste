@@ -34,33 +34,27 @@ public class Navi1_Fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         list = new ArrayList<>();
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
-        list.add(new MatzipTag("#돈까스", R.drawable.examplefood));
+        list.add(new MatzipTag("#태그", R.drawable.examplefood));
+        list.add(new MatzipTag("#태그", R.drawable.examplefood));
+        list.add(new MatzipTag("#태그", R.drawable.examplefood));
+        list.add(new MatzipTag("#태그", R.drawable.examplefood));
+        list.add(new MatzipTag("#태그", R.drawable.examplefood));
+        list.add(new MatzipTag("#태그", R.drawable.examplefood));
+        list.add(new MatzipTag("#태그", R.drawable.examplefood));
+        list.add(new MatzipTag("#태그", R.drawable.examplefood));
+        list.add(new MatzipTag("#태그", R.drawable.examplefood));
+        list.add(new MatzipTag("#태그", R.drawable.examplefood));
+        list.add(new MatzipTag("#태그", R.drawable.examplefood));
+        list.add(new MatzipTag("#태그", R.drawable.examplefood));
+        list.add(new MatzipTag("#태그", R.drawable.examplefood));
+        list.add(new MatzipTag("#태그", R.drawable.examplefood));
+        list.add(new MatzipTag("#태그", R.drawable.examplefood));
         adapter = new MatzipTagAdapter(list);
 
         adapter.setOnItemClickedListner(new MatzipListAdapter.OnItemClickListner() {
             @Override
             public void onItemClicked(int position, String data) {
-                Toast.makeText(getContext(), "Position:" + position + ", Data:" + data, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), position + data, Toast.LENGTH_SHORT).show();
                 ((MainActivity)getActivity()).showMatzipList();
             }
         });
@@ -123,7 +117,6 @@ class Spacing extends RecyclerView.ItemDecoration {
             outRect.left = spacing;
         }
 
-        // 상단 탑 Spacing 맨 위에 포지션 0, 1은 Spacing을 안줌
         if (position < 2) {
             outRect.top = topSpacing;
         } else {
