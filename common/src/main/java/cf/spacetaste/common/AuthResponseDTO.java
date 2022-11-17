@@ -9,4 +9,5 @@ import lombok.RequiredArgsConstructor;
 @Data
 public class AuthResponseDTO {
     private boolean isNewUser;
+    private String token;
 }
