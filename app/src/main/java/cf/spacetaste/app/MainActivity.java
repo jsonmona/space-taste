@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             else if (token != null) {
                 String accessToken = token.getAccessToken();
                 AppState.getInstance(this).checkUserAuth(accessToken, (success, result) -> {
-                    if (success) {System.out.println(result);}
+                    if (success) {System.out.println(result.isNewUser());}
                     else {
                         Toast.makeText(this,"네트워크에 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     }
