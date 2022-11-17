@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="동네인증"
+        android:textColor="#ff7f00"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/txtTitle"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo" />
+
+    <Spinner
+        android:id="@+id/Acdong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgLogo"
+        android:layout_centerHorizontal="true"
+        android:background="#ff7f00"
+        android:entries="@array/dong" />
+
+    <Button
+        android:id="@+id/btnAcAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Acdong"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:text="활동범위 추가하기" />
+
+    <Spinner
+        android:id="@+id/Lidong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnAcAddress"
+        android:layout_centerHorizontal="true"
+        android:background="#ff7f00"
+        android:entries="@array/dong" />
+
+    <Button
+        android:id="@+id/btnLiAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Lidong"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:text="생활범위 추가하기" />
+
+    <Button
+        android:id="@+id/btnNeiCom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnLiAddress"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="동네인증 완료하기!"
+        android:textStyle="bold" />
+
+
+
+
+
+</RelativeLayout>

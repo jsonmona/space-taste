@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dong">
+        <item>성북동</item>
+        <item>돈암동</item>
+        <item>동소문동</item>
+        <item>삼선동</item>
+        <item>동선동</item>
+        <item>안암동</item>
+        <item>보문동</item>
+        <item>정릉동</item>
+        <item>길음동</item>
+        <item>종암동</item>
+        <item>하월곡동</item>
+        <item>상월곡동</item>
+        <item>장위동</item>
+        <item>석관동</item>
+        <item>삼선동</item>
+        <item>동선동</item>
+        <item>돈암</item>
+        <item>안암동</item>
+        <item>보문동</item>
+        <item>정릉</item>
+        <item>길음동</item>
+        <item>월곡동</item>
+    </string-array>
+</resources>
