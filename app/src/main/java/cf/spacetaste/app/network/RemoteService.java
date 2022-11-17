@@ -65,6 +65,31 @@ public class RemoteService {
         return token == null;
     }
 
+    public void logout() {
+        token = null;
+    }
+
+    public void checkUserAuth(String kakaoAccessToken, AsyncResultPromise<AuthResponse> cb) {
+        service.checkUserAuth(kakaoAccessToken).enqueue(new Callback<AuthResponseDTO>() {
+            @Override
+            public void onResponse(Call<AuthResponseDTO> call, Response<AuthResponseDTO> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    token = response.body().getToken();
+                    runOnUiThread(() -> cb.onResult(true, new AuthResponse(response.body().isNewUser())));
+                } else {
+                    System.err.println("failed with status="+response.code());
+                    runOnUiThread(() -> cb.onResult(false, null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponseDTO> call, Throwable t) {
+                t.printStackTrace();
+                runOnUiThread(() -> cb.onResult(false, null));
+            }
+        });
+    }
+
     public void createMatzip(MatzipCreateRequest req, AsyncResultPromise<MatzipInfo> cb) {
         if (!isLoggedIn()) {
             Log.e(TAG, "createMatzip: not logged in");
@@ -127,27 +152,6 @@ public class RemoteService {
                 });
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-        });
-    }
-
-    public void checkUserAuth(String kakaoAccessToken, AsyncResultPromise<AuthResponse> cb) {
-        service.checkUserAuth(kakaoAccessToken).enqueue(new Callback<AuthResponseDTO>() {
-            @Override
-            public void onResponse(Call<AuthResponseDTO> call, Response<AuthResponseDTO> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    token = response.body().getToken();
-                    runOnUiThread(() -> cb.onResult(true, new AuthResponse(response.body().isNewUser())));
-                } else {
-                    System.err.println("failed with status="+response.code());
-                    runOnUiThread(() -> cb.onResult(false, null));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AuthResponseDTO> call, Throwable t) {
-                t.printStackTrace();
-                runOnUiThread(() -> cb.onResult(false, null));
             }
         });
     }
