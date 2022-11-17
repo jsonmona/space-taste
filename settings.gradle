@@ -13,9 +13,11 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url 'https://repo.spring.io/release' }
+        maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
     }
 }
 
 rootProject.name = "Space Taste"
+include ':common'
 include ':app'
 include ':backend'

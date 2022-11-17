@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="cf.spacetaste.app">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".KakaoApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,11 +16,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpaceTaste"
         tools:targetApi="31">
+
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
+                <data android:host="oauth"
+                    android:scheme="kakao37f11d1931bb444ca09d4cc0a73a9124" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

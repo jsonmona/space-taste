@@ -1,0 +1,13 @@
+plugins {
+    id 'java'
+}
+
+group = 'cf.spacetaste'
+version = '0.1.0'
+sourceCompatibility = '8'
+targetCompatibility = '8'
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+}
