@@ -7,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Data
-public class HashtagModel {
-    final private int hashtagId;
-    private String type;
-    private String content;
+public class PhotoModel {
+    int photoId;
 }

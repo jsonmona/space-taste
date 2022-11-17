@@ -2,25 +2,26 @@ package cf.spacetaste.backend.service;
 
 import cf.spacetaste.backend.external.KakaoApi;
 import cf.spacetaste.backend.mapper.UserMapper;
+import cf.spacetaste.backend.model.PhotoModel;
 import cf.spacetaste.backend.model.UserModel;
 import cf.spacetaste.common.AuthResponseDTO;
 import org.springframework.stereotype.Service;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 
-import javax.crypto.spec.PSource;
 import java.io.IOException;
 
 @Service
 public class UserService {
     
     private UserMapper userMapper;
+    private PhotoService photoService;
     private Retrofit retrofit;
     private KakaoApi kakaoApi;
     
-    public UserService(UserMapper userMapper) {
+    public UserService(UserMapper userMapper, PhotoService photoService) {
         this.userMapper = userMapper;
+        this.photoService = photoService;
 
         retrofit =  new Retrofit.Builder()
                 .baseUrl("https://kapi.kakao.com/")
@@ -56,13 +57,18 @@ public class UserService {
                 if (nickname == null)
                     nickname = "익명";
 
+                UserModel user = new UserModel(0, kakaoId, nickname, null, null, null);
+                userMapper.create(user);
+
                 if (profileImage != null) {
-                    // 다운로드!
+                    PhotoModel photo = photoService.createPhotoWithURL(profileImage);
+                    if (photo != null) {
+                        userMapper.attachProfilePhoto(user, photo);
+                    }
                 }
-                //userMapper.create(new UserModel(0, "익명"));
             }
 
-            return new AuthResponseDTO();
+            return new AuthResponseDTO(isNew);
         } catch(IOException e) {
             e.printStackTrace();
             return null;

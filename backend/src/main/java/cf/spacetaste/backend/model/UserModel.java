@@ -8,6 +8,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Data
 public class UserModel {
-    private int id;
+    private int userId;
+    private Long kakaoId;
     private String nickname;
+    private Integer profilePhoto;
+    private String addressCode1;
+    private String addressCode2;
 }

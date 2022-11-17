@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Data
 public class MatzipModel {
-    private int id;
+    private int matzipId;
     private String name;
     private String address;
     private float averageScoreTaste;
