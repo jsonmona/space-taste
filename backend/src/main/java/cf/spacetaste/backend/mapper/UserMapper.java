@@ -10,6 +10,9 @@ public interface UserMapper {
     @Select("SELECT * FROM user WHERE user_id=#{id} AND deleted_by IS NULL")
     UserModel getFromId(int id);
 
+    @Select("SELECT * FROM user WHERE kakao_id=#{id} AND deleted_by IS NULL")
+    UserModel getFromKakaoId(long kakaoId);
+
     int create(UserModel user);
 
     @Update("UPDATE user SET deleted_at=NOW(), deleted_by=#{user.id} WHERE user_id=#{user.id}")
