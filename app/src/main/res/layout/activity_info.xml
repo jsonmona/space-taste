@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtInfo"
+        android:text="나의 정보"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:layout_margin="15dp"
+        android:textColor="#ff7f00"/>
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_toRightOf="@+id/txtInfo"
+        android:src="@drawable/logo" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgUser"
+        android:layout_below="@+id/txtInfo"
+        android:src="@drawable/chunsik"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtNname"
+        android:text="닉네임 : "
+        android:textSize="25dp"
+        android:textColor="#ff7f00"
+        android:textStyle="bold"
+        android:layout_below="@+id/txtInfo"
+        android:layout_toRightOf="@id/imgUser"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtInfo"
+        android:layout_toRightOf="@id/txtNname"
+        android:text="춘식이"
+        android:textColor="#ff7f00"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/userAcRange"
+        android:text="활동범위 : "
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="#ff7f00"
+        android:layout_below="@+id/imgUser"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/infoAcRange"
+        android:layout_below="@id/imgUser"
+        android:layout_toRightOf="@+id/userAcRange"
+        android:text="성북구 정릉동"
+        android:textColor="#ff7f00"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/userLiRange"
+        android:layout_marginTop="25dp"
+        android:text="생활범위 : "
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="#ff7f00"
+        android:layout_below="@+id/userAcRange"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/infoLiRange"
+        android:layout_below="@id/userAcRange"
+        android:layout_marginTop="25dp"
+        android:layout_toRightOf="@+id/userLiRange"
+        android:text="성북구 길음동"
+        android:textColor="#ff7f00"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="==================================================="
+        android:layout_below="@+id/userLiRange"
+        android:textStyle="bold"
+        android:textColor="#ff7f00"/>
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="동네인증하러가기"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@+id/infoAcRange"
+        android:layout_alignBaseline="@+id/infoAcRange"/>
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>
