@@ -85,6 +85,8 @@ public class Nav3_Fragment extends Fragment {
         addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent( getActivity(), AddReview.class );
+                startActivity( intent );
                 Toast.makeText(getActivity(), "추가되었습니다. 첫번째로 리뷰를 남겨주세요", Toast.LENGTH_SHORT).show();
             }
         });

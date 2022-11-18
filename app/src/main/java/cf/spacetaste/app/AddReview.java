@@ -63,8 +63,8 @@ public class AddReview extends AppCompatActivity{
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent( AddReview.this, Detail.class ); 여기 상세리뷰만들고 수정
-//                startActivity( intent );
+                Intent intent = new Intent( AddReview.this, Matzip_Detail.class );
+                startActivity( intent );
             }
         });
         okButton = findViewById(R.id.okButton);
@@ -77,7 +77,8 @@ public class AddReview extends AppCompatActivity{
                         .setNegativeButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                finish();
+                                Intent intent = new Intent( AddReview.this, Matzip_Detail.class );
+                                startActivity( intent );
                             }
                         })
 
