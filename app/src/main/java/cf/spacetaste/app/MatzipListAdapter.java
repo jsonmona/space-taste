@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -68,6 +69,7 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
         viewHolder.getBinding().userProfile.setImageResource(matzipList.get(position).userProfile);
         viewHolder.getBinding().review.setText(matzipList.get(position).review);
 
+        viewHolder.getBinding().tagLayout.removeAllViews();
         for (int i = 0; i < matzipList.get(position).tagList.size(); i++) {
             TextView textView = new TextView(context.getApplicationContext());
             textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);

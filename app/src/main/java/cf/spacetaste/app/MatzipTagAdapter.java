@@ -24,13 +24,11 @@ public class MatzipTagAdapter extends RecyclerView.Adapter<MatzipTagAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private Navi1ItemBinding binding;
-        private int tagIdx;
 
         public ViewHolder(Navi1ItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
-
         public Navi1ItemBinding getBinding() {
             return binding;
         }

@@ -113,6 +113,7 @@
             android:orientation="vertical"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/card_view">
+
         </LinearLayout>
     </LinearLayout>
 
@@ -132,28 +133,14 @@
             />
 
         <TextView
-            android:id="@+id/quotation1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="“"
-            android:layout_marginLeft="10dp"
-            android:textSize="15dp"/>
-
-        <TextView
             android:id="@+id/review"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="사용자가 제일 최근에 작sdf성asdfasdfasdfasdfasdfasdf한 리뷰"
+            android:layout_marginLeft="10dp"
             android:textSize="15dp"
             android:maxLines="1"
             android:ellipsize="end"/>
-
-        <TextView
-        android:id="@+id/quotation2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="”"
-        android:textSize="15dp"/>
     </LinearLayout>
 
     <View
