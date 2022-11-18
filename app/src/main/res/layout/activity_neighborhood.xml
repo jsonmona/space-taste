@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/square_background_border_orange">
 
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="동네인증"
+        android:layout_marginTop="150dp"
+        android:text="동네인증 페이지"
         android:textColor="#ff7f00"
         android:textSize="30dp"
         android:textStyle="bold" />
@@ -22,50 +23,73 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/logo" />
 
-    <Spinner
-        android:id="@+id/Acdong"
+    <LinearLayout
+        android:id="@+id/line1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgLogo"
         android:layout_centerHorizontal="true"
-        android:background="#ff7f00"
-        android:entries="@array/dong" />
+        android:layout_centerVertical="true"
+        android:background="@drawable/round_backgroud_border_orange"
+        android:orientation="horizontal"
+        android:padding="20dp">
 
-    <Button
-        android:id="@+id/btnAcAddress"
+        <Spinner
+            android:id="@+id/acDong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ff7f00"
+            android:entries="@array/dong" />
+
+        <TextView
+            android:id="@+id/txtAcAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/acDong"
+            android:layout_marginLeft="15dp"
+            android:text="활동 범위"
+            android:textColor="#ff7f00"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Acdong"
+        android:id="@+id/line2"
+        android:layout_below="@+id/line1"
         android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        android:text="활동범위 추가하기" />
+        android:background="@drawable/round_backgroud_border_orange"
+        android:padding="20dp"
+        android:layout_marginTop="10dp">
 
-    <Spinner
-        android:id="@+id/Lidong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnAcAddress"
-        android:layout_centerHorizontal="true"
-        android:background="#ff7f00"
-        android:entries="@array/dong" />
+        <Spinner
+            android:id="@+id/liDong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ff7f00"
+            android:entries="@array/dong" />
 
-    <Button
-        android:id="@+id/btnLiAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Lidong"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        android:text="생활범위 추가하기" />
+        <TextView
+            android:id="@+id/txtLiAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="생활 범위"
+            android:layout_marginLeft="15dp"
+            android:textColor="#ff7f00"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnNeiCom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnLiAddress"
+        android:layout_below="@id/line2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="동네인증 완료하기!"
+        android:text="동네인증하기"
         android:textStyle="bold" />
 
 
