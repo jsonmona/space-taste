@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtQuest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="동네인증을 하시겠습니까?"
+        android:textColor="#ff7f00"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:padding="15dp"
+        android:background="@drawable/round_backgroud_border_orange"/>
+
+    <Button
+        android:id="@+id/btnYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtQuest"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="10dp"
+        android:text="YES!" />
+
+    <Button
+        android:id="@+id/btnNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtQuest"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/btnYes"
+        android:text="NO!" />
+
+</RelativeLayout>
