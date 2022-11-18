@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 
@@ -26,6 +27,7 @@ import java.io.IOException;
 public class AddReview extends AppCompatActivity{
     private Uri uri;
     private ImageView imageView;
+    private ImageButton reveiwBackbtn;
     private Button addReviewImageBtn,cancelButton,okButton;
     private AlertDialog.Builder builder;
     private EditText addReview_ettext;
@@ -59,6 +61,14 @@ public class AddReview extends AppCompatActivity{
         ratePolite.setOnRatingBarChangeListener(new Listener());
         rateClean.setOnRatingBarChangeListener(new Listener());
 
+        reveiwBackbtn = findViewById(R.id.reveiw_backbtn);
+        reveiwBackbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent( AddReview.this, Matzip_Detail.class );
+                startActivity( intent );
+            }
+        });
         cancelButton = findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
