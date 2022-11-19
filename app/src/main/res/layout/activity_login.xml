@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity"
+    android:background="@drawable/square_background_border_orange">
 
     <ImageView
         android:id="@+id/imgLogo"
@@ -19,18 +20,27 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/imgLogo"
         android:layout_centerInParent="true"
-        android:text="우 주 맛"
+        android:text="우   주   맛"
         android:textColor="#ff7f00"
         android:textSize="40dp"
         android:textStyle="bold" />
-
-    <ImageButton
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:text="우리          주변의          맛집"
+        android:textStyle="bold"
+        android:textColor="#ff7f00"
+        android:layout_below="@+id/txtTitle"
+        android:layout_centerHorizontal="true"/>
+
+    <ImageButton
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/imgLogo"
+        android:layout_centerHorizontal="true"
         android:padding="3dp"
-        android:src="@drawable/kakao_login_medium_wide"/>
+        android:src="@drawable/kakao_login_medium_wide" />
 
 
 </RelativeLayout>
