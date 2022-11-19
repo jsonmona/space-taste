@@ -28,7 +28,7 @@ public class AddReview extends AppCompatActivity{
     private Uri uri;
     private ImageView imageView;
     private ImageButton reveiwBackbtn;
-    private Button addReviewImageBtn,cancelButton,okButton;
+    private Button addReviewImageBtn,okButton;
     private AlertDialog.Builder builder;
     private EditText addReview_ettext;
     private RatingBar rateTaste,ratePrice,ratePolite,rateClean;
@@ -63,14 +63,6 @@ public class AddReview extends AppCompatActivity{
 
         reveiwBackbtn = findViewById(R.id.reveiw_backbtn);
         reveiwBackbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent( AddReview.this, Matzip_Detail.class );
-                startActivity( intent );
-            }
-        });
-        cancelButton = findViewById(R.id.cancelButton);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent( AddReview.this, Matzip_Detail.class );

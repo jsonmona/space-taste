@@ -198,15 +198,6 @@
                 android:layout_marginTop="20dp"
                 >
                 <Button
-                    android:id="@+id/cancelButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_weight="5"
-                    android:text="취소"
-                    >
-                </Button>
-                <Button
                     android:id="@+id/okButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
