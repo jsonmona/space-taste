@@ -2,6 +2,10 @@ package cf.spacetaste.app;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -27,7 +31,26 @@ import android.widget.ImageButton;
 
 public class LoginActivity extends AppCompatActivity {
     private View btnLogin;
-
+    boolean isNewUser = true;
+    boolean isAllowed = false;
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == PopActivity.RESULT_OK) {
+                        Intent inIntent = result.getData();
+                        boolean resultSignUp = inIntent.getBooleanExtra("allow", false);
+                        if (resultSignUp) {
+                            Toast.makeText(getApplicationContext(), "동네인증페이지로 이동합니다.", Toast.LENGTH_SHORT).show();
+                            Intent Intent = new Intent(getApplicationContext(),NeighborhoodActivity.class);
+                            startActivity(Intent);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "메인페이지로 이동합니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            });
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(this, "새로운 회원입니다.", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(this, "기존 회원입니다.", Toast.LENGTH_SHORT).show();
+                            isNewUser = false;
                         }
                     } else {
                         Toast.makeText(this, "네트워크에 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
@@ -59,11 +83,14 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin = (ImageButton) findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(v -> {
-//            UserApiClient.getInstance().loginWithKakaoAccount(LoginActivity.this, callback);
-            Intent intent = new Intent(LoginActivity.this, NeighborhoodActivity.class);
-            // 신규 회원이면 동네인증 의사 팝업, 인텐트 돌아오는 값(예, 아니오) 받아서 페이지 이동
-            // 기존 회원이면 메인페이지로 이동
-            startActivity(intent);
+//            UserApiClient.getInstance().loginWithKakaoAccount(this, callback);
+            if (isNewUser) {
+                // 신규 회원이면 동네인증 의사 팝업,
+                Intent intentAllow = new Intent(getApplicationContext(), PopActivity.class);
+                activityResultLauncher.launch(intentAllow); // 의사에 따라 달라짐
+            } else {
+                // 기존 회원이면 메인페이지로 이동 기능 추가
+            }
         });
     }
 }

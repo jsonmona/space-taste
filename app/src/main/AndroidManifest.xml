@@ -41,6 +41,7 @@
         </activity>
         <activity android:name=".NeighborhoodActivity" android:label="동네인증"/>
         <activity android:name=".InfoActivity" android:label="유저정보"/>
+        <activity android:name=".PopActivity"  android:theme="@style/Theme.Design.NoActionBar" />
 
     </application>
 
