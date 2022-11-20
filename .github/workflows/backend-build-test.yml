@@ -1,12 +1,14 @@
 name: Docker Image Build CI
 
 on:
-  push:
+  pull_request:
     branches: [ "main" ]
 
 jobs:
   docker:
     runs-on: ubuntu-latest
+    env:
+      JWT_SECRET: "test-ci"
     steps:
       -
         name: Checkout
@@ -21,9 +23,4 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Build image
-        run: ./gradlew :backend:bootBuildImage
-
-      - name: Upload image
-        uses: ishworkh/docker-image-artifact-upload@v1
-        with:
-          image: "space-taste-backend:0.1.0"
+        run: ./gradlew :backend:build
