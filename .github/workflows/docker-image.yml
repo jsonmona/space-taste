@@ -16,7 +16,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Build image
-        run: ./gradlew :backend:bootBuildImage --stacktrace
+        run: ./gradlew :backend:bootBuildImage
 
       - name: Upload image
         uses: ishworkh/docker-image-artifact-upload@v1
