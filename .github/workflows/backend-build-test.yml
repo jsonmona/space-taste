@@ -22,5 +22,5 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Build image
+      - name: Build
         run: ./gradlew :backend:build
