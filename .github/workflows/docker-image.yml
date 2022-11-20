@@ -21,4 +21,4 @@ jobs:
       - name: Upload image
         uses: ishworkh/docker-image-artifact-upload@v1
         with:
-          image: "test_image:latest"
+          image: "space-taste-backend:0.1.0"
