@@ -34,6 +34,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cf.spacetaste.app.data.MatzipCreateRequest;
+
 public class Nav3_Fragment extends Fragment {
     private View view;
     private Uri uri;
@@ -41,7 +43,8 @@ public class Nav3_Fragment extends Fragment {
     private Button selectImageBtn,btnHashTag,addbtn;
     private List<String> SelectedHashTag;
     private AlertDialog.Builder builder;
-    private EditText et_addr;
+    private EditText et_name,et_addr,et_addrDetail;
+    private String bcode;
 
     public Nav3_Fragment() {
         // Required empty public constructor
@@ -51,6 +54,10 @@ public class Nav3_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view =  inflater.inflate(R.layout.fragment_navi3, container, false);
+
+        et_name = view.findViewById(R.id.et_name);
+        et_addrDetail = view.findViewById(R.id.et_addrDetail);
+
         selectImageBtn = view.findViewById(R.id.selectImageBtn);
         imageView = view.findViewById(R.id.add_image);
         selectImageBtn.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +92,14 @@ public class Nav3_Fragment extends Fragment {
         addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "추가되었습니다. 첫번째로 리뷰를 남겨주세요", Toast.LENGTH_SHORT).show();
+                MatzipCreateRequest req = new MatzipCreateRequest(et_name.getText().toString(),bcode,et_addr.getText().toString(),
+                        et_addrDetail.getText().toString(),SelectedHashTag,uri);
+
+                AppState.getInstance(getActivity()).createMatzip(req,((success, result) -> {
+                    Toast.makeText(getActivity(), "추가되었습니다. 첫번째로 리뷰를 남겨주세요", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(getActivity(), Addreview.class);
+//                    getSearchResult.launch(intent);
+                }));
             }
         });
 
@@ -98,7 +112,7 @@ public class Nav3_Fragment extends Fragment {
                 if (result.getResultCode() == getActivity().RESULT_OK){
                     if(result.getData() != null){
                         String address = result.getData().getStringExtra("address");
-                        String bcode = result.getData().getStringExtra("bcode");
+                        bcode = result.getData().getStringExtra("bcode");
                         et_addr.setText(address);
                     }
                 }

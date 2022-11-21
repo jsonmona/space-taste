@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -13,7 +14,7 @@ public class MatzipCreateRequest {
     private String bcode;
     private String baseAddress;
     private String detailAddress;
-    private ArrayList<String> hashtags;
+    private List<String> hashtags;
     private Uri photo;
 
     public void validate() {
