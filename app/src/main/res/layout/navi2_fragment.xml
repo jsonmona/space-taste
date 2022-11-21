@@ -12,9 +12,10 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"></androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/search_layout"
@@ -26,7 +27,7 @@
         android:layout_marginTop="20dp"
         android:paddingHorizontal="15dp"
         android:paddingVertical="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/map">
 
@@ -41,24 +42,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:background="@null"
+            android:hint="검색"
+            android:gravity="right"
+            android:layout_marginRight="5dp"
             android:textSize="25dp" />
     </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/button2"
-        android:layout_width="50dp"
-        android:layout_height="0dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/layout_shape"
-        android:elevation="10dp"
-        android:padding="13dp"
-        app:layout_constraintBottom_toBottomOf="@+id/search_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/search_layout"
-        android:src="@drawable/hashtagicon"
-        android:scaleType="fitCenter"
-
-        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

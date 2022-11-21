@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
             getSupportFragmentManager().beginTransaction()
                     .setReorderingAllowed(true) // 원활한 트랙잭션(애니메이션)을 위해 필수
-                    .add(R.id.fragment_container, Navi2_Fragment.class, null)
+                    .add(R.id.fragment_container, Navi1_Fragment.class, null)
                     .commit();
 
         }
