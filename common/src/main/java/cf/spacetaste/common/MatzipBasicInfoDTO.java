@@ -1,16 +1,14 @@
 package cf.spacetaste.common;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @AllArgsConstructor
-@EqualsAndHashCode
-@Getter
-@ToString
+@RequiredArgsConstructor
+@Data
 public class MatzipBasicInfoDTO {
     private String name;
     private String bcode;

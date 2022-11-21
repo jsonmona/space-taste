@@ -32,15 +32,19 @@ public class AppState {
         return instance;
     }
 
+    public void login(String kakaoAccessToken, AsyncResultPromise<AuthResponse> cb) {
+        remoteService.checkUserAuth(kakaoAccessToken, cb);
+    }
+
+    public void logout() {
+        remoteService.logout();
+    }
+
     public void createMatzip(MatzipCreateRequest req, AsyncResultPromise<MatzipInfo> cb) {
         req.validate();
 
         //remoteService.createMatzip(req, cb);
         Log.w(TAG, "STUB createMatzip(" + req + ")");
         cb.onResult(true, new MatzipInfo(123, req.getName(), req.getBaseAddress(), req.getDetailAddress(), req.getHashtags(), null));
-    }
-
-    public void login(String kakaoAccessToken, AsyncResultPromise<AuthResponse> cb) {
-        remoteService.checkUserAuth(kakaoAccessToken, cb);
     }
 }

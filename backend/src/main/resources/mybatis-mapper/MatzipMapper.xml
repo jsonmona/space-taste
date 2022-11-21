@@ -7,18 +7,17 @@
 
     <insert id="create" useGeneratedKeys="true" keyProperty="matzip.id" keyColumn="matzip_id">
         INSERT INTO
-            matzip(name, address, created_by, updated_by)
+            matzip(name, addres)
         VALUES
-            (#{matzip.name}, #{matzip.address}, #{user.id}, #{user.id})
+            (#{matzip.name}, #{matzip.address})
     </insert>
 
     <update id="update">
         UPDATE matzip
         SET
             name=#{matzip.name},
-            address=#{matzip.address},
-            updated_by=#{user.id}
-        WHERE matzip_id=#{matzip.id} AND deleted_by IS NULL
+            address=#{matzip.address}
+        WHERE matzip_id=#{matzip.id}
     </update>
 
 </mapper>

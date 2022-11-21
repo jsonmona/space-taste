@@ -10,7 +10,10 @@ services:
     environment:
       - "JAVA_OPTS=-Xmx160M -XX:MaxMetaspaceSize=64M -XX:ReservedCodeCacheSize=120M -Xss568K"
       - "SPRING_PROFILES_ACTIVE=docker"
-
+      - "DATA_DIR=/app-data"
+      - "JWT_SECRET=test"
+    volumes:
+      - "data:/app-data"
   db:
     image: mariadb:10.9
     container_name: space-taste-db
@@ -27,9 +30,6 @@ services:
     volumes:
       - "db:/var/lib/mysql"
 
-secrets:
-  space-taste-db-password:
-    external: true
-
 volumes:
   db:
+  data:

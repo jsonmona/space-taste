@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Base64;
 import android.util.Base64OutputStream;
+import android.util.Log;
 import cf.spacetaste.app.data.AuthResponse;
 import cf.spacetaste.app.data.MatzipCreateRequest;
 import cf.spacetaste.app.data.MatzipInfo;
@@ -24,6 +25,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class RemoteService {
+    private static final String TAG = "RemoteService";
     private static final String SERVER_URL = "https://api.space-taste.cf";
 
     private Context context;
@@ -32,6 +34,7 @@ public class RemoteService {
     private ExecutorService es;
     private Retrofit retrofit;
     private RetrofitService service;
+    private String token;
 
     public RemoteService(Context context) {
         this.context = context;
@@ -43,6 +46,7 @@ public class RemoteService {
                 .addConverterFactory(MoshiConverterFactory.create())
                 .build();
         this.service = retrofit.create(RetrofitService.class);
+        this.token = null;
     }
 
     private void runOnUiThread(Runnable r) {
@@ -53,7 +57,46 @@ public class RemoteService {
         }
     }
 
+    private String auth() {
+        return "Bearer " + token;
+    }
+
+    public boolean isLoggedIn() {
+        return token == null;
+    }
+
+    public void logout() {
+        token = null;
+    }
+
+    public void checkUserAuth(String kakaoAccessToken, AsyncResultPromise<AuthResponse> cb) {
+        service.checkUserAuth(kakaoAccessToken).enqueue(new Callback<AuthResponseDTO>() {
+            @Override
+            public void onResponse(Call<AuthResponseDTO> call, Response<AuthResponseDTO> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    token = response.body().getToken();
+                    runOnUiThread(() -> cb.onResult(true, new AuthResponse(response.body().isNewUser())));
+                } else {
+                    System.err.println("failed with status="+response.code());
+                    runOnUiThread(() -> cb.onResult(false, null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponseDTO> call, Throwable t) {
+                t.printStackTrace();
+                runOnUiThread(() -> cb.onResult(false, null));
+            }
+        });
+    }
+
     public void createMatzip(MatzipCreateRequest req, AsyncResultPromise<MatzipInfo> cb) {
+        if (!isLoggedIn()) {
+            Log.e(TAG, "createMatzip: not logged in");
+            cb.onResult(false, null);
+            return;
+        }
+
         es.submit(() -> {
             try {
                 String photoData = null;
@@ -81,7 +124,7 @@ public class RemoteService {
                         req.getHashtags(),
                         photoData
                 );
-                service.createMatzip(info).enqueue(new Callback<MatzipInfoDTO>() {
+                service.createMatzip(auth(), info).enqueue(new Callback<MatzipInfoDTO>() {
                     @Override
                     public void onResponse(Call<MatzipInfoDTO> call, Response<MatzipInfoDTO> response) {
                         if (response.isSuccessful() && response.body() != null) {
@@ -109,26 +152,6 @@ public class RemoteService {
                 });
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-        });
-    }
-
-    public void checkUserAuth(String kakaoAccessToken, AsyncResultPromise<AuthResponse> cb) {
-        service.checkUserAuth(kakaoAccessToken).enqueue(new Callback<AuthResponseDTO>() {
-            @Override
-            public void onResponse(Call<AuthResponseDTO> call, Response<AuthResponseDTO> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    runOnUiThread(() -> cb.onResult(true, new AuthResponse(response.body().isNewUser())));
-                } else {
-                    System.err.println("failed with status="+response.code());
-                    runOnUiThread(() -> cb.onResult(false, null));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AuthResponseDTO> call, Throwable t) {
-                t.printStackTrace();
-                runOnUiThread(() -> cb.onResult(false, null));
             }
         });
     }

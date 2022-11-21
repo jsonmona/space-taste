@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/round_backgroud_border_orange"
+        android:gravity="center"
+        android:text="나의 정보"
+        android:textColor="#ff7f00"
+        android:textSize="35dp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imgUser"
+        android:layout_width="200dp"
+        android:layout_height="160dp"
+        android:layout_below="@+id/txtInfo"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/round_backgroud_border_orange"
+        android:src="@drawable/chunsik" />
+
+    <TextView
+        android:id="@+id/txtNname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtInfo"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/imgUser"
+        android:text="닉네임 : "
+        android:textColor="#009900"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtInfo"
+        android:layout_alignBaseline="@+id/txtNname"
+        android:layout_toRightOf="@id/txtNname"
+        android:text="춘식이"
+        android:textColor="#ff7f00"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/userAcRange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtNname"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/imgUser"
+        android:text="활동범위 : "
+        android:textColor="#009900"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/infoAcRange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/userAcRange"
+        android:layout_toRightOf="@+id/userAcRange"
+        android:text="성북구 정릉동"
+        android:textColor="#ff7f00"
+        android:textSize="19dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/userLiRange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userAcRange"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/imgUser"
+        android:text="생활범위 : "
+        android:layout_marginLeft="5dp"
+        android:textColor="#009900"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/infoLiRange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/userLiRange"
+        android:layout_toRightOf="@+id/userLiRange"
+        android:text="성북구 길음동"
+        android:textColor="#ff7f00"
+        android:textSize="19dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userLiRange"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/imgUser"
+        android:text="동네인증 하러가기"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgUser"
+        android:background="@drawable/round_backgroud_border_orange" />
+
+
+
+</RelativeLayout>
