@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                 error.printStackTrace();
             } else if (token != null) {
                 String accessToken = token.getAccessToken();
-                AppState.getInstance(this).checkUserAuth(accessToken, (success, result) -> {
+                AppState.getInstance(this).login(accessToken, (success, result) -> {
                     if (success) {
                         System.out.println(result.isNewUser());
                         if (result.isNewUser()) {
