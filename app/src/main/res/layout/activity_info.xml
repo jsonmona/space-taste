@@ -80,10 +80,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/userAcRange"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/imgUser"
         android:text="생활범위 : "
-        android:layout_marginLeft="5dp"
         android:textColor="#009900"
         android:textSize="20dp"
         android:textStyle="bold" />
@@ -99,23 +99,12 @@
         android:textSize="19dp"
         android:textStyle="bold" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/userLiRange"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="15dp"
-        android:layout_toRightOf="@+id/imgUser"
-        android:text="동네인증 하러가기"
-        android:textSize="15dp"
-        android:textStyle="bold" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgUser"
         android:background="@drawable/round_backgroud_border_orange" />
-
 
 
 </RelativeLayout>
