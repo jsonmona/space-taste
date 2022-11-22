@@ -35,13 +35,19 @@ public class LoginActivity extends AppCompatActivity {
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == PopActivity.RESULT_OK) {
-                    Toast.makeText(getApplicationContext(), "동네인증페이지로 이동합니다.", Toast.LENGTH_SHORT).show();
-                    Intent Intent = new Intent(getApplicationContext(), NeighborhoodActivity.class);
-                    startActivity(Intent);
-
+                    Intent inIntent = result.getData();
+                    boolean resultEnroll = inIntent.getBooleanExtra("allow", false);
+                    if (resultEnroll) {
+                        Toast.makeText(getApplicationContext(), "동네인증페이지로 이동합니다.", Toast.LENGTH_SHORT).show();
+                        Intent Intent = new Intent(getApplicationContext(),NeighborhoodActivity.class);
+                        startActivity(Intent);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "메인페이지로 이동합니다.", Toast.LENGTH_SHORT).show();
+                        Intent Intent = new Intent(getApplicationContext(),HomeActivity.class);
+                        startActivity(Intent);
+                    }
                 }
             });
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                             activityResultLauncher.launch(intentAllow); // 의사에 따라 갈 페이지가 달라짐
                         } else {
                             Toast.makeText(this, "기존 회원입니다.", Toast.LENGTH_SHORT).show();
-                            Intent Intent = new Intent(getApplicationContext(), HomeActivity.class);
+                            Intent Intent = new Intent(getApplicationContext(),HomeActivity.class);
                             startActivity(Intent);
                         }
                     } else {
