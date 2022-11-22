@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id = "@+id/main_ly"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -44,4 +44,4 @@
         android:padding="3dp"
         android:src="@drawable/kakao_login_medium_wide" />
 
-</FrameLayout>
+</RelativeLayout>
