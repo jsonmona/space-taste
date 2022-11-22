@@ -43,6 +43,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".HomeActivity" android:label="메인"/>
         <activity android:name=".Nav3_Fragment_addr"/>
         <activity android:name=".NeighborhoodActivity" android:label="동네인증"/>
         <activity android:name=".InfoActivity" android:label="유저정보"/>
