@@ -8,10 +8,7 @@ import cf.spacetaste.common.MatzipBasicInfoDTO;
 import cf.spacetaste.common.MatzipInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RequiredArgsConstructor
@@ -44,6 +41,15 @@ public class MatzipController {
         var matzip = matzipService.createMatzip(info);
         if (matzip == null || matzip.getMatzipId() <= 0)
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        return queryInfo(matzip);
+    }
+
+    @GetMapping("/matzip/{id}")
+    public MatzipInfoDTO queryMatzip(@PathVariable int id) {
+        var matzip = matzipService.queryFromId(id);
+        if (matzip == null || matzip.getMatzipId() <= 0)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
         return queryInfo(matzip);
     }

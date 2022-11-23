@@ -45,6 +45,13 @@ public class MatzipService {
         return model;
     }
 
+    public MatzipModel queryFromId(int id) {
+        List<MatzipModel> models = matzipMapper.getFromId(id);
+        if (models.size() < 1)
+            return null;
+        return models.get(0);
+    }
+
     public List<String> getHashtags(MatzipModel matzip) {
         return matzipHashtagMapper.listAsString(matzip);
     }
