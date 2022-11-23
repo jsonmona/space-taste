@@ -3,6 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:id="@+id/btnBack"
+        android:layout_marginTop="13dp"
+        android:layout_marginLeft="18dp"
+        android:text="Back"/>
+
     <TextView
         android:id="@+id/txtInfo"
         android:layout_width="match_parent"
@@ -24,7 +32,6 @@
         android:layout_width="200dp"
         android:layout_height="160dp"
         android:layout_below="@+id/txtInfo"
-        android:layout_marginBottom="5dp"
         android:background="@drawable/round_backgroud_border_orange"
         android:src="@drawable/chunsik" />
 
@@ -80,10 +87,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/userAcRange"
-        android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/imgUser"
         android:text="생활범위 : "
+        android:layout_marginLeft="5dp"
         android:textColor="#009900"
         android:textSize="20dp"
         android:textStyle="bold" />
@@ -99,12 +106,31 @@
         android:textSize="19dp"
         android:textStyle="bold" />
 
-
-    <ListView
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btnRegist"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgUser"
-        android:background="@drawable/round_backgroud_border_orange" />
+        android:layout_marginLeft="10dp"
+        android:text="등록한 맛집"
+        android:textStyle="bold" />
 
+    <Button
+        android:id="@+id/btnLike"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgUser"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/btnRegist"
+        android:text="좋아요 맛집"
+        android:textStyle="bold" />
+
+    <ListView
+        android:id="@+id/userList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnRegist"
+        android:background="@drawable/round_backgroud_border_orange" />
 
 </RelativeLayout>
