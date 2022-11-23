@@ -1,20 +1,19 @@
 package cf.spacetaste.common;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
-@EqualsAndHashCode
-@Getter
-@ToString
+@RequiredArgsConstructor
+@Data
 public class MatzipInfoDTO {
     private int matzipId;
     private String name;
-    private String address;
-    private ArrayList<String> hashtags;
+    private String baseAddress;
+    private String detailAddress;
+    private List<String> hashtags;
     private String photoUrl;
 }

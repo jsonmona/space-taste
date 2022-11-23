@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id ="@+id/navbar1"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="main"/>
+    <item
+        android:id ="@+id/navbar2"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="search"/>
+    <item
+        android:id ="@+id/navbar3"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_add_circle_24"
+        android:title="add"/>
+    <item
+        android:id ="@+id/navbar4"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_account_box_24"
+        android:title="mypage"/>
+
+</menu>

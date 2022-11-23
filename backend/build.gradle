@@ -15,12 +15,17 @@ dependencies {
         exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-core'
         exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-websocket'
     }
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:2.7.5'
     implementation "org.apache.tomcat.experimental:tomcat-embed-programmatic:${dependencyManagement.importedProperties["tomcat.version"]}"
     implementation project(':common')
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.9'
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.14.9'
+    implementation 'com.auth0:java-jwt:4.2.1'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="300dp"
+    android:layout_height="200dp"
+    android:layout_gravity="center"
+    android:background="@drawable/round_backgroud_border_orange"
+    android:gravity="center">
 
     <TextView
         android:id="@+id/txtQuest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="동네인증을 하시겠습니까?"
+        android:padding="20dp"
+        android:text="신규 회원은 동네 인증을 하셔야 합니다."
         android:textColor="#ff7f00"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        android:padding="15dp"
-        android:background="@drawable/round_backgroud_border_orange"/>
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnYes"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtQuest"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="10dp"
-        android:text="YES!" />
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnNo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtQuest"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/btnYes"
-        android:text="NO!" />
+        <Button
+            android:id="@+id/btnYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="#ff7f00"
+            android:text="확인" />
+    </LinearLayout>
+
 
 </RelativeLayout>
