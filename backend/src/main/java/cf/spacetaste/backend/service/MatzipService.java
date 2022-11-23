@@ -16,9 +16,9 @@ import java.util.List;
 @Service
 public class MatzipService {
 
-    private MatzipMapper matzipMapper;
-    private MatzipHashtagMapper matzipHashtagMapper;
-    private PhotoService photoService;
+    private final MatzipMapper matzipMapper;
+    private final MatzipHashtagMapper matzipHashtagMapper;
+    private final PhotoService photoService;
 
     public MatzipModel createMatzip(MatzipBasicInfoDTO info) {
         Integer photoId = null;

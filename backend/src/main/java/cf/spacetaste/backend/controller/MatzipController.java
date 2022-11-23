@@ -17,9 +17,9 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 public class MatzipController {
 
-    private MatzipService matzipService;
-    private PhotoService photoService;
-    private TokenService tokenService;
+    private final MatzipService matzipService;
+    private final PhotoService photoService;
+    private final TokenService tokenService;
 
     @PostMapping("/matzip")
     public MatzipInfoDTO createMatzip(@RequestHeader("authorization") String auth, @RequestBody MatzipBasicInfoDTO info) {
