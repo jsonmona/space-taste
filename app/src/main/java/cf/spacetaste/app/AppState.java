@@ -42,9 +42,6 @@ public class AppState {
 
     public void createMatzip(MatzipCreateRequest req, AsyncResultPromise<MatzipInfo> cb) {
         req.validate();
-
-        //remoteService.createMatzip(req, cb);
-        Log.w(TAG, "STUB createMatzip(" + req + ")");
-        cb.onResult(true, new MatzipInfo(123, req.getName(), req.getBaseAddress(), req.getDetailAddress(), req.getHashtags(), null));
+        remoteService.createMatzip(req, cb);
     }
 }

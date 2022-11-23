@@ -77,7 +77,7 @@ public class RemoteService {
                     token = response.body().getToken();
                     runOnUiThread(() -> cb.onResult(true, new AuthResponse(response.body().isNewUser())));
                 } else {
-                    System.err.println("failed with status="+response.code());
+                    Log.e(TAG, "failed with status="+response.code());
                     runOnUiThread(() -> cb.onResult(false, null));
                 }
             }
