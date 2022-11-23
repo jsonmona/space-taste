@@ -70,7 +70,7 @@ public class PhotoService {
     }
 
     public byte[] readPhoto(PhotoModel photo) {
-        File f = new File(new File(dataDir, "photo"), Integer.toString(photo.getPhotoId()));
+        File f = getAsFile(photo);
 
         try (FileInputStream fin = new FileInputStream(f)) {
             return fin.readAllBytes();
@@ -78,6 +78,10 @@ public class PhotoService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public File getAsFile(PhotoModel photo) {
+        return new File(new File(dataDir, "photo"), Integer.toString(photo.getPhotoId()));
     }
 
     public PhotoModel getFromId(int id) {
