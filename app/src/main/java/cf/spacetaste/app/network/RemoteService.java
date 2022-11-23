@@ -62,7 +62,7 @@ public class RemoteService {
     }
 
     public boolean isLoggedIn() {
-        return token == null;
+        return token != null;
     }
 
     public void logout() {
@@ -77,7 +77,7 @@ public class RemoteService {
                     token = response.body().getToken();
                     runOnUiThread(() -> cb.onResult(true, new AuthResponse(response.body().isNewUser())));
                 } else {
-                    System.err.println("failed with status="+response.code());
+                    Log.e(TAG, "failed with status="+response.code());
                     runOnUiThread(() -> cb.onResult(false, null));
                 }
             }
@@ -102,7 +102,7 @@ public class RemoteService {
                 String photoData = null;
                 if (req.getPhoto() != null) {
                     ByteArrayOutputStream bout = new ByteArrayOutputStream();
-                    Base64OutputStream encoder = new Base64OutputStream(bout, Base64.NO_PADDING | Base64.NO_WRAP);
+                    Base64OutputStream encoder = new Base64OutputStream(bout, Base64.NO_PADDING | Base64.NO_WRAP | Base64.URL_SAFE);
                     byte[] buf = new byte[4096];
                     try (InputStream in = context.getContentResolver().openInputStream(req.getPhoto())) {
                         while (true) {
@@ -132,8 +132,8 @@ public class RemoteService {
                             MatzipInfo info = new MatzipInfo(
                                     body.getMatzipId(),
                                     body.getName(),
-                                    body.getAddress(),
-                                    "",
+                                    body.getBaseAddress(),
+                                    body.getDetailAddress(),
                                     body.getHashtags(),
                                     body.getPhotoUrl()
                             );

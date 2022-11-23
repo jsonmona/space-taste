@@ -3,6 +3,7 @@ package cf.spacetaste.backend.service;
 import cf.spacetaste.backend.mapper.PhotoMapper;
 import cf.spacetaste.backend.model.PhotoModel;
 import cf.spacetaste.backend.model.UserModel;
+import cf.spacetaste.backend.properties.ServerProperties;
 import lombok.RequiredArgsConstructor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -17,9 +18,10 @@ import java.io.IOException;
 @Service
 public class PhotoService {
 
-    final PhotoMapper photoMapper;
-    final OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
-    final String dataDir = System.getenv("DATA_DIR");
+    private final PhotoMapper photoMapper;
+    private final ServerProperties serverProperties;
+    private final OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
+    private final String dataDir = System.getenv("DATA_DIR");
 
     public PhotoModel createPhotoWithURL(String url) {
         byte[] photoData;
@@ -39,6 +41,10 @@ public class PhotoService {
             return null;
         }
 
+        return createPhotoWithBytes(photoData);
+    }
+
+    public PhotoModel createPhotoWithBytes(byte[] data) {
         PhotoModel photo = new PhotoModel();
         if (photoMapper.create(photo) <= 0)
             return null;
@@ -52,7 +58,7 @@ public class PhotoService {
 
             File f = new File(outerDir, Integer.toString(photo.getPhotoId()));
             try (FileOutputStream fout = new FileOutputStream(f)) {
-                fout.write(photoData);
+                fout.write(data);
             }
         } catch(IOException e) {
             e.printStackTrace();
@@ -72,5 +78,18 @@ public class PhotoService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public PhotoModel getFromId(int id) {
+        if (id <= 0)
+            return null;
+        return new PhotoModel(id);
+    }
+
+    public String makeUrl(PhotoModel photo) {
+        if (photo == null || photo.getPhotoId() <= 0)
+            return null;
+
+        return serverProperties.getBaseUrl() + "/photo/" + photo.getPhotoId();
     }
 }

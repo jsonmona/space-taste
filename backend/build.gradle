@@ -15,6 +15,7 @@ dependencies {
         exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-core'
         exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-websocket'
     }
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:2.7.5'
     implementation "org.apache.tomcat.experimental:tomcat-embed-programmatic:${dependencyManagement.importedProperties["tomcat.version"]}"
     implementation project(':common')
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'

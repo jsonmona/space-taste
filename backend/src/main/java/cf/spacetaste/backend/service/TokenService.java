@@ -3,7 +3,9 @@ package cf.spacetaste.backend.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
 
@@ -24,6 +26,9 @@ public class TokenService {
      * @return userId of the token (0 if invalid)
      */
     public int checkToken(String token) {
+        if (token.startsWith("Bearer "))
+            token = token.substring(7).strip();
+
         try {
             return JWT.require(Algorithm.HMAC256(jwtSecret))
                     .withIssuer("space-taste.cf")
@@ -38,6 +43,18 @@ public class TokenService {
             // asInt may return null
             return 0;
         }
+    }
+
+    /**
+     * Verify and throw exception if token is invalid
+     * @param token Token to verify, may contain "Bearer" in front of it
+     * @return userId of the token (always valid)
+     */
+    public int verifyToken(String token) {
+        int userId = checkToken(token);
+        if (userId <= 0)
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        return userId;
     }
 
     /**

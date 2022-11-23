@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @RequiredArgsConstructor
@@ -12,7 +12,8 @@ import java.util.ArrayList;
 public class MatzipInfoDTO {
     private int matzipId;
     private String name;
-    private String address;
-    private ArrayList<String> hashtags;
+    private String baseAddress;
+    private String detailAddress;
+    private List<String> hashtags;
     private String photoUrl;
 }
