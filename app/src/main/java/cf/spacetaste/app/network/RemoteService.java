@@ -62,7 +62,7 @@ public class RemoteService {
     }
 
     public boolean isLoggedIn() {
-        return token == null;
+        return token != null;
     }
 
     public void logout() {
