@@ -102,7 +102,7 @@ public class RemoteService {
                 String photoData = null;
                 if (req.getPhoto() != null) {
                     ByteArrayOutputStream bout = new ByteArrayOutputStream();
-                    Base64OutputStream encoder = new Base64OutputStream(bout, Base64.NO_PADDING | Base64.NO_WRAP);
+                    Base64OutputStream encoder = new Base64OutputStream(bout, Base64.NO_PADDING | Base64.NO_WRAP | Base64.URL_SAFE);
                     byte[] buf = new byte[4096];
                     try (InputStream in = context.getContentResolver().openInputStream(req.getPhoto())) {
                         while (true) {
