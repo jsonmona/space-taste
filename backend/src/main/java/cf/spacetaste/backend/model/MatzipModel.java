@@ -10,9 +10,12 @@ import lombok.RequiredArgsConstructor;
 public class MatzipModel {
     private int matzipId;
     private String name;
-    private String address;
-    private float averageScoreTaste;
-    private float averageScorePrice;
-    private float averageScoreGentle;
-    private float averageScoreClean;
+    private String addressCode;
+    private String addressBase;
+    private String addressDetail;
+    private Integer mainPhoto;
+    private Float averageScoreTaste;
+    private Float averageScorePrice;
+    private Float averageScoreGentle;
+    private Float averageScoreClean;
 }

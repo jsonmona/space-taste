@@ -132,8 +132,8 @@ public class RemoteService {
                             MatzipInfo info = new MatzipInfo(
                                     body.getMatzipId(),
                                     body.getName(),
-                                    body.getAddress(),
-                                    "",
+                                    body.getBaseAddress(),
+                                    body.getDetailAddress(),
                                     body.getHashtags(),
                                     body.getPhotoUrl()
                             );
