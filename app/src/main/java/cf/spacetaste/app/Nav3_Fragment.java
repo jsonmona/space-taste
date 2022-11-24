@@ -29,6 +29,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,6 +45,7 @@ public class Nav3_Fragment extends Fragment {
     private ImageView imageView;
     private Button selectImageBtn,btnHashTag,addbtn;
     private List<String> SelectedHashTag;
+    private AlertDialog dialog;
     private AlertDialog.Builder builder;
     private EditText et_name,et_addr,et_addrDetail;
     private String bcode;
@@ -92,14 +96,29 @@ public class Nav3_Fragment extends Fragment {
         addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MatzipCreateRequest req = new MatzipCreateRequest(et_name.getText().toString(),bcode,et_addr.getText().toString(),
-                        et_addrDetail.getText().toString(),SelectedHashTag,uri);
+                String name = et_name.getText().toString();
+                String baseAddress = et_addr.getText().toString();
+                String detailAddress = et_addrDetail.getText().toString();
 
-                AppState.getInstance(getActivity()).createMatzip(req,((success, result) -> {
-                    Toast.makeText(getActivity(), "추가되었습니다. 첫번째로 리뷰를 남겨주세요", Toast.LENGTH_SHORT).show();
+                if(name.equals("")||bcode.equals("")||baseAddress.equals("")||detailAddress.equals("")||SelectedHashTag.equals("")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.MyAlertDialogStyle);
+                    dialog = builder.setMessage("빈 칸 없이 입력해주세요")
+                            .setNegativeButton("확인",null)
+                            .create();
+                    dialog.show();
+                } else {
+                    MatzipCreateRequest req = new MatzipCreateRequest(name,bcode,baseAddress,detailAddress,SelectedHashTag,uri);
+                    AppState.getInstance(getActivity()).createMatzip(req,((success, result) -> {
+                        if (success) {
+                            Toast.makeText(getActivity(), "추가되었습니다. 첫번째로 리뷰를 남겨주세요", Toast.LENGTH_SHORT).show();
 //                    Intent intent = new Intent(getActivity(), Addreview.class);
 //                    getSearchResult.launch(intent);
-                }));
+                        } else {
+                            Toast.makeText(getActivity(), "맛집 추가에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }));
+                }
             }
         });
 
