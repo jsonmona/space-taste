@@ -55,13 +55,13 @@ public class HomeActivity extends AppCompatActivity {
             switch (menuItem.getItemId()) {
                 case R.id.navbar1: {
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.main_ly, new Nav3_Fragment())
+                            .replace(R.id.main_ly, new Navi1_Fragment())
                             .commit();
                     return true;
                 }
                 case R.id.navbar2: {
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.main_ly, new Nav3_Fragment())
+                            .replace(R.id.main_ly, new Navi2_Fragment())
                             .commit();
                     return true;
                 }
