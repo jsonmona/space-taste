@@ -25,13 +25,38 @@ public class MatzipController {
         if (matzip.getMainPhoto() != null)
             photoUrl = photoService.makeUrl(photoService.getFromId(matzip.getMainPhoto()));
 
+        float scoreTaste;
+        float scorePrice;
+        float scoreKindness;
+        float scoreClean;
+        boolean hasScore;
+
+        try {
+            scoreTaste = matzip.getAverageScoreTaste();
+            scorePrice = matzip.getAverageScorePrice();
+            scoreKindness = matzip.getAverageScoreKindness();
+            scoreClean = matzip.getAverageScoreClean();
+            hasScore = true;
+        } catch (NullPointerException e) {
+            scoreTaste = 0;
+            scorePrice = 0;
+            scoreKindness = 0;
+            scoreClean = 0;
+            hasScore = false;
+        }
+
         return new MatzipInfoDTO(
                 matzip.getMatzipId(),
                 matzip.getName(),
                 matzip.getAddressBase(),
                 matzip.getAddressDetail(),
                 hashtags,
-                photoUrl
+                photoUrl,
+                scoreTaste,
+                scorePrice,
+                scoreKindness,
+                scoreClean,
+                hasScore
         );
     }
 

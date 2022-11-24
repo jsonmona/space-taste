@@ -16,6 +16,6 @@ public class MatzipModel {
     private Integer mainPhoto;
     private Float averageScoreTaste;
     private Float averageScorePrice;
-    private Float averageScoreGentle;
+    private Float averageScoreKindness;
     private Float averageScoreClean;
 }
