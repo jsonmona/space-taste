@@ -22,7 +22,7 @@ public class Navi1_Fragment extends Fragment {
     private RecyclerView recyclerView;
     private MatzipTagAdapter adapter;
     private ArrayList<MatzipTag> list;
-    private MainActivity mainActivity;
+    private HomeActivity homeActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class Navi1_Fragment extends Fragment {
             @Override
             public void onItemClicked(int position, String data) {
                 Toast.makeText(getContext(), position + data, Toast.LENGTH_SHORT).show();
-                ((MainActivity)getActivity()).showMatzipList();
+                ((HomeActivity)getActivity()).showMatzipList();
             }
         });
 
