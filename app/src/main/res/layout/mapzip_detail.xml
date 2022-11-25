@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    //상단 고정
+    <ImageButton
+        android:id="@+id/detail_backbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_arrow_back_24"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="20dp"
+            android:padding="10dp">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="0, 1, 2">
+                <TableRow>
+                    <ImageView
+                        android:id="@+id/detail_pic1"
+                        android:layout_width="0dp"
+                        android:layout_height="200px"
+                        android:src="@drawable/food" />
+
+                    <ImageView
+                        android:id="@+id/detail_pic2"
+                        android:layout_width="0dp"
+                        android:layout_height="200px"
+                        android:src="@drawable/food" />
+
+                    <ImageView
+                        android:id="@+id/detail_pic3"
+                        android:layout_width="0dp"
+                        android:layout_height="200px"
+                        android:src="@drawable/food" />
+                </TableRow>
+                <TableRow android:layout_marginTop="5dp">
+                    <ImageView
+                        android:id="@+id/detail_pic4"
+                        android:layout_width="0dp"
+                        android:layout_height="200px"
+                        android:src="@drawable/food" />
+
+                    <ImageView
+                        android:id="@+id/detail_pic5"
+                        android:layout_width="0dp"
+                        android:layout_height="200px"
+                        android:src="@drawable/food" />
+
+                    <FrameLayout
+                        android:id = "@+id/detail_frame"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/detail_pic6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="200px"
+                            android:alpha="0.4"
+                            android:src="@drawable/food" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="사진 더보기"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"/>
+                    </FrameLayout>
+                </TableRow>
+            </TableLayout>
+            <View
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/orange"/>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/detail_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15dp"
+                android:text="식당 이름"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/detail_addr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableStart="@drawable/ic_baseline_location_on_24"
+                android:drawablePadding="10dp"
+                android:textSize="15dp"
+                android:text="식당 위치(서버에서 불러오기)"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/detail_hashtag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableStart="@drawable/ic_baseline_turned_in_24"
+                android:drawablePadding="10dp"
+                android:textSize="15dp"
+                android:text="해시태그"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/detail_ethashtag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/detail_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableStart="@drawable/ic_baseline_star_rate_24"
+                android:drawablePadding="10dp"
+                android:textSize="15dp"
+                android:text="별점"
+                android:textStyle="bold"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/detail_rate1"
+                    android:layout_width="68dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="맛" />
+
+                <RatingBar
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:id="@+id/detail_rateTaste"
+                    android:isIndicator = "false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:numStars="5"
+                    android:rating="5"
+                    android:stepSize="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/detail_rate2"
+                    android:layout_width="68dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="가격" />
+
+                <RatingBar
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:id="@+id/detail_ratePrice"
+                    android:isIndicator = "false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:numStars="5"
+                    android:rating="5"
+                    android:stepSize="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/detail_rate3"
+                    android:layout_width="68dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="친절" />
+
+                <RatingBar
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:id="@+id/detail_ratePolite"
+                    android:isIndicator = "false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:numStars="5"
+                    android:rating="5"
+                    android:stepSize="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/detail_rate4"
+                    android:layout_width="68dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="청결" />
+
+                <RatingBar
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:id="@+id/detail_rateClean"
+                    android:isIndicator = "false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:numStars="5"
+                    android:rating="5"
+                    android:stepSize="1" />
+            </LinearLayout>
+
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/orange"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/detail_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="15dp"
+                    android:text="리뷰"
+                    android:textStyle="bold"/>
+                <Button
+                    android:id="@+id/goReviewbtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10dp"
+                    android:text="리뷰작성"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/background_light"
+                android:orientation="vertical">
+                <ListView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginHorizontal="10dp">
+                </ListView>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
