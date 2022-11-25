@@ -1,26 +1,33 @@
 package cf.spacetaste.app;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.kakao.sdk.auth.model.OAuthToken;
+import com.kakao.sdk.common.util.Utility;
+import com.kakao.sdk.user.UserApiClient;
 
-public class MainActivity extends AppCompatActivity {
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
+
+public class HomeActivity extends AppCompatActivity {
     FrameLayout main_ly;
     BottomNavigationView bottomNavigationView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.activity_home);
+        // 네비바 프래그먼트 넣기
         init(); //객체 정의
         SettingListener(); //리스너 등록
 

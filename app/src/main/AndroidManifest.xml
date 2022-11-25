@@ -2,11 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="cf.spacetaste.app">
+
     <!-- 인터넷 권한 설정   -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 인터넷 연결 확인-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
+        android:name=".KakaoApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,18 +20,36 @@
         android:theme="@style/Theme.SpaceTaste"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <activity
-            android:name=".MainActivity"
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
+                <data android:host="oauth"
+                    android:scheme="kakao37f11d1931bb444ca09d4cc0a73a9124" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".HomeActivity" android:label="메인"/>
         <activity android:name=".Nav3_Fragment_addr"/>
         <activity android:name=".AddReview"/>
         <activity android:name=".Matzip_Detail"/>
+        <activity android:name=".NeighborhoodActivity" android:label="동네인증"/>
+        <activity android:name=".InfoActivity" android:label="유저정보"/>
+        <activity android:name=".PopActivity"  android:theme="@style/Theme.Design.NoActionBar" />
     </application>
-
 
 </manifest>

@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id = "@+id/main_ly"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity"
-        android:orientation="vertical">
+    tools:context=".LoginActivity"
+    android:background="@drawable/square_background_border_orange">
+
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="wrap_content"
@@ -29,26 +22,26 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/imgLogo"
         android:layout_centerInParent="true"
-        android:text="우 주 맛"
+        android:text="우   주   맛"
         android:textColor="#ff7f00"
         android:textSize="40dp"
         android:textStyle="bold" />
-
-    <ImageButton
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/imgLogo"
-        android:padding="3dp"
-        android:src="@drawable/kakao_login_medium_wide"/>
-    </RelativeLayout>
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-    android:id="@+id/bottomNavi"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom"
-    android:background="#fff"
-    app:labelVisibilityMode="unlabeled"
-    app:menu="@menu/navbar" />
+        android:text="우리          주변의          맛집"
+        android:textStyle="bold"
+        android:textColor="#ff7f00"
+        android:layout_below="@+id/txtTitle"
+        android:layout_centerHorizontal="true"/>
 
-</FrameLayout>
+    <ImageButton
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgLogo"
+        android:layout_centerHorizontal="true"
+        android:padding="3dp"
+        android:src="@drawable/kakao_login_medium_wide" />
+
+</RelativeLayout>
