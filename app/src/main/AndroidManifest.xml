@@ -43,7 +43,11 @@
             android:exported="true">
 
         </activity>
-        <activity android:name=".HomeActivity" android:label="메인" android:exported="true">
+        <activity
+            android:name=".HomeActivity"
+            android:label="메인"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan|adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

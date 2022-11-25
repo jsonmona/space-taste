@@ -2,15 +2,15 @@ package cf.spacetaste.app;
 
 import android.graphics.Rect;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -54,8 +54,9 @@ public class Navi1_Fragment extends Fragment {
         adapter.setOnItemClickedListner(new MatzipListAdapter.OnItemClickListner() {
             @Override
             public void onItemClicked(int position, String data) {
-                Toast.makeText(getContext(), position + data, Toast.LENGTH_SHORT).show();
-                ((HomeActivity)getActivity()).showMatzipList();
+                Toast.makeText(getContext(), data + ": " + position, Toast.LENGTH_SHORT).show();
+                Log.d("debug", "Item has clicked.");
+                ((HomeActivity) getActivity()).showMatzipList();
             }
         });
 
@@ -107,8 +108,8 @@ class Spacing extends RecyclerView.ItemDecoration {
         // Column Index
         int index = ((GridLayoutManager.LayoutParams) view.getLayoutParams()).getSpanIndex();
         // Item 포지션
+
         int position = parent.getChildLayoutPosition(view);
-        //좌측 Spacing 절반
         if (index == 0) {
             outRect.right = spacing;
             outRect.left = spacing * 2;

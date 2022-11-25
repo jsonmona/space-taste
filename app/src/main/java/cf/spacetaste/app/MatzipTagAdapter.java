@@ -1,12 +1,13 @@
 package cf.spacetaste.app;
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
+
 import cf.spacetaste.app.databinding.Navi1ItemBinding;
 
 public class MatzipTagAdapter extends RecyclerView.Adapter<MatzipTagAdapter.ViewHolder> {
@@ -47,7 +48,7 @@ public class MatzipTagAdapter extends RecyclerView.Adapter<MatzipTagAdapter.View
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemClickListner.onItemClicked(viewHolder.getAdapterPosition()," 눌렸다아");
+                itemClickListner.onItemClicked(viewHolder.getAdapterPosition(),"position");
             }
         });
         return viewHolder;
