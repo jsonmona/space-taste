@@ -5,6 +5,7 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -66,9 +67,9 @@ public class HomeActivity extends AppCompatActivity {
                     return true;
                 }
                 case R.id.navbar4: {
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.main_ly, new Nav3_Fragment())
-                            .commit();
+                    // 내 정보 페이지 띄우기
+                    Intent Intent = new Intent(getApplicationContext(), InfoActivity.class);
+                    startActivity(Intent);
                     return true;
                 }
             }
