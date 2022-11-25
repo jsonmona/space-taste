@@ -2,9 +2,10 @@ package cf.spacetaste.app;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,12 +36,12 @@ public class Navi2_Fragment extends Fragment {
     private ArrayList<MatzipList> list;
     private MatzipListAdapter adapter;
     private final String TAG = "Navi2";
-    // 위치 권한
+    private Location location;
     private final ActivityResultLauncher<String[]> locationPermissionRequest = registerForActivityResult(
             new ActivityResultContracts.RequestMultiplePermissions(),
             result -> {
-                Boolean fineLocationGranted = result.get(Manifest.permission.ACCESS_FINE_LOCATION);
-                Boolean coarseLocationGranted = result.get(Manifest.permission.ACCESS_COARSE_LOCATION);
+                result.get(Manifest.permission.ACCESS_FINE_LOCATION);
+                result.get(Manifest.permission.ACCESS_COARSE_LOCATION);
             }
     );
 
@@ -55,9 +56,6 @@ public class Navi2_Fragment extends Fragment {
         Log.d(TAG, "onCreateView: ");
         binding = Navi2FragmentBinding.inflate(inflater, container, false);
         MapView mapView = new MapView(getActivity());
-        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37, 127), true);
-        mapView.setBackground(Drawable.createFromPath("@drawable/layout_shape"));
-
         binding.map.addView(mapView);
         binding.searchMatzip.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -97,17 +95,39 @@ public class Navi2_Fragment extends Fragment {
                 Manifest.permission.ACCESS_FINE_LOCATION
         });
 
-        final LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        LocationListener listener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location l) {
+                location = l;
+                Log.d(TAG, location.getLatitude() + ", " + location.getLongitude());
+            }
+        };
+
         binding.locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getContext(), "위치 권한이 허용되어야 사용할 수 있는 기능입니다", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "이 기능을 사용하려면 위치 접근 권한이 필요합니다", Toast.LENGTH_SHORT).show();
+                } else if (!lm.isProviderEnabled(lm.GPS_PROVIDER)) {
+                        Toast.makeText(getContext(), "이 기능을 사용하려면 위치 기능을 켜야합니다", Toast.LENGTH_SHORT).show();
+                        // GPS 설정 화면으로 이동
+                        Intent gpsOptionsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(gpsOptionsIntent);
                 } else {
-                    // 현재 위치 받아오기
-                    Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    // 이 둘은 마지막으로 저장된 위치정보를 가져오는 것이기 때문에, 위치 기능을 껐다 키고 바로 앱을 실행하면 null 값이 되버림
+                    Location location = lm.getLastKnownLocation(lm.NETWORK_PROVIDER);
+
+                    if (location == null) {
+                        lm.requestLocationUpdates(lm.NETWORK_PROVIDER, 1000, 0, listener); // minTimeMs가 왜 커질수록 빨라지지..?
+                        Toast.makeText(getContext(), "위치 정보를 받아오는 중입니다. 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // 현재 위치 갱신
                     MapPoint currentLocation = MapPoint.mapPointWithGeoCoord(location.getLatitude(), location.getLongitude());
+                    lm.removeUpdates(listener);
 
                     MapPOIItem marker = new MapPOIItem(); // 마커 생성
                     marker.setItemName("현재 위치");

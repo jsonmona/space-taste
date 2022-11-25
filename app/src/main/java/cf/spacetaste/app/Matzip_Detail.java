@@ -1,19 +1,14 @@
 package cf.spacetaste.app;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,7 +30,7 @@ public class Matzip_Detail extends AppCompatActivity {
         detailBackbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent( Matzip_Detail.this, MainActivity.class );
+                Intent intent = new Intent( Matzip_Detail.this, HomeActivity.class );
                 startActivity( intent );
             }
         });
