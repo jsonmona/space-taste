@@ -3,6 +3,7 @@ package cf.spacetaste.backend.service;
 import cf.spacetaste.backend.mapper.HashtagMapper;
 import cf.spacetaste.backend.mapper.MatzipHashtagMapper;
 import cf.spacetaste.backend.mapper.MatzipMapper;
+import cf.spacetaste.backend.mapper.ReviewPhotoMapper;
 import cf.spacetaste.backend.model.HashtagModel;
 import cf.spacetaste.backend.model.MatzipModel;
 import cf.spacetaste.backend.model.PhotoModel;
@@ -10,6 +11,7 @@ import cf.spacetaste.common.MatzipBasicInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashSet;
 import java.util.List;
@@ -22,6 +24,7 @@ public class MatzipService {
     private final MatzipHashtagMapper matzipHashtagMapper;
     private final HashtagMapper hashtagMapper;
     private final PhotoService photoService;
+    private final ReviewPhotoMapper reviewPhotoMapper;
 
     public MatzipModel createMatzip(MatzipBasicInfoDTO info) {
         Integer photoId = null;
@@ -64,5 +67,12 @@ public class MatzipService {
 
     public List<String> getHashtags(MatzipModel matzip) {
         return matzipHashtagMapper.listAsString(matzip);
+    }
+
+    public List<String> listPhotoUrl(MatzipModel matzip) {
+        return reviewPhotoMapper.listPhotoWithMatzip(matzip.getMatzipId())
+                .stream()
+                .map(photoService::makeUrl)
+                .toList();
     }
 }

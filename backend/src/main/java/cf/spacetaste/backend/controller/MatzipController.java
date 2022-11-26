@@ -1,6 +1,8 @@
 package cf.spacetaste.backend.controller;
 
+import cf.spacetaste.backend.mapper.ReviewPhotoMapper;
 import cf.spacetaste.backend.model.MatzipModel;
+import cf.spacetaste.backend.model.PhotoModel;
 import cf.spacetaste.backend.service.MatzipService;
 import cf.spacetaste.backend.service.PhotoService;
 import cf.spacetaste.backend.service.TokenService;
@@ -10,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -77,5 +82,14 @@ public class MatzipController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
         return queryInfo(matzip);
+    }
+
+    @GetMapping("/matzip/{id}/photo")
+    public List<String> queryMatzipPhotos(@PathVariable int id) {
+        var matzip = matzipService.queryFromId(id);
+        if (matzip == null || matzip.getMatzipId() <= 0)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+        return matzipService.listPhotoUrl(matzip);
     }
 }
