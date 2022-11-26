@@ -35,7 +35,8 @@ public class Matzip_Detail extends AppCompatActivity {
         detailBackbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent( Matzip_Detail.this, LoginActivity.class );
+
+                Intent intent = new Intent( Matzip_Detail.this, HomeActivity.class );
                 startActivity( intent );
             }
         });
