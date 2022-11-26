@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Data
-public class PhotoModel {
+public class ReviewPhotoModel {
+    private int reviewId;
     private int photoId;
 }
