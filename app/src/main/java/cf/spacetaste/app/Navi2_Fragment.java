@@ -5,6 +5,7 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -20,8 +21,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import cf.spacetaste.app.databinding.Navi2FragmentBinding;
+import net.daum.mf.map.api.MapView;
 
 public class Navi2_Fragment extends Fragment {
 
@@ -47,8 +50,18 @@ public class Navi2_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: ");
         binding = Navi2FragmentBinding.inflate(inflater, container, false);
-//        MapView mapView = new MapView(getActivity());
-//        binding.map.addView(mapView);
+
+        MapView mapView = null;
+        try {
+            System.loadLibrary("DaumMapEngineApi");
+            mapView = new MapView(getActivity());
+            binding.map.addView(mapView);
+        } catch(UnsatisfiedLinkError e) {
+            // 안드로이드 스튜디오에서 "실행"으로 실행했을때는 타 아키텍처의 라이브러리가 포함되지 않아 오류 발생
+            // Build > Build Bundle/APK > Build APK 로 생성된 APK를 설치하면 에뮬레이터에서도 잘 작동함
+            // 따라서 이 코드는 실제 환경에서는 트리거되지 않음
+            Log.w(TAG, "Failed to load native library", e);
+        }
         binding.searchMatzip.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {

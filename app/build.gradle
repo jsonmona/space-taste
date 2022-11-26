@@ -27,16 +27,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    splits {
-        abi {
-            enable true
-            reset()
-            include 'x86', 'armeabi-v7a', 'x86_64'
-            universalApk true
-        }
-
-    }
-
     buildFeatures {
         viewBinding true
     }
@@ -59,6 +49,5 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.5.3'
     implementation "com.kakao.sdk:v2-user:2.11.2"
 
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation files('libs/libDaumMapAndroid.jar')
 }
