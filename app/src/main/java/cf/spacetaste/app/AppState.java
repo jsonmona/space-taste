@@ -6,8 +6,12 @@ import androidx.annotation.NonNull;
 import cf.spacetaste.app.data.AuthResponse;
 import cf.spacetaste.app.data.MatzipCreateRequest;
 import cf.spacetaste.app.data.MatzipInfo;
+import cf.spacetaste.app.data.MatzipReview;
 import cf.spacetaste.app.network.AsyncResultPromise;
 import cf.spacetaste.app.network.RemoteService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppState {
     private static final String TAG = AppState.class.getSimpleName();
@@ -43,5 +47,14 @@ public class AppState {
     public void createMatzip(MatzipCreateRequest req, AsyncResultPromise<MatzipInfo> cb) {
         req.validate();
         remoteService.createMatzip(req, cb);
+    }
+
+    public void listMatzipPhotos(MatzipInfo matzip, AsyncResultPromise<List<String>> cb) {
+        remoteService.listMatzipPhotos(matzip, cb);
+    }
+
+    public void listMatzipReviews(MatzipInfo matzip, AsyncResultPromise<List<MatzipReview>> cb) {
+        Log.w(TAG, "STUB listMatzipReviews");
+        cb.onResult(false, new ArrayList<>());
     }
 }
