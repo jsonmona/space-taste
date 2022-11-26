@@ -57,4 +57,8 @@ public class AppState {
         Log.w(TAG, "STUB listMatzipReviews");
         cb.onResult(false, new ArrayList<>());
     }
+
+    public void searchMatzip(List<String> tags, String term, AsyncResultPromise<List<MatzipInfo>> cb) {
+        remoteService.searchMatzip(tags, term, cb);
+    }
 }
