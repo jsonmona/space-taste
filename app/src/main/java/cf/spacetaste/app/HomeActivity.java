@@ -107,14 +107,14 @@ public class HomeActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.navbar4:
-//                    if (fragments[3] == null) {
-//                        fragments[3] = new Navi4_Fragment();
-//                        addFragment(2);
-//                    } else {
-//                        showFragment(3);
-//                    }
+                    if (fragments[3] == null) {
+                        fragments[3] = new Navi4_Fragment();
+                        addFragment(3);
+                    } else {
+                        showFragment(3);
+                    }
 
-//                    hideFragment(3);
+                    hideFragment(3);
                     return true;
             }
 

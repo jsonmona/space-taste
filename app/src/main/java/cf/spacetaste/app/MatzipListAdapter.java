@@ -1,23 +1,21 @@
 package cf.spacetaste.app;
 
 import android.content.Context;
-import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
+
 import cf.spacetaste.app.databinding.ActivityMatzipListItemBinding;
 
 public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.ViewHolder> {
 
-    private ArrayList<MatzipList> matzipList;
+    private ArrayList<Matzip> matzipList;
     private Context context;
 
     public interface OnItemClickListner {
@@ -43,7 +41,7 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
         }
     }
 
-    public MatzipListAdapter(ArrayList<MatzipList> matzipList, Context context) {
+    public MatzipListAdapter(ArrayList<Matzip> matzipList, Context context) {
         this.matzipList = matzipList;
         this.context = context;
     }
