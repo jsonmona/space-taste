@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="cf.spacetaste.app">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 인터넷 권한 설정   -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 인터넷 연결 확인-->
@@ -43,13 +46,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity" android:label="메인"/>
+        <activity
+            android:name=".HomeActivity"
+            android:label="메인"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan|adjustNothing">
+
+        </activity>
+        <activity android:name=".MatzipListActivity"/>
         <activity android:name=".Nav3_Fragment_addr"/>
         <activity android:name=".AddReview"/>
         <activity android:name=".Matzip_Detail"/>
         <activity android:name=".NeighborhoodActivity" android:label="동네인증"/>
         <activity android:name=".InfoActivity" android:label="유저정보"/>
         <activity android:name=".PopActivity"  android:theme="@style/Theme.Design.NoActionBar" />
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="d7810fa2cc5a492d8ca2c29b4914f651" />
     </application>
 
 </manifest>
