@@ -21,6 +21,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -77,7 +78,7 @@ public class RemoteService {
                     token = response.body().getToken();
                     runOnUiThread(() -> cb.onResult(true, new AuthResponse(response.body().isNewUser())));
                 } else {
-                    Log.e(TAG, "failed with status="+response.code());
+                    Log.e(TAG, "failed with status=" + response.code());
                     runOnUiThread(() -> cb.onResult(false, null));
                 }
             }
@@ -139,7 +140,7 @@ public class RemoteService {
                             );
                             runOnUiThread(() -> cb.onResult(true, info));
                         } else {
-                            System.err.println("failed with status="+response.code());
+                            System.err.println("failed with status=" + response.code());
                             runOnUiThread(() -> cb.onResult(false, null));
                         }
                     }
@@ -154,5 +155,26 @@ public class RemoteService {
                 e.printStackTrace();
             }
         });
+    }
+
+    public void listMatzipPhotos(MatzipInfo info, AsyncResultPromise<List<String>> cb) {
+        service.listMatzipPhotos(token, info.getMatzipId())
+                .enqueue(new Callback<List<String>>() {
+                    @Override
+                    public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            cb.onResult(true, response.body());
+                        } else {
+                            Log.e(TAG, "Failed to list matzip photos with code=" + response.code());
+                            cb.onResult(false, null);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<String>> call, Throwable t) {
+                        Log.e(TAG, "Failed to list matzip photos", t);
+                        cb.onResult(false, null);
+                    }
+                });
     }
 }
