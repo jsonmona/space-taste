@@ -12,6 +12,12 @@ public interface MatzipMapper {
     @Select("SELECT * FROM matzip WHERE matzip_id = #{id} LIMIT 1")
     List<MatzipModel> getFromId(int id);
 
+    @Select("SELECT DISTINCT a.* FROM matzip AS a INNER JOIN matzip_hashtag AS b ON a.matzip_id = b.matzip_id WHERE b.hashtag_id = #{hashtagId} LIMIT 100")
+    List<MatzipModel> getFromHashtag(int hashtagId);
+
+    // XML
+    List<MatzipModel> search(List<Integer> requiredTags, List<Integer> optionalTags, String term);
+
     @Insert("INSERT INTO matzip (name, address_code, address_base, address_detail, main_photo) VALUES (#{name}, #{addressCode}, #{addressBase}, #{addressDetail}, #{mainPhoto})")
     @Options(useGeneratedKeys = true, keyProperty = "matzipId")
     int create(MatzipModel matzip);

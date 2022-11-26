@@ -12,6 +12,7 @@ import cf.spacetaste.app.data.MatzipInfo;
 import cf.spacetaste.common.AuthResponseDTO;
 import cf.spacetaste.common.MatzipBasicInfoDTO;
 import cf.spacetaste.common.MatzipInfoDTO;
+import cf.spacetaste.common.SearchRequestDTO;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,6 +22,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -163,18 +165,49 @@ public class RemoteService {
                     @Override
                     public void onResponse(Call<List<String>> call, Response<List<String>> response) {
                         if (response.isSuccessful() && response.body() != null) {
-                            cb.onResult(true, response.body());
+                            runOnUiThread(() -> cb.onResult(true, response.body()));
                         } else {
                             Log.e(TAG, "Failed to list matzip photos with code=" + response.code());
-                            cb.onResult(false, null);
+                            runOnUiThread(() -> cb.onResult(false, null));
                         }
                     }
 
                     @Override
                     public void onFailure(Call<List<String>> call, Throwable t) {
                         Log.e(TAG, "Failed to list matzip photos", t);
-                        cb.onResult(false, null);
+                        runOnUiThread(() -> cb.onResult(false, null));
                     }
                 });
+    }
+
+    public void searchMatzip(List<String> tags, String term, AsyncResultPromise<List<MatzipInfo>> cb) {
+        SearchRequestDTO req = new SearchRequestDTO(tags, term);
+        service.searchMatzip(token, req).enqueue(new Callback<List<MatzipInfoDTO>>() {
+            @Override
+            public void onResponse(Call<List<MatzipInfoDTO>> call, Response<List<MatzipInfoDTO>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ArrayList<MatzipInfo> res = new ArrayList<>(response.body().size());
+                    for (MatzipInfoDTO info : response.body()) {
+                        res.add(new MatzipInfo(
+                                info.getMatzipId(),
+                                info.getName(),
+                                info.getBaseAddress(),
+                                info.getDetailAddress(),
+                                info.getHashtags(),
+                                info.getPhotoUrl()));
+                    }
+                    runOnUiThread(() -> cb.onResult(true, res));
+                } else {
+                    Log.e(TAG, "Failed to list matzip photos with code=" + response.code());
+                    runOnUiThread(() -> cb.onResult(false, null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<MatzipInfoDTO>> call, Throwable t) {
+                Log.e(TAG, "Failed to search", t);
+                runOnUiThread(() -> cb.onResult(false, null));
+            }
+        });
     }
 }

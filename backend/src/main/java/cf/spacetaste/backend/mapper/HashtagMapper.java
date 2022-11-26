@@ -8,6 +8,9 @@ import java.util.List;
 
 @Mapper
 public interface HashtagMapper {
-    @Select("SELECT * FROM hashtag WHERE content=#{content} LIMIT 100")
+    @Select("SELECT DISTINCT * FROM hashtag WHERE content=#{content} LIMIT 100")
     List<HashtagModel> getFromContent(String content);
+
+    @Select("SELECT DISTINCT * FROM hashtag WHERE content LIKE CONCAT('%', #{content}, '%') LIMIT 100")
+    List<HashtagModel> searchContent(String content);
 }
