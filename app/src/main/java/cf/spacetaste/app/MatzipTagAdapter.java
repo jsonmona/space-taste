@@ -48,7 +48,7 @@ public class MatzipTagAdapter extends RecyclerView.Adapter<MatzipTagAdapter.View
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemClickListner.onItemClicked(viewHolder.getAdapterPosition(),"position");
+                itemClickListner.onItemClicked(viewHolder.getAdapterPosition(), matzipTagList.get(viewHolder.getAdapterPosition()).tag);
             }
         });
         return viewHolder;
@@ -57,7 +57,7 @@ public class MatzipTagAdapter extends RecyclerView.Adapter<MatzipTagAdapter.View
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        viewHolder.getBinding().tag.setText(matzipTagList.get(position).tag);
+        viewHolder.getBinding().tag.setText("#" + matzipTagList.get(position).tag);
         viewHolder.getBinding().matzipImage.setImageResource(matzipTagList.get(position).thumbnail);
     }
 

@@ -2,10 +2,11 @@ package cf.spacetaste.app;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -17,14 +18,17 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import net.daum.mf.map.api.MapPOIItem;
+import net.daum.mf.map.api.MapPoint;
+import net.daum.mf.map.api.MapView;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import cf.spacetaste.app.databinding.Navi2FragmentBinding;
-import net.daum.mf.map.api.MapView;
 
 public class Navi2_Fragment extends Fragment {
 
@@ -32,6 +36,7 @@ public class Navi2_Fragment extends Fragment {
     private MatzipListAdapter adapter;
     private final String TAG = "Navi2";
     private Location location;
+    private MapView mapView = null;
     private final ActivityResultLauncher<String[]> locationPermissionRequest = registerForActivityResult(
             new ActivityResultContracts.RequestMultiplePermissions(),
             result -> {
@@ -51,7 +56,7 @@ public class Navi2_Fragment extends Fragment {
         Log.d(TAG, "onCreateView: ");
         binding = Navi2FragmentBinding.inflate(inflater, container, false);
 
-        MapView mapView = null;
+
         try {
             System.loadLibrary("DaumMapEngineApi");
             mapView = new MapView(getActivity());
@@ -99,40 +104,42 @@ public class Navi2_Fragment extends Fragment {
             }
         };
 
-//        binding.locationButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-//                        && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//                    Toast.makeText(getContext(), "이 기능을 사용하려면 위치 접근 권한이 필요합니다", Toast.LENGTH_SHORT).show();
-//                } else if (!lm.isProviderEnabled(lm.GPS_PROVIDER)) {
-//                        Toast.makeText(getContext(), "이 기능을 사용하려면 위치 기능을 켜야합니다", Toast.LENGTH_SHORT).show();
-//                        // GPS 설정 화면으로 이동
-//                        Intent gpsOptionsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//                        startActivity(gpsOptionsIntent);
-//                } else {
-//                    // 이 둘은 마지막으로 저장된 위치정보를 가져오는 것이기 때문에, 위치 기능을 껐다 키고 바로 앱을 실행하면 null 값이 되버림
-//                    Location location = lm.getLastKnownLocation(lm.NETWORK_PROVIDER);
-//
-//                    if (location == null) {
-//                        lm.requestLocationUpdates(lm.NETWORK_PROVIDER, 1000, 0, listener); // minTimeMs가 왜 커질수록 빨라지지..?
-//                        Toast.makeText(getContext(), "위치 정보를 받아오는 중입니다. 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//
-//                    // 현재 위치 갱신
+        binding.locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getContext(), "이 기능을 사용하려면 위치 접근 권한이 필요합니다", Toast.LENGTH_SHORT).show();
+                } else if (!lm.isProviderEnabled(lm.GPS_PROVIDER)) {
+                        Toast.makeText(getContext(), "이 기능을 사용하려면 위치 기능을 켜야합니다", Toast.LENGTH_SHORT).show();
+                        // GPS 설정 화면으로 이동
+                        Intent gpsOptionsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(gpsOptionsIntent);
+                } else {
+                    // 이 둘은 마지막으로 저장된 위치정보를 가져오는 것이기 때문에, 위치 기능을 껐다 키고 바로 앱을 실행하면 null 값이 되버림
+                    Location location = lm.getLastKnownLocation(lm.NETWORK_PROVIDER);
+
+                    if (location == null) {
+                        lm.requestLocationUpdates(lm.NETWORK_PROVIDER, 1000, 0, listener); // minTimeMs가 왜 커질수록 빨라지지..?
+                        Toast.makeText(getContext(), "위치 정보를 받아오는 중입니다. 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // 현재 위치 갱신
 //                    MapPoint currentLocation = MapPoint.mapPointWithGeoCoord(location.getLatitude(), location.getLongitude());
-//                    lm.removeUpdates(listener);
-//
-//                    MapPOIItem marker = new MapPOIItem(); // 마커 생성
-//                    marker.setItemName("현재 위치");
-//                    marker.setMapPoint(currentLocation);
-//                    marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
-//                    mapView.addPOIItem(marker);
-//                    mapView.setMapCenterPoint(currentLocation, true);
-//                }
-//            }
-//        });
+                    MapPoint currentLocation = MapPoint.mapPointWithGeoCoord(37.5033363, 127.0295125);
+                    lm.removeUpdates(listener);
+
+                    MapPOIItem marker = new MapPOIItem(); // 마커 생성
+                    marker.setItemName("현재 위치");
+                    marker.setMapPoint(currentLocation);
+                    marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
+                    marker.setItemName("꼼다비뛰드");
+                    mapView.addPOIItem(marker);
+                    mapView.setMapCenterPoint(currentLocation, true);
+                }
+            }
+        });
 
         return binding.getRoot();
     }
