@@ -4,7 +4,7 @@ services:
   backend:
     image: space-taste-backend:0.1.0
     container_name: space-taste-backend
-    mem_limit: 512M
+    mem_limit: 128M
     ports:
       - "4000:8080"
     environment:
