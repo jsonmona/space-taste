@@ -23,7 +23,7 @@ public class MatzipListActivity extends AppCompatActivity {
         binding = ActivityMatzipListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        list = getIntent().getParcelableExtra("matzipList");
+        list = (ArrayList) getIntent().getSerializableExtra("matzipList");
 
         adapter = new MatzipListAdapter(list, getApplicationContext());
         adapter.setOnItemClickedListner(new MatzipListAdapter.OnItemClickListner() {

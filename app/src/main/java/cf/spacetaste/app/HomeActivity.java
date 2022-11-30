@@ -2,7 +2,6 @@ package cf.spacetaste.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
@@ -12,6 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
@@ -43,7 +43,7 @@ public class HomeActivity extends AppCompatActivity {
 
     void showMatzipList(List list) {
         Intent intent = new Intent(HomeActivity.this, MatzipListActivity.class);
-        intent.putExtra("matzipList", (Parcelable) list);
+        intent.putExtra("matzipList", (ArrayList) list);
         startActivity(intent);
     }
 

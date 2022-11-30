@@ -1,12 +1,13 @@
 package cf.spacetaste.app.data;
 
+import java.io.Serializable;
+import java.util.List;
+
 import lombok.Data;
 import lombok.NonNull;
 
-import java.util.List;
-
 @Data
-public class MatzipInfo {
+public class MatzipInfo implements Serializable {
     private final int matzipId;
 
     @NonNull

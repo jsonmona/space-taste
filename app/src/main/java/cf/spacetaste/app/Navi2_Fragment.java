@@ -126,15 +126,12 @@ public class Navi2_Fragment extends Fragment {
                     }
 
                     // 현재 위치 갱신
-//                    MapPoint currentLocation = MapPoint.mapPointWithGeoCoord(location.getLatitude(), location.getLongitude());
-                    MapPoint currentLocation = MapPoint.mapPointWithGeoCoord(37.5033363, 127.0295125);
+                    MapPoint currentLocation = MapPoint.mapPointWithGeoCoord(location.getLatitude(), location.getLongitude());
                     lm.removeUpdates(listener);
 
                     MapPOIItem marker = new MapPOIItem(); // 마커 생성
                     marker.setItemName("현재 위치");
                     marker.setMapPoint(currentLocation);
-                    marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
-                    marker.setItemName("꼼다비뛰드");
                     mapView.addPOIItem(marker);
                     mapView.setMapCenterPoint(currentLocation, true);
                 }

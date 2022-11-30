@@ -1,18 +1,22 @@
 package cf.spacetaste.app;
 
 import android.content.Context;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import cf.spacetaste.app.data.MatzipInfo;
 import cf.spacetaste.app.databinding.ActivityMatzipListItemBinding;
 
 public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.ViewHolder> {
 
-    private List matzipList;
+    private List<MatzipInfo> matzipList;
     private Context context;
 
     public interface OnItemClickListner {
@@ -55,23 +59,23 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 //        viewHolder.getBinding().matzipImage.setImageResource(matzipList.get(position).matzipImage);
-//        viewHolder.getBinding().number.setText((position + 1) + ". ");
-//        viewHolder.getBinding().matzipName.setText(matzipList.get(position));
+        viewHolder.getBinding().number.setText((position + 1) + ". ");
+        viewHolder.getBinding().matzipName.setText(matzipList.get(position).getName());
 //        viewHolder.getBinding().rating.setText(matzipList.get(position).matzipRating + "");
-//        viewHolder.getBinding().starRating.setRating(matzipList.get(position).matzipRating);
-//        viewHolder.getBinding().address1.setText(matzipList.get(position).matzipAddress1);
-//        viewHolder.getBinding().address2.setText(matzipList.get(position).matzipAddress2);
-////        viewHolder.getBinding().userProfile.setImageResource(matzipList.get(position).userProfile);
+//        viewHolder.getBinding().starRating.setRating(matzipList.get(position).getStarts);
+        viewHolder.getBinding().address1.setText(matzipList.get(position).getBaseAddress());
+        viewHolder.getBinding().address2.setText(matzipList.get(position).getDetailAddress());
+//        viewHolder.getBinding().userProfile.setImageResource(matzipList.get(position).userProfile);
 //        viewHolder.getBinding().review.setText(matzipList.get(position).review);
-//
-//        viewHolder.getBinding().tagLayout.removeAllViews();
-//        for (int i = 0; i < matzipList.get(position).tagList.size(); i++) {
-//            TextView textView = new TextView(context.getApplicationContext());
-//            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
-//            textView.setText(matzipList.get(position).tagList.get(i));
-//            textView.setGravity(Gravity.RIGHT);
-//            viewHolder.getBinding().tagLayout.addView(textView);
-//        }
+
+        viewHolder.getBinding().tagLayout.removeAllViews();
+        for (int i = 0; i < matzipList.get(position).getHashtags().size(); i++) {
+            TextView textView = new TextView(context.getApplicationContext());
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
+            textView.setText("#" + matzipList.get(position).getHashtags().get(i));
+            textView.setGravity(Gravity.RIGHT);
+            viewHolder.getBinding().tagLayout.addView(textView);
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
