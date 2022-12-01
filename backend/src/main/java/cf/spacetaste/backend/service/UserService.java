@@ -1,35 +1,33 @@
 package cf.spacetaste.backend.service;
 
+import cf.spacetaste.backend.mapper.AddressMapper;
 import cf.spacetaste.backend.mapper.UserMapper;
 import cf.spacetaste.backend.model.PhotoModel;
 import cf.spacetaste.backend.model.UserModel;
+import cf.spacetaste.common.AddressInfoDTO;
 import cf.spacetaste.common.AuthResponseDTO;
+import cf.spacetaste.common.UserInfoDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+@RequiredArgsConstructor
 @Service
 public class UserService {
 
     private static final String kakaoUrl = "https://kapi.kakao.com";
     private final UserMapper userMapper;
+    private final AddressService addressService;
     private final PhotoService photoService;
     private final TokenService tokenService;
-    private final OkHttpClient okHttpClient;
-    private final ObjectMapper objectMapper;
-    
-    public UserService(UserMapper userMapper, PhotoService photoService, TokenService tokenService) {
-        this.userMapper = userMapper;
-        this.photoService = photoService;
-        this.tokenService = tokenService;
-        this.okHttpClient = new OkHttpClient();
-        this.objectMapper = new ObjectMapper();
-    }
+    private final OkHttpClient okHttpClient = new OkHttpClient();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @AllArgsConstructor
     @Getter
@@ -137,5 +135,25 @@ public class UserService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public UserInfoDTO getInfo(int userId) {
+        UserModel user = userMapper.getFromId(userId);
+
+        if (user == null)
+            return null;
+
+        String photoUrl;
+        if (user.getProfilePhoto() != null)
+            photoUrl = photoService.makeUrl(photoService.getFromId(user.getProfilePhoto()));
+        else
+            photoUrl = null;
+
+        return new UserInfoDTO(
+                user.getNickname(),
+                photoUrl,
+                addressService.getInfo(user.getAddressCode1()),
+                addressService.getInfo(user.getAddressCode2())
+        );
     }
 }

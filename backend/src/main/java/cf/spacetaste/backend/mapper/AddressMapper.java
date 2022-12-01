@@ -11,4 +11,7 @@ public interface AddressMapper {
 
     @Select("SELECT * FROM address WHERE address_code LIKE '1129%' AND address_code != '1129000000' ORDER BY eup_myeon_dong ASC LIMIT 1000")
     List<AddressModel> listServiceArea();
+
+    @Select("SELECT * FROM address WHERE address_code=#{code} LIMIT 1")
+    AddressModel getFromCode(String code);
 }

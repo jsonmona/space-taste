@@ -6,10 +6,7 @@ import cf.spacetaste.backend.service.TokenService;
 import cf.spacetaste.common.MatzipInfoDTO;
 import cf.spacetaste.common.SearchRequestDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +27,12 @@ public class SearchController {
                 .stream()
                 .map(matzipService::modelToInfo)
                 .toList();
+    }
+
+    @GetMapping("/search/reviewuser")
+    public List<MatzipInfoDTO> searchByReviewedUser(@RequestHeader("Authorization") String auth) {
+        int userId = tokenService.verifyToken(auth);
+
+        return matzipService.listByReviewedUser(userId);
     }
 }

@@ -12,6 +12,10 @@ public class UserModel {
     private Long kakaoId;
     private String nickname;
     private Integer profilePhoto;
+
+    /** 활동지역 */
     private String addressCode1;
+
+    /** 생활지역 */
     private String addressCode2;
 }
