@@ -9,10 +9,7 @@ import android.util.Log;
 import cf.spacetaste.app.data.AuthResponse;
 import cf.spacetaste.app.data.MatzipCreateRequest;
 import cf.spacetaste.app.data.MatzipInfo;
-import cf.spacetaste.common.AuthResponseDTO;
-import cf.spacetaste.common.MatzipBasicInfoDTO;
-import cf.spacetaste.common.MatzipInfoDTO;
-import cf.spacetaste.common.SearchRequestDTO;
+import cf.spacetaste.common.*;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -207,6 +204,26 @@ public class RemoteService {
             public void onFailure(Call<List<MatzipInfoDTO>> call, Throwable t) {
                 Log.e(TAG, "Failed to search", t);
                 runOnUiThread(() -> cb.onResult(false, null));
+            }
+        });
+    }
+
+    public void listServiceArea(AsyncResultPromise<List<AddressInfoDTO>> cb) {
+        service.listServiceArea().enqueue(new Callback<List<AddressInfoDTO>>() {
+            @Override
+            public void onResponse(Call<List<AddressInfoDTO>> call, Response<List<AddressInfoDTO>> response) {
+                if (!response.isSuccessful() || response.body() == null) {
+                    Log.e(TAG, "Failed to list service area with code="+response.code());
+                    cb.onResult(false, null);
+                } else {
+                    cb.onResult(true, response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<AddressInfoDTO>> call, Throwable t) {
+                Log.e(TAG, "Failed to list service area", t);
+                cb.onResult(false, null);
             }
         });
     }
