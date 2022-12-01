@@ -9,6 +9,7 @@ import android.util.Log;
 import cf.spacetaste.app.data.AuthResponse;
 import cf.spacetaste.app.data.MatzipCreateRequest;
 import cf.spacetaste.app.data.MatzipInfo;
+import cf.spacetaste.app.data.StarGroup;
 import cf.spacetaste.common.*;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -128,15 +129,7 @@ public class RemoteService {
                     @Override
                     public void onResponse(Call<MatzipInfoDTO> call, Response<MatzipInfoDTO> response) {
                         if (response.isSuccessful() && response.body() != null) {
-                            MatzipInfoDTO body = response.body();
-                            MatzipInfo info = new MatzipInfo(
-                                    body.getMatzipId(),
-                                    body.getName(),
-                                    body.getBaseAddress(),
-                                    body.getDetailAddress(),
-                                    body.getHashtags(),
-                                    body.getPhotoUrl()
-                            );
+                            MatzipInfo info = new MatzipInfo(response.body());
                             runOnUiThread(() -> cb.onResult(true, info));
                         } else {
                             System.err.println("failed with status=" + response.code());
@@ -185,13 +178,7 @@ public class RemoteService {
                 if (response.isSuccessful() && response.body() != null) {
                     ArrayList<MatzipInfo> res = new ArrayList<>(response.body().size());
                     for (MatzipInfoDTO info : response.body()) {
-                        res.add(new MatzipInfo(
-                                info.getMatzipId(),
-                                info.getName(),
-                                info.getBaseAddress(),
-                                info.getDetailAddress(),
-                                info.getHashtags(),
-                                info.getPhotoUrl()));
+                        res.add(new MatzipInfo(info));
                     }
                     runOnUiThread(() -> cb.onResult(true, res));
                 } else {
