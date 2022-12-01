@@ -22,4 +22,7 @@ public interface RetrofitService {
 
     @GET("/address/arealist")
     Call<List<AddressInfoDTO>> listServiceArea();
+
+    @POST("/matzip/{matzipId}/review")
+    Call<Void> postReview(@Header("Authorization") String token, @Body ReviewInfoDTO info);
 }
