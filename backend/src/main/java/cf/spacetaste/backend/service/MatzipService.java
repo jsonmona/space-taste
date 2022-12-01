@@ -60,10 +60,7 @@ public class MatzipService {
     }
 
     public MatzipModel queryFromId(int id) {
-        List<MatzipModel> models = matzipMapper.getFromId(id);
-        if (models.size() < 1)
-            return null;
-        return models.get(0);
+        return matzipMapper.getFromId(id);
     }
 
     public List<String> getHashtags(MatzipModel matzip) {
@@ -77,7 +74,12 @@ public class MatzipService {
                 .toList();
     }
 
-
+    public List<MatzipInfoDTO> listByReviewedUser(int userId) {
+        return matzipMapper.listByReviewedUser(userId)
+                .stream()
+                .map(this::modelToInfo)
+                .toList();
+    }
 
     public MatzipInfoDTO modelToInfo(MatzipModel matzip) {
         var hashtags = getHashtags(matzip);

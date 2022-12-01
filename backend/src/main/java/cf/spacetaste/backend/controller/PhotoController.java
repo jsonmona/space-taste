@@ -24,6 +24,8 @@ public class PhotoController {
     @GetMapping("/photo/{id}")
     public ResponseEntity<Resource> getFromId(@PathVariable int id) {
         File f = photoService.getAsFile(photoService.getFromId(id));
+        if (!f.isFile())
+            return ResponseEntity.notFound().build();
 
         Resource file = new FileSystemResource(f);
 

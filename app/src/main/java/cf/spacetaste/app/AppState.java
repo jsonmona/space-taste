@@ -7,8 +7,12 @@ import cf.spacetaste.app.data.AuthResponse;
 import cf.spacetaste.app.data.MatzipCreateRequest;
 import cf.spacetaste.app.data.MatzipInfo;
 import cf.spacetaste.app.data.MatzipReview;
+import cf.spacetaste.app.network.AsyncNotifyPromise;
 import cf.spacetaste.app.network.AsyncResultPromise;
 import cf.spacetaste.app.network.RemoteService;
+import cf.spacetaste.common.AddressInfoDTO;
+import cf.spacetaste.common.ReviewInfoDTO;
+import cf.spacetaste.common.UserInfoDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,5 +64,22 @@ public class AppState {
 
     public void searchMatzip(List<String> tags, String term, AsyncResultPromise<List<MatzipInfo>> cb) {
         remoteService.searchMatzip(tags, term, cb);
+    }
+
+    public void listServiceArea(AsyncResultPromise<List<AddressInfoDTO>> cb) {
+        remoteService.listServiceArea(cb);
+    }
+
+    public void postReview(MatzipInfo matzip, ReviewInfoDTO review, AsyncNotifyPromise cb) {
+        remoteService.postReview(matzip, review, cb);
+    }
+
+    public void getUserInfo(AsyncResultPromise<UserInfoDTO> cb) {
+        remoteService.getUserInfo(cb);
+    }
+
+    /** 내가 리뷰한 맛집 리스트를 가져옴 (최근 리뷰한 순서) */
+    public void searchByReviewedUser(AsyncResultPromise<List<MatzipInfo>> cb) {
+        remoteService.searchByReviewedUser(cb);
     }
 }

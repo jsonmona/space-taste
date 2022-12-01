@@ -1,9 +1,6 @@
 package cf.spacetaste.app.network;
 
-import cf.spacetaste.common.AuthResponseDTO;
-import cf.spacetaste.common.MatzipBasicInfoDTO;
-import cf.spacetaste.common.MatzipInfoDTO;
-import cf.spacetaste.common.SearchRequestDTO;
+import cf.spacetaste.common.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -22,4 +19,16 @@ public interface RetrofitService {
 
     @POST("/search/v1")
     Call<List<MatzipInfoDTO>> searchMatzip(@Header("Authorization") String token, @Body SearchRequestDTO info);
+
+    @GET("/address/arealist")
+    Call<List<AddressInfoDTO>> listServiceArea();
+
+    @POST("/matzip/{matzipId}/review")
+    Call<Void> postReview(@Header("Authorization") String token, @Body ReviewInfoDTO info);
+
+    @GET("/user")
+    Call<UserInfoDTO> getUserInfo(@Header("Authorization") String token);
+
+    @GET("/search/reviewuser")
+    Call<List<MatzipInfoDTO>> searchByReviewedUser(@Header("Authorization") String token);
 }

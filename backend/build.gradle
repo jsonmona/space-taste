@@ -2,13 +2,13 @@ plugins {
     id 'org.springframework.boot' version '2.7.1'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id 'java'
-    // id 'org.springframework.experimental.aot' version '0.12.1'
+    id 'org.springframework.experimental.aot' version '0.12.1'
 }
 
 group = 'cf.spacetaste'
 version = '0.1.0'
-sourceCompatibility = "16"
-targetCompatibility = "16"
+sourceCompatibility = '17'
+targetCompatibility = '17'
 
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web') {
@@ -19,12 +19,11 @@ dependencies {
     implementation "org.apache.tomcat.experimental:tomcat-embed-programmatic:${dependencyManagement.importedProperties["tomcat.version"]}"
     implementation project(':common')
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
+    implementation 'org.mybatis.spring.native:mybatis-spring-native-core:0.1.0-SNAPSHOT'
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.9'
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.14.9'
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'com.auth0:java-jwt:4.2.1'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -37,5 +36,5 @@ tasks.named('test') {
 tasks.named('bootBuildImage') {
     builder = 'paketobuildpacks/builder:tiny'
     imageName = "space-taste-backend:${project.version}"
-    // environment = ['BP_NATIVE_IMAGE': 'true']
+    environment = ['BP_NATIVE_IMAGE': 'true', 'BP_NATIVE_IMAGE_BUILD_ARGUMENTS': '-H:+AddAllCharsets']
 }

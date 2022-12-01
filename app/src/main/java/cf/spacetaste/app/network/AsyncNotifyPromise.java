@@ -2,7 +2,7 @@ package cf.spacetaste.app.network;
 
 import androidx.annotation.UiThread;
 
-public interface AsyncResultPromise<T> {
+public interface AsyncNotifyPromise {
     @UiThread
-    void onResult(boolean success, T result);
+    void onResult(boolean success);
 }
