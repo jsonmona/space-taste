@@ -77,4 +77,9 @@ public class AppState {
     public void getUserInfo(AsyncResultPromise<UserInfoDTO> cb) {
         remoteService.getUserInfo(cb);
     }
+
+    /** 내가 리뷰한 맛집 리스트를 가져옴 (최근 리뷰한 순서) */
+    public void searchByReviewedUser(AsyncResultPromise<List<MatzipInfo>> cb) {
+        remoteService.searchByReviewedUser(cb);
+    }
 }

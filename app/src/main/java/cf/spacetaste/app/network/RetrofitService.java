@@ -28,4 +28,7 @@ public interface RetrofitService {
 
     @GET("/user")
     Call<UserInfoDTO> getUserInfo(@Header("Authorization") String token);
+
+    @GET("/search/reviewuser")
+    Call<List<MatzipInfoDTO>> searchByReviewedUser(@Header("Authorization") String token);
 }

@@ -278,4 +278,28 @@ public class RemoteService {
             }
         });
     }
+
+    public void searchByReviewedUser(AsyncResultPromise<List<MatzipInfo>> cb) {
+        service.searchByReviewedUser(auth()).enqueue(new Callback<List<MatzipInfoDTO>>() {
+            @Override
+            public void onResponse(Call<List<MatzipInfoDTO>> call, Response<List<MatzipInfoDTO>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ArrayList<MatzipInfo> res = new ArrayList<>(response.body().size());
+                    for (MatzipInfoDTO info : response.body()) {
+                        res.add(new MatzipInfo(info));
+                    }
+                    resolve(cb, res);
+                } else {
+                    Log.e(TAG, "Failed to search matzip by reviewed user with code="+response.code());
+                    reject(cb);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<MatzipInfoDTO>> call, Throwable t) {
+                Log.e(TAG, "Failed to search matzip by reviewed user", t);
+                reject(cb);
+            }
+        });
+    }
 }
