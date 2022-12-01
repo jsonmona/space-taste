@@ -9,7 +9,6 @@ import android.util.Log;
 import cf.spacetaste.app.data.AuthResponse;
 import cf.spacetaste.app.data.MatzipCreateRequest;
 import cf.spacetaste.app.data.MatzipInfo;
-import cf.spacetaste.app.data.StarGroup;
 import cf.spacetaste.common.*;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -68,6 +67,22 @@ public class RemoteService {
         return "Bearer " + token;
     }
 
+    private <T> void resolve(AsyncResultPromise<T> cb, T result) {
+        runOnUiThread(() -> cb.onResult(true, result));
+    }
+
+    private <T> void reject(AsyncResultPromise<T> cb) {
+        runOnUiThread(() -> cb.onResult(false, null));
+    }
+
+    private void resolve(AsyncNotifyPromise cb) {
+        runOnUiThread(() -> cb.onResult(true));
+    }
+
+    private void reject(AsyncNotifyPromise cb) {
+        runOnUiThread(() -> cb.onResult(false));
+    }
+
     public boolean isLoggedIn() {
         return token != null;
     }
@@ -82,17 +97,17 @@ public class RemoteService {
             public void onResponse(Call<AuthResponseDTO> call, Response<AuthResponseDTO> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     token = response.body().getToken();
-                    runOnUiThread(() -> cb.onResult(true, new AuthResponse(response.body().isNewUser())));
+                    resolve(cb, new AuthResponse(response.body().isNewUser()));
                 } else {
                     Log.e(TAG, "failed with status=" + response.code());
-                    runOnUiThread(() -> cb.onResult(false, null));
+                    reject(cb);
                 }
             }
 
             @Override
             public void onFailure(Call<AuthResponseDTO> call, Throwable t) {
                 t.printStackTrace();
-                runOnUiThread(() -> cb.onResult(false, null));
+                reject(cb);
             }
         });
     }
@@ -100,7 +115,7 @@ public class RemoteService {
     public void createMatzip(MatzipCreateRequest req, AsyncResultPromise<MatzipInfo> cb) {
         if (!isLoggedIn()) {
             Log.e(TAG, "createMatzip: not logged in");
-            cb.onResult(false, null);
+            reject(cb);
             return;
         }
 
@@ -135,18 +150,17 @@ public class RemoteService {
                     @Override
                     public void onResponse(Call<MatzipInfoDTO> call, Response<MatzipInfoDTO> response) {
                         if (response.isSuccessful() && response.body() != null) {
-                            MatzipInfo info = new MatzipInfo(response.body());
-                            runOnUiThread(() -> cb.onResult(true, info));
+                            resolve(cb, new MatzipInfo(response.body()));
                         } else {
-                            System.err.println("failed with status=" + response.code());
-                            runOnUiThread(() -> cb.onResult(false, null));
+                            Log.e(TAG, "Failed to create matzip with code=" + response.code());
+                            reject(cb);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<MatzipInfoDTO> call, Throwable t) {
-                        t.printStackTrace();
-                        runOnUiThread(() -> cb.onResult(false, null));
+                        Log.e(TAG, "Failed to create matzip", t);
+                        reject(cb);
                     }
                 });
             } catch (IOException e) {
@@ -161,17 +175,17 @@ public class RemoteService {
                     @Override
                     public void onResponse(Call<List<String>> call, Response<List<String>> response) {
                         if (response.isSuccessful() && response.body() != null) {
-                            runOnUiThread(() -> cb.onResult(true, response.body()));
+                            resolve(cb, response.body());
                         } else {
                             Log.e(TAG, "Failed to list matzip photos with code=" + response.code());
-                            runOnUiThread(() -> cb.onResult(false, null));
+                            reject(cb);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<List<String>> call, Throwable t) {
                         Log.e(TAG, "Failed to list matzip photos", t);
-                        runOnUiThread(() -> cb.onResult(false, null));
+                        reject(cb);
                     }
                 });
     }
@@ -186,17 +200,17 @@ public class RemoteService {
                     for (MatzipInfoDTO info : response.body()) {
                         res.add(new MatzipInfo(info));
                     }
-                    runOnUiThread(() -> cb.onResult(true, res));
+                    resolve(cb, res);
                 } else {
                     Log.e(TAG, "Failed to list matzip photos with code=" + response.code());
-                    runOnUiThread(() -> cb.onResult(false, null));
+                    reject(cb);
                 }
             }
 
             @Override
             public void onFailure(Call<List<MatzipInfoDTO>> call, Throwable t) {
                 Log.e(TAG, "Failed to search", t);
-                runOnUiThread(() -> cb.onResult(false, null));
+                reject(cb);
             }
         });
     }
@@ -205,18 +219,18 @@ public class RemoteService {
         service.listServiceArea().enqueue(new Callback<List<AddressInfoDTO>>() {
             @Override
             public void onResponse(Call<List<AddressInfoDTO>> call, Response<List<AddressInfoDTO>> response) {
-                if (!response.isSuccessful() || response.body() == null) {
-                    Log.e(TAG, "Failed to list service area with code="+response.code());
-                    runOnUiThread(() -> cb.onResult(false, null));
+                if (response.isSuccessful() && response.body() != null) {
+                    resolve(cb, response.body());
                 } else {
-                    runOnUiThread(() -> cb.onResult(true, response.body()));
+                    Log.e(TAG, "Failed to list service area with code="+response.code());
+                    reject(cb);
                 }
             }
 
             @Override
             public void onFailure(Call<List<AddressInfoDTO>> call, Throwable t) {
                 Log.e(TAG, "Failed to list service area", t);
-                cb.onResult(false, null);
+                reject(cb);
             }
         });
     }
@@ -229,18 +243,18 @@ public class RemoteService {
         service.postReview(token, review).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if (!response.isSuccessful()) {
-                    Log.e(TAG, "Failed to post review with code="+response.code());
-                    runOnUiThread(() -> cb.onResult(false));
+                if (response.isSuccessful()) {
+                    resolve(cb);
                 } else {
-                    runOnUiThread(() -> cb.onResult(true));
+                    Log.e(TAG, "Failed to post review with code="+response.code());
+                    reject(cb);
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Log.e(TAG, "Failed to pose review", t);
-                runOnUiThread(() -> cb.onResult(false));
+                reject(cb);
             }
         });
     }
@@ -249,18 +263,18 @@ public class RemoteService {
         service.getUserInfo(token).enqueue(new Callback<UserInfoDTO>() {
             @Override
             public void onResponse(Call<UserInfoDTO> call, Response<UserInfoDTO> response) {
-                if (!response.isSuccessful() || response.body() == null) {
-                    Log.e(TAG, "Failed to get user info with code="+response.code());
-                    runOnUiThread(() -> cb.onResult(false, null));
+                if (response.isSuccessful() && response.body() != null) {
+                    resolve(cb, response.body());
                 } else {
-                    runOnUiThread(() -> cb.onResult(true, response.body()));
+                    Log.e(TAG, "Failed to get user info with code="+response.code());
+                    reject(cb);
                 }
             }
 
             @Override
             public void onFailure(Call<UserInfoDTO> call, Throwable t) {
                 Log.e(TAG, "Failed to get user info", t);
-                runOnUiThread(() -> cb.onResult(false, null));
+                reject(cb);
             }
         });
     }
