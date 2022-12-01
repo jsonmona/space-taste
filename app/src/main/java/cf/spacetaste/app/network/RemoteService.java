@@ -25,6 +25,12 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * 오직 AppState 에서 사용하기 위해 만들어진 클래스입니다.
+ * 직접 사용하지 마세요.
+ *
+ * @see cf.spacetaste.app.AppState
+ */
 public class RemoteService {
     private static final String TAG = "RemoteService";
     private static final String SERVER_URL = "https://api.space-taste.cf";
@@ -201,9 +207,9 @@ public class RemoteService {
             public void onResponse(Call<List<AddressInfoDTO>> call, Response<List<AddressInfoDTO>> response) {
                 if (!response.isSuccessful() || response.body() == null) {
                     Log.e(TAG, "Failed to list service area with code="+response.code());
-                    cb.onResult(false, null);
+                    runOnUiThread(() -> cb.onResult(false, null));
                 } else {
-                    cb.onResult(true, response.body());
+                    runOnUiThread(() -> cb.onResult(true, response.body()));
                 }
             }
 
@@ -211,6 +217,30 @@ public class RemoteService {
             public void onFailure(Call<List<AddressInfoDTO>> call, Throwable t) {
                 Log.e(TAG, "Failed to list service area", t);
                 cb.onResult(false, null);
+            }
+        });
+    }
+
+    public void postReview(MatzipInfo matzip, ReviewInfoDTO review, AsyncNotifyPromise cb) {
+        review.setReviewId(0);
+        review.setMatzipId(matzip.getMatzipId());
+        review.setUserId(0);
+
+        service.postReview(token, review).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (!response.isSuccessful()) {
+                    Log.e(TAG, "Failed to post review with code="+response.code());
+                    runOnUiThread(() -> cb.onResult(false));
+                } else {
+                    runOnUiThread(() -> cb.onResult(true));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e(TAG, "Failed to pose review", t);
+                runOnUiThread(() -> cb.onResult(false));
             }
         });
     }
