@@ -77,8 +77,6 @@ public class MatzipService {
                 .toList();
     }
 
-
-
     public MatzipInfoDTO modelToInfo(MatzipModel matzip) {
         var hashtags = getHashtags(matzip);
         String photoUrl = null;

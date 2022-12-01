@@ -9,6 +9,7 @@ import cf.spacetaste.app.data.MatzipInfo;
 import cf.spacetaste.app.data.MatzipReview;
 import cf.spacetaste.app.network.AsyncResultPromise;
 import cf.spacetaste.app.network.RemoteService;
+import cf.spacetaste.common.AddressInfoDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,5 +61,9 @@ public class AppState {
 
     public void searchMatzip(List<String> tags, String term, AsyncResultPromise<List<MatzipInfo>> cb) {
         remoteService.searchMatzip(tags, term, cb);
+    }
+
+    public void listServiceArea(AsyncResultPromise<List<AddressInfoDTO>> cb) {
+        remoteService.listServiceArea(cb);
     }
 }
