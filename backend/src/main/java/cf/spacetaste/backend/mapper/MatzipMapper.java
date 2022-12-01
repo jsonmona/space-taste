@@ -10,7 +10,10 @@ import java.util.List;
 public interface MatzipMapper {
 
     @Select("SELECT * FROM matzip WHERE matzip_id = #{id} LIMIT 1")
-    List<MatzipModel> getFromId(int id);
+    MatzipModel getFromId(int id);
+
+    @Select("SELECT COUNT(*) FROM matzip WHERE matzip_id=#{id}")
+    int checkIdExists(int id);
 
     @Select("SELECT DISTINCT a.* FROM matzip AS a INNER JOIN matzip_hashtag AS b ON a.matzip_id = b.matzip_id WHERE b.hashtag_id = #{hashtagId} LIMIT 100")
     List<MatzipModel> getFromHashtag(int hashtagId);
