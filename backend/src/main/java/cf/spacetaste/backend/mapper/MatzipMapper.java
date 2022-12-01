@@ -44,6 +44,9 @@ public interface MatzipMapper {
 </script>""")
     List<MatzipModel> search(List<Integer> requiredTags, List<Integer> optionalTags, String term);
 
+    @Select("SELECT a.* FROM matzip AS a INNER JOIN review AS b ON a.matzip_id = b.matzip_id WHERE b.user_id = #{userId} ORDER BY b.review_id DESC LIMIT 50")
+    List<MatzipModel> listByReviewedUser(int userId);
+
     @Insert("INSERT INTO matzip (name, address_code, address_base, address_detail, main_photo) VALUES (#{name}, #{addressCode}, #{addressBase}, #{addressDetail}, #{mainPhoto})")
     @Options(useGeneratedKeys = true, keyProperty = "matzipId")
     int create(MatzipModel matzip);

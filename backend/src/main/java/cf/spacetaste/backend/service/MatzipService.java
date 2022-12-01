@@ -74,6 +74,13 @@ public class MatzipService {
                 .toList();
     }
 
+    public List<MatzipInfoDTO> listByReviewedUser(int userId) {
+        return matzipMapper.listByReviewedUser(userId)
+                .stream()
+                .map(this::modelToInfo)
+                .toList();
+    }
+
     public MatzipInfoDTO modelToInfo(MatzipModel matzip) {
         var hashtags = getHashtags(matzip);
         String photoUrl = null;
