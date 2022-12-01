@@ -244,4 +244,24 @@ public class RemoteService {
             }
         });
     }
+
+    public void getUserInfo(AsyncResultPromise<UserInfoDTO> cb) {
+        service.getUserInfo(token).enqueue(new Callback<UserInfoDTO>() {
+            @Override
+            public void onResponse(Call<UserInfoDTO> call, Response<UserInfoDTO> response) {
+                if (!response.isSuccessful() || response.body() == null) {
+                    Log.e(TAG, "Failed to get user info with code="+response.code());
+                    runOnUiThread(() -> cb.onResult(false, null));
+                } else {
+                    runOnUiThread(() -> cb.onResult(true, response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserInfoDTO> call, Throwable t) {
+                Log.e(TAG, "Failed to get user info", t);
+                runOnUiThread(() -> cb.onResult(false, null));
+            }
+        });
+    }
 }
