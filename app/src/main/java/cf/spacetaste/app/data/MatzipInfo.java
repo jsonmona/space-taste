@@ -2,7 +2,6 @@ package cf.spacetaste.app.data;
 
 import java.io.Serializable;
 import java.util.List;
-
 import cf.spacetaste.common.MatzipInfoDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;

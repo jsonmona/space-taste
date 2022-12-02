@@ -27,6 +27,7 @@ import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import cf.spacetaste.app.databinding.Navi2FragmentBinding;
 
@@ -83,12 +84,18 @@ public class Navi2_Fragment extends Fragment {
             }
         });
 
-        ArrayList<Matzip> list = Matzip.MakeExample(new ArrayList<Matzip>());
-
-        adapter = new MatzipListAdapter(list, getActivity().getApplicationContext());
-        LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
-        binding.recyclerView.setLayoutManager(linear);
-        binding.recyclerView.setAdapter(adapter);
+        AppState.getInstance(getActivity()).searchMatzip(new ArrayList<>(Arrays.asList("한식")), "", (success, result) -> {
+            if (success) {
+                // result 활용해 처리
+                adapter = new MatzipListAdapter(result, getActivity().getApplicationContext());
+                LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
+                binding.recyclerView.setLayoutManager(linear);
+                binding.recyclerView.setAdapter(adapter);
+            } else {
+                // 네트워크 오류, 서버 오류, 기타등등
+                Toast.makeText(getActivity(), "ERROR!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         locationPermissionRequest.launch(new String[]{
                 Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -125,15 +132,20 @@ public class Navi2_Fragment extends Fragment {
                         return;
                     }
 
-                    // 현재 위치 갱신
-                    MapPoint currentLocation = MapPoint.mapPointWithGeoCoord(location.getLatitude(), location.getLongitude());
-                    lm.removeUpdates(listener);
+                    // 에뮬레이터에서는 카카오맵 관련 기능 사용 불가
+                    if (mapView == null) {
+                        Toast.makeText(getContext(), "Error: 에뮬레이터에서 사용 불가", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // 현재 위치 갱신
+                        MapPoint currentLocation = MapPoint.mapPointWithGeoCoord(location.getLatitude(), location.getLongitude());
+                        lm.removeUpdates(listener);
 
-                    MapPOIItem marker = new MapPOIItem(); // 마커 생성
-                    marker.setItemName("현재 위치");
-                    marker.setMapPoint(currentLocation);
-                    mapView.addPOIItem(marker);
-                    mapView.setMapCenterPoint(currentLocation, true);
+                        MapPOIItem marker = new MapPOIItem(); // 마커 생성
+                        marker.setItemName("현재 위치");
+                        marker.setMapPoint(currentLocation);
+                        mapView.addPOIItem(marker);
+                        mapView.setMapCenterPoint(currentLocation, true);
+                    }
                 }
             }
         });

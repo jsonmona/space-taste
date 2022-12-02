@@ -61,8 +61,8 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
 //        viewHolder.getBinding().matzipImage.setImageResource(matzipList.get(position).matzipImage);
         viewHolder.getBinding().number.setText((position + 1) + ". ");
         viewHolder.getBinding().matzipName.setText(matzipList.get(position).getName());
-//        viewHolder.getBinding().rating.setText(matzipList.get(position).matzipRating + "");
-//        viewHolder.getBinding().starRating.setRating(matzipList.get(position).getStarts);
+        if (matzipList.get(position).getStar() != null) viewHolder.getBinding().rating.setText(String.format("%.2f", matzipList.get(position).getStar().average()));
+        if (matzipList.get(position).getStar() != null) viewHolder.getBinding().starRating.setRating(matzipList.get(position).getStar().average());
         viewHolder.getBinding().address1.setText(matzipList.get(position).getBaseAddress());
         viewHolder.getBinding().address2.setText(matzipList.get(position).getDetailAddress());
 //        viewHolder.getBinding().userProfile.setImageResource(matzipList.get(position).userProfile);
