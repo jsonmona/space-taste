@@ -5,13 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 public class Navi4_Fragment extends Fragment {
 
@@ -37,24 +38,36 @@ public class Navi4_Fragment extends Fragment {
         btnRegist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<MatzipInfo> list = MatzipInfo.MakeExample(new ArrayList<MatzipInfo>());
-
-                MatzipListAdapter adapter = new MatzipListAdapter(list, getActivity().getApplicationContext());
-                LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
-                userList.setLayoutManager(linear);
-                userList.setAdapter(adapter);
+                AppState.getInstance(getActivity()).searchMatzip(new ArrayList<>(Arrays.asList("한식")), "", (success, result) -> {
+                    if (success) {
+                        // result 활용해 처리
+                        MatzipListAdapter adapter = new MatzipListAdapter(result, getActivity().getApplicationContext());
+                        LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
+                        userList.setLayoutManager(linear);
+                        userList.setAdapter(adapter);
+                    } else {
+                        // 네트워크 오류, 서버 오류, 기타등등
+                        Toast.makeText(getActivity(), "ERROR!", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<MatzipInfo> list = MatzipInfo.MakeExample(new ArrayList<MatzipInfo>());
-
-                MatzipListAdapter adapter = new MatzipListAdapter(list, getActivity().getApplicationContext());
-                LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
-                userList.setLayoutManager(linear);
-                userList.setAdapter(adapter);
+                AppState.getInstance(getActivity()).searchMatzip(new ArrayList<>(Arrays.asList("세계음식")), "", (success, result) -> {
+                    if (success) {
+                        // result 활용해 처리
+                        MatzipListAdapter adapter = new MatzipListAdapter(result, getActivity().getApplicationContext());
+                        LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
+                        userList.setLayoutManager(linear);
+                        userList.setAdapter(adapter);
+                    } else {
+                        // 네트워크 오류, 서버 오류, 기타등등
+                        Toast.makeText(getActivity(), "ERROR!", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
