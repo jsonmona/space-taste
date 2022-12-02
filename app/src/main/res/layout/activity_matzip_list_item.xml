@@ -65,7 +65,7 @@
                 android:id="@+id/rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5.0"
+                android:text="null"
                 android:textSize="15dp"
                 app:layout_constraintStart_toStartOf="@+id/number"
                 app:layout_constraintTop_toBottomOf="@+id/matzipName" />
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:rating="5.0"
+                android:rating="0"
                 app:layout_constraintBottom_toBottomOf="@+id/rating"
                 app:layout_constraintLeft_toRightOf="@+id/rating"
                 app:layout_constraintTop_toTopOf="@+id/rating" />
@@ -137,7 +137,7 @@
             android:id="@+id/review"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="사용자가 제일 최근에 작sdf성asdfasdfasdfasdfasdfasdf한 리뷰"
+            android:text="사용자가 제일 최근에 작성한 리뷰"
             android:layout_marginLeft="10dp"
             android:textSize="15dp"
             android:maxLines="1"

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Navi4_Fragment extends Fragment {
 
@@ -36,7 +37,7 @@ public class Navi4_Fragment extends Fragment {
         btnRegist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Matzip> list = Matzip.MakeExample(new ArrayList<Matzip>());
+                List<MatzipInfo> list = MatzipInfo.MakeExample(new ArrayList<MatzipInfo>());
 
                 MatzipListAdapter adapter = new MatzipListAdapter(list, getActivity().getApplicationContext());
                 LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
@@ -48,7 +49,7 @@ public class Navi4_Fragment extends Fragment {
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Matzip> list = Matzip.MakeExample(new ArrayList<Matzip>());
+                List<MatzipInfo> list = MatzipInfo.MakeExample(new ArrayList<MatzipInfo>());
 
                 MatzipListAdapter adapter = new MatzipListAdapter(list, getActivity().getApplicationContext());
                 LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());

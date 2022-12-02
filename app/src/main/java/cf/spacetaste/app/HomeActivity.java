@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeActivity extends AppCompatActivity {
     FrameLayout main_ly;
     Fragment[] fragments = new Fragment[4];
@@ -38,8 +41,9 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(new TabSelectedListener());
     }
 
-    void showMatzipList() {
+    void showMatzipList(List list) {
         Intent intent = new Intent(HomeActivity.this, MatzipListActivity.class);
+        intent.putExtra("matzipList", (ArrayList) list);
         startActivity(intent);
     }
 

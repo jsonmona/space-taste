@@ -9,13 +9,14 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import cf.spacetaste.app.data.MatzipInfo;
 import cf.spacetaste.app.databinding.ActivityMatzipListItemBinding;
 
 public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.ViewHolder> {
 
-    private ArrayList<Matzip> matzipList;
+    private List<MatzipInfo> matzipList;
     private Context context;
 
     public interface OnItemClickListner {
@@ -41,7 +42,7 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
         }
     }
 
-    public MatzipListAdapter(ArrayList<Matzip> matzipList, Context context) {
+    public MatzipListAdapter(List matzipList, Context context) {
         this.matzipList = matzipList;
         this.context = context;
     }
@@ -57,21 +58,21 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        viewHolder.getBinding().matzipImage.setImageResource(matzipList.get(position).matzipImage);
+//        viewHolder.getBinding().matzipImage.setImageResource(matzipList.get(position).matzipImage);
         viewHolder.getBinding().number.setText((position + 1) + ". ");
-        viewHolder.getBinding().matzipName.setText(matzipList.get(position).matzipName);
-        viewHolder.getBinding().rating.setText(matzipList.get(position).matzipRating + "");
-        viewHolder.getBinding().starRating.setRating(matzipList.get(position).matzipRating);
-        viewHolder.getBinding().address1.setText(matzipList.get(position).matzipAddress1);
-        viewHolder.getBinding().address2.setText(matzipList.get(position).matzipAddress2);
-        viewHolder.getBinding().userProfile.setImageResource(matzipList.get(position).userProfile);
-        viewHolder.getBinding().review.setText(matzipList.get(position).review);
+        viewHolder.getBinding().matzipName.setText(matzipList.get(position).getName());
+        if (matzipList.get(position).getStar() != null) viewHolder.getBinding().rating.setText(String.format("%.2f", matzipList.get(position).getStar().average()));
+        if (matzipList.get(position).getStar() != null) viewHolder.getBinding().starRating.setRating(matzipList.get(position).getStar().average());
+        viewHolder.getBinding().address1.setText(matzipList.get(position).getBaseAddress());
+        viewHolder.getBinding().address2.setText(matzipList.get(position).getDetailAddress());
+//        viewHolder.getBinding().userProfile.setImageResource(matzipList.get(position).userProfile);
+//        viewHolder.getBinding().review.setText(matzipList.get(position).review);
 
         viewHolder.getBinding().tagLayout.removeAllViews();
-        for (int i = 0; i < matzipList.get(position).tagList.size(); i++) {
+        for (int i = 0; i < matzipList.get(position).getHashtags().size(); i++) {
             TextView textView = new TextView(context.getApplicationContext());
             textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
-            textView.setText(matzipList.get(position).tagList.get(i));
+            textView.setText("#" + matzipList.get(position).getHashtags().get(i));
             textView.setGravity(Gravity.RIGHT);
             viewHolder.getBinding().tagLayout.addView(textView);
         }
