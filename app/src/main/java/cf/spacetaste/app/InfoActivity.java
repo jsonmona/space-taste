@@ -1,16 +1,9 @@
 package cf.spacetaste.app;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.os.Bundle;
 import android.widget.Button;
 
-import com.kakao.sdk.auth.model.OAuthToken;
-import com.kakao.sdk.common.util.Utility;
-import com.kakao.sdk.user.UserApiClient;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class InfoActivity extends AppCompatActivity {
 
@@ -22,6 +15,17 @@ public class InfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
+
+
+
+
+
+        // ******** Navi4_Fragment에서 작업해주세요 ******* //
+
+
+
+
+
 
 //        fragmentuserRegist = new FragmentuserRegist();
 //        fragmentuserLike = new FragmentuserLike();
