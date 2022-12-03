@@ -14,9 +14,10 @@
         android:layout_marginBottom="15dp"
         android:background="@drawable/round_backgroud_border_orange"
         android:gravity="center"
+        android:paddingVertical="5dp"
         android:text="나의 정보"
         android:textColor="#ff7f00"
-        android:textSize="35dp"
+        android:textSize="25dp"
         android:textStyle="bold" />
 
     <ImageView
@@ -56,7 +57,7 @@
         android:layout_marginTop="13dp"
         android:layout_toRightOf="@id/txtNname"
         android:text="춘식이"
-        android:textColor="#ff7f00"
+        android:textColor="#000000"
         android:textSize="20dp"
         android:textStyle="bold" />
 
@@ -86,7 +87,7 @@
         android:layout_marginLeft="1dp"
         android:layout_toRightOf="@+id/userAcRange"
         android:text="성북구 정릉동"
-        android:textColor="#ff7f00"
+        android:textColor="#000000"
         android:textSize="19dp"
         android:textStyle="bold" />
 
@@ -113,7 +114,7 @@
         android:layout_alignBaseline="@+id/userLiRange"
         android:layout_toRightOf="@+id/userLiRange"
         android:text="성북구 길음동"
-        android:textColor="#ff7f00"
+        android:textColor="#000000"
         android:textSize="19dp"
         android:textStyle="bold" />
 
