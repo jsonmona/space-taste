@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +18,8 @@ import java.util.Arrays;
 
 public class Navi4_Fragment extends Fragment {
 
+    private TextView txtUserName, infoAcRange, infoLiRange;
+    private ImageView imgUser;
     private Button btnRegist, btnLike, btnBack;
     private RecyclerView userList;
     private FragmentuserLike fragmentuserLike;
@@ -30,6 +34,12 @@ public class Navi4_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup View = (ViewGroup) inflater.inflate(R.layout.activity_info, container, false);
+
+        txtUserName = View.findViewById(R.id.txtUserName);
+        infoAcRange = View.findViewById(R.id.infoAcRange);
+        infoLiRange = View.findViewById(R.id.infoLiRange);
+        imgUser = View.findViewById(R.id.imgUser);
+
         btnRegist = View.findViewById(R.id.btnRegist);
         btnLike = View.findViewById(R.id.btnLike);
         btnBack = View.findViewById(R.id.btnBack);
@@ -70,6 +80,7 @@ public class Navi4_Fragment extends Fragment {
                 });
             }
         });
+
 
         return View;
     }

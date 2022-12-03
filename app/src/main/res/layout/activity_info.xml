@@ -48,10 +48,13 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/txtUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtInfo"
         android:layout_alignBaseline="@+id/txtNname"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="13dp"
         android:layout_toRightOf="@id/txtNname"
         android:text="춘식이"
         android:textColor="#ff7f00"
@@ -76,6 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/userAcRange"
+        android:layout_marginLeft="1dp"
         android:layout_toRightOf="@+id/userAcRange"
         android:text="성북구 정릉동"
         android:textColor="#ff7f00"
