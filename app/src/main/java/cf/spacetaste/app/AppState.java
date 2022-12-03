@@ -82,4 +82,14 @@ public class AppState {
     public void searchByReviewedUser(AsyncResultPromise<List<MatzipInfo>> cb) {
         remoteService.searchByReviewedUser(cb);
     }
+
+    /**
+     * 사용자의 지역을 변경함
+     * @param activeArea 활동범위. null일 수 있음.
+     * @param livingArea 생활범위. null일 수 있음.
+     * @param cb 콜백
+     */
+    public void changeUserArea(AddressInfoDTO activeArea, AddressInfoDTO livingArea, AsyncNotifyPromise cb) {
+        remoteService.changeUserArea(activeArea, livingArea, cb);
+    }
 }

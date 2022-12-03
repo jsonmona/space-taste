@@ -302,4 +302,26 @@ public class RemoteService {
             }
         });
     }
+
+    public void changeUserArea(AddressInfoDTO activeArea, AddressInfoDTO livingArea, AsyncNotifyPromise cb) {
+        ChangeAreaRequestDTO info = new ChangeAreaRequestDTO(activeArea.getAddressCode(), livingArea.getAddressCode());
+
+        service.changeUserArea(auth(), info).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    resolve(cb);
+                } else {
+                    Log.e(TAG, "Failed to change user area with code="+response.code());
+                    reject(cb);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e(TAG, "Failed to change user area", t);
+                reject(cb);
+            }
+        });
+    }
 }

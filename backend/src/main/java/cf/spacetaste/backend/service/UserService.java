@@ -23,6 +23,7 @@ public class UserService {
 
     private static final String kakaoUrl = "https://kapi.kakao.com";
     private final UserMapper userMapper;
+    private final AddressMapper addressMapper;
     private final AddressService addressService;
     private final PhotoService photoService;
     private final TokenService tokenService;
@@ -155,5 +156,15 @@ public class UserService {
                 addressService.getInfo(user.getAddressCode1()),
                 addressService.getInfo(user.getAddressCode2())
         );
+    }
+
+    public boolean changeArea(int userId, String activeArea, String livingArea) {
+        if (activeArea != null && addressMapper.checkExistsCode(activeArea) == 0)
+            return false;
+
+        if (livingArea != null && addressMapper.checkExistsCode(livingArea) == 0)
+            return false;
+
+        return userMapper.changeArea(userId, activeArea, livingArea) != 0;
     }
 }
