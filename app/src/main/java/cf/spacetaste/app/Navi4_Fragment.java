@@ -53,13 +53,15 @@ public class Navi4_Fragment extends Fragment {
         infoAcRange = View.findViewById(R.id.infoAcRange);
         infoLiRange = View.findViewById(R.id.infoLiRange);
         imgUser = View.findViewById(R.id.imgUser);
+        imgUser.setClipToOutline(true);
+
 
         AppState.getInstance(getActivity()).getUserInfo((success, result) -> {
             if (success) {
                 txtUserName.setText(result.getUsername());
 //                infoAcRange.setText(result.getActiveArea().toString());
 //                infoLiRange.setText(result.getLivingArea().toString());
-                Glide.with(getActivity()).load(result.getProfilePhotoUrl()).into(imgUser);
+                Glide.with(getActivity()).load("https://api.space-taste.cf/photo/13").into(imgUser);
                 System.out.println("result.getProfilePhotoUrl(): "+result.getProfilePhotoUrl());
             } else {
                 // 네트워크 오류, 서버 오류, 기타등등
@@ -69,7 +71,6 @@ public class Navi4_Fragment extends Fragment {
 
         btnRegist = View.findViewById(R.id.btnRegist);
         btnLike = View.findViewById(R.id.btnLike);
-        btnBack = View.findViewById(R.id.btnBack);
         userList = View.findViewById(R.id.userList);
 
         btnRegist.setOnClickListener(new View.OnClickListener() {
