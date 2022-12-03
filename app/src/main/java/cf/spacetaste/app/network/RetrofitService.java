@@ -31,4 +31,7 @@ public interface RetrofitService {
 
     @GET("/search/reviewuser")
     Call<List<MatzipInfoDTO>> searchByReviewedUser(@Header("Authorization") String token);
+
+    @PUT("/user/area")
+    Call<Void> changeUserArea(@Header("Authorization") String token, @Body ChangeAreaRequestDTO info);
 }
