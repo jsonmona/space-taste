@@ -14,4 +14,7 @@ public interface AddressMapper {
 
     @Select("SELECT * FROM address WHERE address_code=#{code} LIMIT 1")
     AddressModel getFromCode(String code);
+
+    @Select("SELECT COUNT(*) FROM address WHERE address_code=#{code}")
+    int checkExistsCode(String code);
 }
