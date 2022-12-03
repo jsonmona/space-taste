@@ -61,7 +61,7 @@ public class Navi4_Fragment extends Fragment {
                 txtUserName.setText(result.getUsername());
 //                infoAcRange.setText(result.getActiveArea().toString());
 //                infoLiRange.setText(result.getLivingArea().toString());
-                Glide.with(getActivity()).load("https://api.space-taste.cf/photo/13").into(imgUser);
+                Glide.with(getActivity()).load(result.getProfilePhotoUrl()).into(imgUser);
                 System.out.println("result.getProfilePhotoUrl(): "+result.getProfilePhotoUrl());
             } else {
                 // 네트워크 오류, 서버 오류, 기타등등
