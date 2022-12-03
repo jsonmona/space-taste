@@ -3,13 +3,11 @@ package cf.spacetaste.backend.controller;
 import cf.spacetaste.backend.service.TokenService;
 import cf.spacetaste.backend.service.UserService;
 import cf.spacetaste.common.AuthResponseDTO;
+import cf.spacetaste.common.ChangeAreaRequestDTO;
 import cf.spacetaste.common.UserInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -47,5 +45,15 @@ public class UserController {
                     .header("Cache-Control", "no-cache, no-store, must-revalidate, max-age=0")
                     .build();
         }
+    }
+
+    @PutMapping("/user/area")
+    public ResponseEntity<String> changeArea(@RequestHeader("Authorization") String auth, @RequestBody ChangeAreaRequestDTO req) {
+        int userId = tokenService.verifyToken(auth);
+
+        if (userService.changeArea(userId, req.getActiveArea(), req.getLivingArea()))
+            return ResponseEntity.ok().build();
+        else
+            return ResponseEntity.internalServerError().build();
     }
 }

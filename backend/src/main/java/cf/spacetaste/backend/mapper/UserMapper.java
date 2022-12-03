@@ -18,4 +18,7 @@ public interface UserMapper {
 
     @Update("UPDATE user SET profile_photo=#{photo.photoId} WHERE user_id=#{user.userId}")
     int attachProfilePhoto(UserModel user, PhotoModel photo);
+
+    @Update("UPDATE user SET address_code_1=#{addressCode1}, address_code_2=#{addressCode2} WHERE user_id=#{userId}")
+    int changeArea(int userId, String addressCode1, String addressCode2);
 }
