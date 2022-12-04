@@ -24,7 +24,6 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
 
     public interface OnItemClickListner {
         void onItemClicked(int position, String data);
-
     }
 
     private OnItemClickListner itemClickListner;
@@ -73,8 +72,14 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
             viewHolder.getBinding().starRating.setRating(matzipList.get(position).getStar().average());
         viewHolder.getBinding().address1.setText(matzipList.get(position).getBaseAddress());
         viewHolder.getBinding().address2.setText(matzipList.get(position).getDetailAddress());
-//        viewHolder.getBinding().userProfile.setImageResource(matzipList.get(position).userProfile);
-//        viewHolder.getBinding().review.setText(matzipList.get(position).review);
+        AppState.getInstance(context.getApplicationContext()).listMatzipReviews(matzipList.get(position), (success, result) -> {
+            if (result.size() != 0){
+                //            viewHolder.getBinding().userProfile.setImageResource(result.get(0));
+                viewHolder.getBinding().review.setText(result.get(0).getReviewId());
+            } else {
+                viewHolder.getBinding().review.setText("최근에 작성한 리뷰가 없습니다.");
+            }
+        });
 
         viewHolder.getBinding().tagLayout.removeAllViews();
         for (int i = 0; i < matzipList.get(position).getHashtags().size(); i++) {

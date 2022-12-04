@@ -34,7 +34,7 @@ public class MatzipListActivity extends AppCompatActivity {
         adapter.setOnItemClickedListner((position, data) -> {
             Toast.makeText(getApplicationContext(), data + ": " + position, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(),Matzip_Detail.class);
-            intent.putExtra("matzip",list.get(position));
+            intent.putExtra("matzipInfo",list.get(position));
             startActivity(intent);
         });
 

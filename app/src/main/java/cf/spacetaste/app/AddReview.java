@@ -24,14 +24,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
-public class AddReview extends AppCompatActivity{
+public class AddReview extends AppCompatActivity {
     private Uri uri;
     private ImageView imageView;
     private ImageButton reveiwBackbtn;
-    private Button addReviewImageBtn,okButton;
+    private Button addReviewImageBtn, okButton;
     private AlertDialog.Builder builder;
     private EditText addReview_ettext;
-    private RatingBar rateTaste,ratePrice,ratePolite,rateClean;
+    private RatingBar rateTaste, ratePrice, ratePolite, rateClean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,31 +62,18 @@ public class AddReview extends AppCompatActivity{
         rateClean.setOnRatingBarChangeListener(new Listener());
 
         reveiwBackbtn = findViewById(R.id.reveiw_backbtn);
-        reveiwBackbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent( AddReview.this, Matzip_Detail.class );
-                startActivity( intent );
-            }
-        });
+        reveiwBackbtn.setOnClickListener(view -> finish());
         okButton = findViewById(R.id.okButton);
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //DB에 추가하는 부분 추후 추가
-                builder = new AlertDialog.Builder(AddReview.this);
-                AlertDialog dialog = builder.setMessage("리뷰작성이 완료되었습니다.")
-                        .setNegativeButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent( AddReview.this, Matzip_Detail.class );
-                                startActivity( intent );
-                            }
-                        })
-
-                        .create();
-                dialog.show();
-            }
+        okButton.setOnClickListener(view -> {
+            //DB에 추가하는 부분 추후 추가
+            builder = new AlertDialog.Builder(AddReview.this);
+            AlertDialog dialog = builder.setMessage("리뷰작성이 완료되었습니다.")
+                    .setNegativeButton("확인", (dialog1, which) -> {
+                        Intent intent = new Intent(AddReview.this, Matzip_Detail.class);
+                        startActivity(intent);
+                    })
+                    .create();
+            dialog.show();
         });
     }
 
@@ -105,14 +92,14 @@ public class AddReview extends AppCompatActivity{
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                    if( result.getResultCode() == RESULT_OK && result.getData() != null){
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                         uri = result.getData().getData();
                         try {
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                             imageView.setImageBitmap(bitmap);
-                        }catch (FileNotFoundException e){
+                        } catch (FileNotFoundException e) {
                             e.printStackTrace();
-                        }catch (IOException e){
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
