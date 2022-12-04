@@ -25,29 +25,20 @@ public class Matzip_Detail extends AppCompatActivity {
     private Button goReviewbtn;
     private AlertDialog.Builder builder;
     private EditText addReview_ettext;
-    private RatingBar detail_rateTaste,detail_ratePrice,detail_ratePolite,detail_rateClean;
+    private RatingBar detail_rateTaste, detail_ratePrice, detail_ratePolite, detail_rateClean;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mapzip_detail);
 
         detailBackbtn = findViewById(R.id.detail_backbtn);
-        detailBackbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent( Matzip_Detail.this, HomeActivity.class );
-                startActivity( intent );
-            }
-        });
+        detailBackbtn.setOnClickListener(view -> finish());
 
         goReviewbtn = findViewById(R.id.goReviewbtn);
-        goReviewbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent( Matzip_Detail.this, AddReview.class );
-                startActivity( intent );
-            }
+        goReviewbtn.setOnClickListener(view -> {
+            Intent intent = new Intent(Matzip_Detail.this, AddReview.class);
+            startActivity(intent);
         });
     }
 
