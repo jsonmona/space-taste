@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import cf.spacetaste.app.data.MatzipInfo;
@@ -66,6 +68,7 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
 //        viewHolder.getBinding().matzipImage.setImageResource(matzipList.get(position).matzipImage);
         viewHolder.getBinding().number.setText((position + 1) + ". ");
         viewHolder.getBinding().matzipName.setText(matzipList.get(position).getName());
+        Glide.with(context.getApplicationContext()).load(matzipList.get(position).getPhotoUrl()).into(viewHolder.getBinding().matzipImage);
         if (matzipList.get(position).getStar() != null)
             viewHolder.getBinding().rating.setText(String.format("%.2f", matzipList.get(position).getStar().average()));
         if (matzipList.get(position).getStar() != null)
