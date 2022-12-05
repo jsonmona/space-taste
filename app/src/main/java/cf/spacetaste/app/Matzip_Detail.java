@@ -21,9 +21,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cf.spacetaste.app.data.MatzipInfo;
 import cf.spacetaste.app.data.MatzipReview;
+import cf.spacetaste.app.data.StarGroup;
 
 public class Matzip_Detail extends AppCompatActivity {
     private Uri uri;
@@ -82,6 +84,7 @@ public class Matzip_Detail extends AppCompatActivity {
         goReviewbtn = findViewById(R.id.goReviewbtn);
         goReviewbtn.setOnClickListener(view -> {
             Intent intent = new Intent(Matzip_Detail.this, AddReview.class);
+            intent.putExtra("matzipInfo",matzipInfo);
             startActivity(intent);
         });
     }
