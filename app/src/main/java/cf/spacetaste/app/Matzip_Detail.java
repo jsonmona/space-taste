@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cf.spacetaste.app.data.MatzipInfo;
-import cf.spacetaste.app.data.MatzipReview;
 import cf.spacetaste.app.data.StarGroup;
 
 public class Matzip_Detail extends AppCompatActivity {
