@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -26,10 +28,14 @@ import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import cf.spacetaste.app.data.MatzipInfo;
 import cf.spacetaste.app.databinding.Navi2FragmentBinding;
+import lombok.SneakyThrows;
 
 public class Navi2_Fragment extends Fragment {
 
@@ -38,6 +44,7 @@ public class Navi2_Fragment extends Fragment {
     private final String TAG = "Navi2";
     private Location location;
     private MapView mapView = null;
+    private Geocoder geocoder;
     private final ActivityResultLauncher<String[]> locationPermissionRequest = registerForActivityResult(
             new ActivityResultContracts.RequestMultiplePermissions(),
             result -> {
@@ -57,7 +64,6 @@ public class Navi2_Fragment extends Fragment {
         Log.d(TAG, "onCreateView: ");
         binding = Navi2FragmentBinding.inflate(inflater, container, false);
 
-
         try {
             System.loadLibrary("DaumMapEngineApi");
             mapView = new MapView(getActivity());
@@ -68,6 +74,10 @@ public class Navi2_Fragment extends Fragment {
             // 따라서 이 코드는 실제 환경에서는 트리거되지 않음
             Log.w(TAG, "Failed to load native library", e);
         }
+
+        // 도로명 주소 -> 위도, 경도 변환 라이브러리
+        geocoder = new Geocoder(getContext());
+
         binding.searchMatzip.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -76,7 +86,20 @@ public class Navi2_Fragment extends Fragment {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
-                    Toast.makeText(getContext(), "클릭", Toast.LENGTH_SHORT).show();
+                    String word = String.valueOf(binding.searchMatzip.getText());
+
+                    AppState.getInstance(getActivity()).searchMatzip(null, word, (success, result) -> {
+                        if (success) {
+                            // result 활용해 처리
+                            if (!result.isEmpty()) {
+                                setMapView(result);
+                            }
+                        } else {
+                            // 네트워크 오류, 서버 오류, 기타등등
+                            Toast.makeText(getActivity(), "ERROR!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                     return true;
                 }
 
@@ -84,19 +107,20 @@ public class Navi2_Fragment extends Fragment {
             }
         });
 
+        // 프래그먼트 생성시 보여질 맛집 리스트
         AppState.getInstance(getActivity()).searchMatzip(new ArrayList<>(Arrays.asList("한식")), "", (success, result) -> {
             if (success) {
                 // result 활용해 처리
-                adapter = new MatzipListAdapter(result, getActivity().getApplicationContext());
-                LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
-                binding.recyclerView.setLayoutManager(linear);
-                binding.recyclerView.setAdapter(adapter);
+                if (!result.isEmpty()) {
+                    setMapView(result);
+                }
             } else {
                 // 네트워크 오류, 서버 오류, 기타등등
                 Toast.makeText(getActivity(), "ERROR!", Toast.LENGTH_SHORT).show();
             }
         });
 
+        // 위치권한 요청
         locationPermissionRequest.launch(new String[]{
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -134,7 +158,7 @@ public class Navi2_Fragment extends Fragment {
 
                     // 에뮬레이터에서는 카카오맵 관련 기능 사용 불가
                     if (mapView == null) {
-                        Toast.makeText(getContext(), "Error: 에뮬레이터에서 사용 불가", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "에뮬레이터에서 사용 불가", Toast.LENGTH_SHORT).show();
                     } else {
                         // 현재 위치 갱신
                         MapPoint currentLocation = MapPoint.mapPointWithGeoCoord(location.getLatitude(), location.getLongitude());
@@ -158,5 +182,45 @@ public class Navi2_Fragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    // 어댑터 클릭 이벤트 세팅 등
+    private void setMapView(List<MatzipInfo> matzipList) {
+        adapter = new MatzipListAdapter(matzipList, getActivity().getApplicationContext());
+
+        if (mapView == null) { // 에뮬레이터에선 클릭 이벤트 사용 불가
+            adapter.setOnItemClickedListner(new MatzipListAdapter.OnItemClickListner() {
+                @Override
+                public void onItemClicked(int position, String data) throws IOException {
+                    Toast.makeText(getContext(), "에뮬레이터에서 사용 불가", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            mapView.removeAllPOIItems();
+            adapter.setOnItemClickedListner(new MatzipListAdapter.OnItemClickListner() {
+                @Override
+                public void onItemClicked(int position, String data) throws IOException {
+                    moveAndMark(matzipList, position);
+                }
+            });
+            moveAndMark(matzipList, 0);
+        }
+
+        LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
+        binding.recyclerView.setLayoutManager(linear);
+        binding.recyclerView.setAdapter(adapter);
+    }
+
+    @SneakyThrows
+    private void moveAndMark(List<MatzipInfo> matzipList, int position) {
+        List<Address> address = geocoder.getFromLocationName(matzipList.get(position).getBaseAddress(), 1);
+        MapPoint matzipLocation = MapPoint.mapPointWithGeoCoord(address.get(0).getLatitude(), address.get(0).getLongitude());
+        MapPOIItem marker = new MapPOIItem(); // 마커 생성
+        marker.setItemName(matzipList.get(position).getName());
+        marker.setMapPoint(matzipLocation);
+        marker.setTag(position);
+        mapView.addPOIItem(marker);
+        mapView.selectPOIItem(marker, true);
+        mapView.setMapCenterPoint(matzipLocation, true);
     }
 }
