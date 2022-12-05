@@ -25,7 +25,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import cf.spacetaste.app.data.MatzipInfo;
-import cf.spacetaste.app.data.MatzipReview;
 import cf.spacetaste.common.CreateReviewRequestDTO;
 import cf.spacetaste.common.ReviewInfoDTO;
 
