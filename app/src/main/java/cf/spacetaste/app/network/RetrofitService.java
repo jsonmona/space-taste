@@ -37,4 +37,10 @@ public interface RetrofitService {
 
     @GET("/matzip/{matzipId}/review")
     Call<List<ReviewInfoDTO>> listReviewOfMatzip(@Header("Authorization") String token, @Path("matzipId") int matzipId);
+
+    @GET("/search/randomtags")
+    Call<List<String>> getRandomTags(@Header("Authorization") String token);
+
+    @GET("/hashtag/photo")
+    Call<String> getMainPhotoOfTag(@Header("Authorization") String token, @Query("tag") String tag);
 }
