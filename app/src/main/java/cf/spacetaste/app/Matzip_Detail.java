@@ -44,6 +44,13 @@ public class Matzip_Detail extends AppCompatActivity {
             }
         });
 
+//        AppState.getInstance(getApplicationContext()).listMatzipPhotos(matzipInfo, (success, result) -> {
+//            if (result.size() != 0){
+//
+//            } else {
+//            }
+//        });
+
         detail_pic1 = findViewById(R.id.detail_pic1);
         detail_pic2 = findViewById(R.id.detail_pic2);
         detail_pic3 = findViewById(R.id.detail_pic3);

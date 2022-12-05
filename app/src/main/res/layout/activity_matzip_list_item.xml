@@ -36,6 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
+                    android:src="@drawable/default_image"
                     />
             </androidx.cardview.widget.CardView>
 
@@ -131,6 +132,7 @@
             android:layout_height="20dp"
             android:layout_marginBottom="10dp"
             android:scaleType="centerCrop"
+            android:src="@drawable/default_image"
             />
 
         <TextView
