@@ -235,11 +235,7 @@ public class RemoteService {
         });
     }
 
-    public void postReview(MatzipInfo matzip, ReviewInfoDTO review, AsyncNotifyPromise cb) {
-        review.setReviewId(0);
-        review.setMatzipId(matzip.getMatzipId());
-        review.setUserId(0);
-
+    public void postReview(MatzipInfo matzip, CreateReviewRequestDTO review, AsyncNotifyPromise cb) {
         service.postReview(token, review).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

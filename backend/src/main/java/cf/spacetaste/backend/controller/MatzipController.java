@@ -1,13 +1,12 @@
 package cf.spacetaste.backend.controller;
 
-import cf.spacetaste.backend.model.MatzipModel;
 import cf.spacetaste.backend.service.MatzipService;
-import cf.spacetaste.backend.service.PhotoService;
 import cf.spacetaste.backend.service.ReviewService;
 import cf.spacetaste.backend.service.TokenService;
 import cf.spacetaste.common.MatzipBasicInfoDTO;
 import cf.spacetaste.common.MatzipInfoDTO;
 import cf.spacetaste.common.ReviewInfoDTO;
+import cf.spacetaste.common.CreateReviewRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,11 +53,8 @@ public class MatzipController {
     }
 
     @PostMapping("/matzip/{id}/review")
-    public ResponseEntity<String> createReview(@RequestHeader("Authorization") String auth, @PathVariable int id, @RequestBody ReviewInfoDTO body) {
+    public ResponseEntity<String> createReview(@RequestHeader("Authorization") String auth, @PathVariable int id, @RequestBody CreateReviewRequestDTO body) {
         int userId = tokenService.verifyToken(auth);
-
-        if (body.getMatzipId() != id || body.getReviewId() != 0)
-            return ResponseEntity.badRequest().build();
 
         int reviewId = reviewService.createReview(userId, id, body);
         if (reviewId == 0)
