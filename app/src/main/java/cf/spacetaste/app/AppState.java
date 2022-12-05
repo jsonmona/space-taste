@@ -1,12 +1,10 @@
 package cf.spacetaste.app;
 
 import android.content.Context;
-import android.util.Log;
 import androidx.annotation.NonNull;
 import cf.spacetaste.app.data.AuthResponse;
 import cf.spacetaste.app.data.MatzipCreateRequest;
 import cf.spacetaste.app.data.MatzipInfo;
-import cf.spacetaste.app.data.MatzipReview;
 import cf.spacetaste.app.network.AsyncNotifyPromise;
 import cf.spacetaste.app.network.AsyncResultPromise;
 import cf.spacetaste.app.network.RemoteService;
@@ -15,7 +13,6 @@ import cf.spacetaste.common.CreateReviewRequestDTO;
 import cf.spacetaste.common.ReviewInfoDTO;
 import cf.spacetaste.common.UserInfoDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AppState {
@@ -58,9 +55,8 @@ public class AppState {
         remoteService.listMatzipPhotos(matzip, cb);
     }
 
-    public void listMatzipReviews(MatzipInfo matzip, AsyncResultPromise<List<MatzipReview>> cb) {
-        Log.w(TAG, "STUB listMatzipReviews");
-        cb.onResult(false, new ArrayList<>());
+    public void listMatzipReviews(MatzipInfo matzip, AsyncResultPromise<List<ReviewInfoDTO>> cb) {
+        remoteService.listReviewOfMatzip(matzip, cb);
     }
 
     public void searchMatzip(List<String> tags, String term, AsyncResultPromise<List<MatzipInfo>> cb) {
@@ -94,7 +90,15 @@ public class AppState {
         remoteService.changeUserArea(activeArea, livingArea, cb);
     }
 
-    void listReviewOfMatzip(MatzipInfo matzip, AsyncResultPromise<List<ReviewInfoDTO>> cb) {
-        remoteService.listReviewOfMatzip(matzip, cb);
+    /**
+     * 제일 최근 리뷰를 한번에 가져오는 함수
+     * [맛집0, 맛집1, 맛집2]를 입력으로 넣으면 [맛집0의 제일 최근 리뷰, 맛집1의 제일 최근 리뷰, 맛집2의 제일 최근 리뷰] 가 나옴
+     * 오류가 발생하거나 리뷰가 아예 없는 경우에는 해당 자리에 null이 들어감
+     *
+     * @param matzip 최근 리뷰를 알고싶은 맛집의 목록
+     * @param cb 콜백
+     */
+    public void getLastReviewOfMatzipBatched(List<MatzipInfo> matzip, AsyncResultPromise<List<ReviewInfoDTO>> cb) {
+        remoteService.getLastReviewOfMatzipBatched(matzip, cb);
     }
 }
