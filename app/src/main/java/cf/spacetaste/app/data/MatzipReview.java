@@ -14,4 +14,7 @@ public class MatzipReview {
     private final int scorePrice;
     private final int scoreKindness;
     private final int scoreClean;
+    private final String detail;
+    private final String nickname;
+    private final String profileUrl;
 }
