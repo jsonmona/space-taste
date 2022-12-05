@@ -16,4 +16,7 @@ public interface HashtagMapper {
 
     @Select("SELECT DISTINCT a.* FROM hashtag AS a NATURAL JOIN matzip_hashtag AS b ORDER BY hashtag_id ASC LIMIT 200")
     List<HashtagModel> listAllValidHashtags();
+
+    @Select("SELECT a.main_photo FROM matzip AS a NATURAL JOIN matzip_hashtag AS b WHERE b.hashtag_id=#{hashtagId} AND a.main_photo IS NOT NULL ORDER BY matzip_id DESC LIMIT 1")
+    int getMainPhotoOfTag(HashtagModel hashtag);
 }
