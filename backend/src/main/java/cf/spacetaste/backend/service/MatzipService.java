@@ -27,6 +27,10 @@ public class MatzipService {
     private final PhotoService photoService;
     private final ReviewPhotoMapper reviewPhotoMapper;
 
+    public boolean checkExists(int matzipId) {
+        return matzipMapper.checkIdExists(matzipId) != 0;
+    }
+
     public MatzipModel createMatzip(MatzipBasicInfoDTO info) {
         Integer photoId = null;
         String photoBase64 = info.getPhotoBase64();

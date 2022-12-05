@@ -85,7 +85,7 @@ public class PhotoService {
     }
 
     public PhotoModel getFromId(int id) {
-        if (id <= 0)
+        if (photoMapper.checkExists(id) == 0)
             return null;
         return new PhotoModel(id);
     }
