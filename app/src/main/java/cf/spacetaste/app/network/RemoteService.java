@@ -236,7 +236,7 @@ public class RemoteService {
     }
 
     public void postReview(MatzipInfo matzip, CreateReviewRequestDTO review, AsyncNotifyPromise cb) {
-        service.postReview(token, review).enqueue(new Callback<Void>() {
+        service.postReview(token, matzip.getMatzipId(), review).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
