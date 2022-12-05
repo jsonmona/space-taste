@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 오직 AppState 에서 사용하기 위해 만들어진 클래스입니다.
@@ -316,6 +318,105 @@ public class RemoteService {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Log.e(TAG, "Failed to change user area", t);
+                reject(cb);
+            }
+        });
+    }
+
+    public void listReviewOfMatzip(MatzipInfo matzip, AsyncResultPromise<List<ReviewInfoDTO>> cb) {
+        service.listReviewOfMatzip(auth(), matzip.getMatzipId()).enqueue(new Callback<List<ReviewInfoDTO>>() {
+            @Override
+            public void onResponse(Call<List<ReviewInfoDTO>> call, Response<List<ReviewInfoDTO>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    resolve(cb, response.body());
+                } else {
+                    Log.e(TAG, "Failed to list review of matzip with code="+response.code());
+                    reject(cb);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ReviewInfoDTO>> call, Throwable t) {
+                Log.e(TAG, "Failed to list review of matzip", t);
+                reject(cb);
+            }
+        });
+    }
+
+    public void getLastReviewOfMatzipBatched(List<MatzipInfo> matzip, AsyncResultPromise<List<ReviewInfoDTO>> cb) {
+        es.submit(() -> {
+            AtomicInteger cnt = new AtomicInteger(0);
+            ArrayList<ReviewInfoDTO> arr = new ArrayList<>(matzip.size());
+
+            for (int i = 0; i < matzip.size(); i++) {
+                final int idx = i;
+                listReviewOfMatzip(matzip.get(i), ((success, result) -> {
+                    try {
+                        if (success && result.size() > 0) {
+                            synchronized (arr) {
+                                arr.set(idx, result.get(0));
+                            }
+                        }
+                        else {
+                            synchronized (arr) {
+                                arr.set(idx, null);
+                            }
+                        }
+                    } finally {
+                        cnt.getAndAdd(1);
+                    }
+                }));
+            }
+
+            while (cnt.get() < matzip.size()) {
+                try {
+                    Thread.sleep(50);
+                } catch(InterruptedException e) {
+                    // ignore
+                }
+            }
+
+            synchronized (arr) {
+                resolve(cb, arr);
+            }
+        });
+    }
+
+    public void getRandomTags(AsyncResultPromise<List<String>> cb) {
+        service.getRandomTags(auth()).enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    resolve(cb, response.body());
+                } else {
+                    Log.e(TAG, "Failed to get random tags with code="+response.code());
+                    reject(cb);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+                Log.e(TAG, "Failed to get random tags", t);
+                reject(cb);
+            }
+        });
+    }
+
+    public void getMainPhotoOfTag(String tag, AsyncResultPromise<String> cb) {
+        service.getMainPhotoOfTag(auth(), tag).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    resolve(cb, response.body());
+                } else {
+                    Log.e(TAG, "Failed to get tag main photo with code="+response.code());
+                    reject(cb);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.e(TAG, "Failed to get tag main photo", t);
                 reject(cb);
             }
         });

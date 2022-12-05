@@ -3,9 +3,12 @@ package cf.spacetaste.backend.service;
 import cf.spacetaste.backend.mapper.MatzipMapper;
 import cf.spacetaste.backend.mapper.ReviewMapper;
 import cf.spacetaste.backend.model.ReviewModel;
+import cf.spacetaste.backend.model.ReviewWithUserInfoModel;
 import cf.spacetaste.common.CreateReviewRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -41,5 +44,9 @@ public class ReviewService {
             return -1;
 
         return review.getReviewId();
+    }
+
+    public List<ReviewWithUserInfoModel> listFromMatzip(int matzipId) {
+        return reviewMapper.listFromMatzipWithNickname(matzipId);
     }
 }
