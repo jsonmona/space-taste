@@ -3,14 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="90dp"
-        android:layout_height="50dp"
-        android:id="@+id/btnBack"
-        android:layout_marginTop="13dp"
-        android:layout_marginLeft="18dp"
-        android:text="Back"/>
-
     <TextView
         android:id="@+id/txtInfo"
         android:layout_width="match_parent"
@@ -22,17 +14,21 @@
         android:layout_marginBottom="15dp"
         android:background="@drawable/round_backgroud_border_orange"
         android:gravity="center"
+        android:paddingVertical="5dp"
         android:text="나의 정보"
         android:textColor="#ff7f00"
-        android:textSize="35dp"
+        android:textSize="25dp"
         android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/imgUser"
-        android:layout_width="200dp"
+        android:layout_width="160dp"
         android:layout_height="160dp"
         android:layout_below="@+id/txtInfo"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="5dp"
         android:background="@drawable/round_backgroud_border_orange"
+        android:scaleType="centerCrop"
         android:src="@drawable/chunsik" />
 
     <TextView
@@ -41,20 +37,27 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtInfo"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="5dp"
         android:layout_toRightOf="@id/imgUser"
-        android:text="닉네임 : "
-        android:textColor="#009900"
+        android:background="#ff7f00"
+        android:padding="2.5dp"
+        android:text="닉네임"
+        android:textColor="#ffffff"
         android:textSize="20dp"
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/txtUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtInfo"
         android:layout_alignBaseline="@+id/txtNname"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="13dp"
         android:layout_toRightOf="@id/txtNname"
         android:text="춘식이"
-        android:textColor="#ff7f00"
+        android:textColor="#000000"
         android:textSize="20dp"
         android:textStyle="bold" />
 
@@ -63,11 +66,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtNname"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
         android:layout_toRightOf="@id/imgUser"
-        android:text="활동범위 : "
-        android:textColor="#009900"
+        android:background="#ff7f00"
+        android:padding="2.5dp"
+
+        android:text="활동범위"
+
+        android:textColor="#ffffff"
         android:textSize="20dp"
         android:textStyle="bold" />
 
@@ -76,9 +84,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/userAcRange"
+        android:layout_marginLeft="1dp"
         android:layout_toRightOf="@+id/userAcRange"
         android:text="성북구 정릉동"
-        android:textColor="#ff7f00"
+        android:textColor="#000000"
         android:textSize="19dp"
         android:textStyle="bold" />
 
@@ -87,11 +96,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/userAcRange"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/imgUser"
-        android:text="생활범위 : "
         android:layout_marginLeft="5dp"
-        android:textColor="#009900"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_toRightOf="@id/imgUser"
+        android:background="#ff7f00"
+        android:padding="2.5dp"
+        android:text="생활범위"
+        android:textColor="#ffffff"
         android:textSize="20dp"
         android:textStyle="bold" />
 
@@ -102,7 +114,7 @@
         android:layout_alignBaseline="@+id/userLiRange"
         android:layout_toRightOf="@+id/userLiRange"
         android:text="성북구 길음동"
-        android:textColor="#ff7f00"
+        android:textColor="#000000"
         android:textSize="19dp"
         android:textStyle="bold" />
 
@@ -132,7 +144,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/btnRegist"
         android:layout_marginHorizontal="10dp"
-        android:paddingVertical="10dp"
-        android:background="@drawable/round_backgroud_border_orange" />
+        android:background="@drawable/round_backgroud_border_orange"
+        android:paddingVertical="10dp" />
 
 </RelativeLayout>

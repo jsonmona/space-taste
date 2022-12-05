@@ -43,8 +43,6 @@ public class InfoActivity extends AppCompatActivity {
 
         btnRegist = findViewById(R.id.btnRegist);
         btnLike = findViewById(R.id.btnLike);
-        btnBack = findViewById(R.id.btnBack);
-
 //        btnRegist.setOnClickListener(view -> {
 //            FragmentManager fm1 = getSupportFragmentManager();
 //            FragmentTransaction ft1 = fragmentManager.beginTransaction();
@@ -58,10 +56,5 @@ public class InfoActivity extends AppCompatActivity {
 //            ft2.replace(R.id.userList, fragmentuserLike);
 //            ft2.commit();
 //        });
-
-        btnBack.setOnClickListener(view -> {
-            finish();
-        });
-
     }
 }

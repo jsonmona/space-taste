@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/matzipLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginVertical="20dp"
+                android:layout_marginLeft="20dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/userImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:layout_marginLeft="10dp"
+                android:text="닉네임"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toEndOf="@+id/card_view"
+                app:layout_constraintTop_toTopOf="@+id/card_view" />
+
+            <TextView
+                android:id="@+id/txtrateTaste"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="맛"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="@+id/userName"
+                app:layout_constraintTop_toBottomOf="@+id/userName" />
+
+            <RatingBar
+                android:id="@+id/rateTaste"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rating="5"
+                app:layout_constraintBottom_toBottomOf="@+id/txtrateTaste"
+                app:layout_constraintStart_toStartOf="@+id/ratePrice"
+                app:layout_constraintTop_toTopOf="@+id/txtrateTaste" />
+
+            <TextView
+                android:id="@+id/txtratePrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="가격"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="@+id/userName"
+                app:layout_constraintTop_toBottomOf="@+id/rateTaste" />
+
+            <RatingBar
+                android:id="@+id/ratePrice"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:rating="5"
+                app:layout_constraintBottom_toBottomOf="@+id/txtratePrice"
+                app:layout_constraintLeft_toRightOf="@+id/txtratePrice"
+                app:layout_constraintTop_toTopOf="@+id/txtratePrice" />
+
+            <TextView
+                android:id="@+id/txtratePolite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="친절"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="@+id/rateTaste"
+                app:layout_constraintLeft_toRightOf="@+id/rateTaste" />
+
+            <RatingBar
+                android:id="@+id/ratePolite"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:rating="5"
+                app:layout_constraintBottom_toBottomOf="@+id/txtratePolite"
+                app:layout_constraintLeft_toRightOf="@+id/txtratePolite"
+                app:layout_constraintTop_toTopOf="@+id/txtratePolite" />
+
+            <TextView
+                android:id="@+id/txtrateClean"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="청결"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="@+id/txtratePrice"
+                app:layout_constraintLeft_toRightOf="@+id/ratePrice" />
+
+            <RatingBar
+                android:id="@+id/rateClean"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:rating="5"
+                app:layout_constraintBottom_toBottomOf="@+id/txtrateClean"
+                app:layout_constraintLeft_toRightOf="@+id/txtrateClean"
+                app:layout_constraintTop_toTopOf="@+id/txtrateClean" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/tagLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/card_view">
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/userLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/matzipLayout">
+
+        <TextView
+            android:id="@+id/userReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="사용자 리뷰 내용" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="5dp"
+        android:background="#DADADA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userLayout" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

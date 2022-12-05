@@ -1,13 +1,18 @@
 package cf.spacetaste.app;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -52,7 +57,9 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
         ActivityMatzipListItemBinding binding = ActivityMatzipListItemBinding.inflate(LayoutInflater.from(viewGroup.getContext()), viewGroup, false);
-        return new ViewHolder(binding);
+        MatzipListAdapter.ViewHolder viewHolder = new MatzipListAdapter.ViewHolder(binding);
+        binding.getRoot().setOnClickListener(v -> itemClickListner.onItemClicked(viewHolder.getAdapterPosition(), matzipList.get(viewHolder.getAdapterPosition()).getName()));
+        return viewHolder;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -61,12 +68,21 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
 //        viewHolder.getBinding().matzipImage.setImageResource(matzipList.get(position).matzipImage);
         viewHolder.getBinding().number.setText((position + 1) + ". ");
         viewHolder.getBinding().matzipName.setText(matzipList.get(position).getName());
-        if (matzipList.get(position).getStar() != null) viewHolder.getBinding().rating.setText(String.format("%.2f", matzipList.get(position).getStar().average()));
-        if (matzipList.get(position).getStar() != null) viewHolder.getBinding().starRating.setRating(matzipList.get(position).getStar().average());
+        Glide.with(context.getApplicationContext()).load(matzipList.get(position).getPhotoUrl()).into(viewHolder.getBinding().matzipImage);
+        if (matzipList.get(position).getStar() != null)
+            viewHolder.getBinding().rating.setText(String.format("%.2f", matzipList.get(position).getStar().average()));
+        if (matzipList.get(position).getStar() != null)
+            viewHolder.getBinding().starRating.setRating(matzipList.get(position).getStar().average());
         viewHolder.getBinding().address1.setText(matzipList.get(position).getBaseAddress());
         viewHolder.getBinding().address2.setText(matzipList.get(position).getDetailAddress());
-//        viewHolder.getBinding().userProfile.setImageResource(matzipList.get(position).userProfile);
-//        viewHolder.getBinding().review.setText(matzipList.get(position).review);
+        AppState.getInstance(context.getApplicationContext()).listMatzipReviews(matzipList.get(position), (success, result) -> {
+            if (result.size() != 0){
+                //            viewHolder.getBinding().userProfile.setImageResource(result.get(0));
+                viewHolder.getBinding().review.setText(result.get(0).getReviewId());
+            } else {
+                viewHolder.getBinding().review.setText("최근에 작성한 리뷰가 없습니다.");
+            }
+        });
 
         viewHolder.getBinding().tagLayout.removeAllViews();
         for (int i = 0; i < matzipList.get(position).getHashtags().size(); i++) {
