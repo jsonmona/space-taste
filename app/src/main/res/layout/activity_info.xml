@@ -15,9 +15,9 @@
         android:background="@drawable/round_backgroud_border_orange"
         android:gravity="center"
         android:paddingVertical="5dp"
-        android:text="나의 정보"
+        android:text="사용자님의 정보"
         android:textColor="#ff7f00"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:textStyle="bold" />
 
     <ImageView
@@ -118,31 +118,27 @@
         android:textSize="19dp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnRegist"
-        android:layout_width="200dp"
+    <TextView
+        android:id="@+id/txtRegist"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgUser"
+        android:layout_marginStart="5dp"
         android:layout_marginLeft="10dp"
-        android:text="등록한 맛집"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/btnLike"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imgUser"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_toRightOf="@+id/btnRegist"
-        android:text="좋아요 맛집"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:text="사용자님이 리뷰한 맛집"
+        android:textColor="#ff7f00"
+        android:textSize="15dp"
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/btnRegist"
+        android:layout_below="@+id/txtRegist"
         android:layout_marginHorizontal="10dp"
         android:background="@drawable/round_backgroud_border_orange"
         android:paddingVertical="10dp" />
