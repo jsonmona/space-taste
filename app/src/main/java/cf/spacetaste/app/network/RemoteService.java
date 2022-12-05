@@ -320,4 +320,24 @@ public class RemoteService {
             }
         });
     }
+
+    public void listReviewOfMatzip(MatzipInfo matzip, AsyncResultPromise<List<ReviewInfoDTO>> cb) {
+        service.listReviewOfMatzip(auth(), matzip.getMatzipId()).enqueue(new Callback<List<ReviewInfoDTO>>() {
+            @Override
+            public void onResponse(Call<List<ReviewInfoDTO>> call, Response<List<ReviewInfoDTO>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    resolve(cb, response.body());
+                } else {
+                    Log.e(TAG, "Failed to list review of matzip with code="+response.code());
+                    reject(cb);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ReviewInfoDTO>> call, Throwable t) {
+                Log.e(TAG, "Failed to list review of matzip", t);
+                reject(cb);
+            }
+        });
+    }
 }

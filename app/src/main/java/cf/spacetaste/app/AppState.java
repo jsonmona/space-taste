@@ -12,6 +12,7 @@ import cf.spacetaste.app.network.AsyncResultPromise;
 import cf.spacetaste.app.network.RemoteService;
 import cf.spacetaste.common.AddressInfoDTO;
 import cf.spacetaste.common.CreateReviewRequestDTO;
+import cf.spacetaste.common.ReviewInfoDTO;
 import cf.spacetaste.common.UserInfoDTO;
 
 import java.util.ArrayList;
@@ -91,5 +92,9 @@ public class AppState {
      */
     public void changeUserArea(AddressInfoDTO activeArea, AddressInfoDTO livingArea, AsyncNotifyPromise cb) {
         remoteService.changeUserArea(activeArea, livingArea, cb);
+    }
+
+    void listReviewOfMatzip(MatzipInfo matzip, AsyncResultPromise<List<ReviewInfoDTO>> cb) {
+        remoteService.listReviewOfMatzip(matzip, cb);
     }
 }
