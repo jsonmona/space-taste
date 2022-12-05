@@ -36,8 +36,6 @@ public class Navi4_Fragment extends Fragment {
     private TextView txtUserName, txtInfo, txtRegist, infoAcRange, infoLiRange;
     private ImageView imgUser;
     private RecyclerView userList;
-    private FragmentuserLike fragmentuserLike;
-    private FragmentuserRegist fragmentuserRegist;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
