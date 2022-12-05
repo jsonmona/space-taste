@@ -11,7 +11,7 @@ import cf.spacetaste.app.network.AsyncNotifyPromise;
 import cf.spacetaste.app.network.AsyncResultPromise;
 import cf.spacetaste.app.network.RemoteService;
 import cf.spacetaste.common.AddressInfoDTO;
-import cf.spacetaste.common.ReviewInfoDTO;
+import cf.spacetaste.common.CreateReviewRequestDTO;
 import cf.spacetaste.common.UserInfoDTO;
 
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ public class AppState {
         remoteService.listServiceArea(cb);
     }
 
-    public void postReview(MatzipInfo matzip, ReviewInfoDTO review, AsyncNotifyPromise cb) {
+    public void postReview(MatzipInfo matzip, CreateReviewRequestDTO review, AsyncNotifyPromise cb) {
         remoteService.postReview(matzip, review, cb);
     }
 
