@@ -26,6 +26,7 @@ import java.io.IOException;
 
 import cf.spacetaste.app.data.MatzipInfo;
 import cf.spacetaste.app.data.MatzipReview;
+import cf.spacetaste.common.CreateReviewRequestDTO;
 import cf.spacetaste.common.ReviewInfoDTO;
 
 
@@ -61,10 +62,10 @@ public class AddReview extends AppCompatActivity{
         ratePolite = findViewById(R.id.ratePolite);
         rateClean = findViewById(R.id.rateClean);
 
-        rateTaste.setOnRatingBarChangeListener(new Listener());
-        ratePrice.setOnRatingBarChangeListener(new Listener());
-        ratePolite.setOnRatingBarChangeListener(new Listener());
-        rateClean.setOnRatingBarChangeListener(new Listener());
+        rateTaste.setOnRatingBarChangeListener(new tasteListener());
+        ratePrice.setOnRatingBarChangeListener(new priceListener());
+        ratePolite.setOnRatingBarChangeListener(new politeListener());
+        rateClean.setOnRatingBarChangeListener(new cleanListener());
 
         reveiwBackbtn = findViewById(R.id.reveiw_backbtn);
         reveiwBackbtn.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +93,7 @@ public class AddReview extends AppCompatActivity{
                 } else {
                     Intent inIntent = getIntent();
                     MatzipInfo matzipInfo = (MatzipInfo) inIntent.getSerializableExtra("matzipInfo");
-                    ReviewInfoDTO review = new ReviewInfoDTO(0,0,0, scoreTaste, scorePrice, scoreKindness, scoreClean, detail);
+                    CreateReviewRequestDTO review = new CreateReviewRequestDTO(scoreTaste, scorePrice, scoreKindness, scoreClean, detail);
                     AppState.getInstance(AddReview.this).postReview(matzipInfo,review,((success) -> {
                         if (success) {
                             builder = new AlertDialog.Builder(AddReview.this);
@@ -104,7 +105,6 @@ public class AddReview extends AppCompatActivity{
                                             startActivity( intent );
                                         }
                                     })
-
                                     .create();
                             dialog.show();
                         } else {
@@ -115,32 +115,31 @@ public class AddReview extends AppCompatActivity{
                 }
             }
         });
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //DB에 추가하는 부분 추후 추가
-                builder = new AlertDialog.Builder(AddReview.this);
-                AlertDialog dialog = builder.setMessage("리뷰작성이 완료되었습니다.")
-                        .setNegativeButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent( AddReview.this, Matzip_Detail.class );
-                                startActivity( intent );
-                            }
-                        })
-
-                        .create();
-                dialog.show();
-            }
-        });
     }
 
-    class Listener implements RatingBar.OnRatingBarChangeListener {
+    class tasteListener implements RatingBar.OnRatingBarChangeListener {
         @Override
         public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
             rateTaste.setRating(rating);
+
+        }
+    }
+    class priceListener implements RatingBar.OnRatingBarChangeListener {
+        @Override
+        public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
             ratePrice.setRating(rating);
+        }
+    }
+    class politeListener implements RatingBar.OnRatingBarChangeListener {
+        @Override
+        public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
             ratePolite.setRating(rating);
+        }
+    }
+    class cleanListener implements RatingBar.OnRatingBarChangeListener {
+        @Override
+        public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+
             rateClean.setRating(rating);
         }
     }
