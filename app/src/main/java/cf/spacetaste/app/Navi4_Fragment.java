@@ -2,6 +2,7 @@ package cf.spacetaste.app;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -32,12 +33,9 @@ import java.util.Arrays;
 
 public class Navi4_Fragment extends Fragment {
 
-    private TextView txtUserName, infoAcRange, infoLiRange;
+    private TextView txtUserName, txtInfo, txtRegist, infoAcRange, infoLiRange;
     private ImageView imgUser;
-    private Button btnRegist, btnLike, btnBack;
     private RecyclerView userList;
-    private FragmentuserLike fragmentuserLike;
-    private FragmentuserRegist fragmentuserRegist;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,64 +48,47 @@ public class Navi4_Fragment extends Fragment {
         ViewGroup View = (ViewGroup) inflater.inflate(R.layout.activity_info, container, false);
 
         txtUserName = View.findViewById(R.id.txtUserName);
+        txtInfo = View.findViewById(R.id.txtInfo);
+        txtRegist = View.findViewById(R.id.txtRegist);
         infoAcRange = View.findViewById(R.id.infoAcRange);
         infoLiRange = View.findViewById(R.id.infoLiRange);
         imgUser = View.findViewById(R.id.imgUser);
         imgUser.setClipToOutline(true);
-
-
         AppState.getInstance(getActivity()).getUserInfo((success, result) -> {
             if (success) {
                 txtUserName.setText(result.getUsername());
+                txtInfo.setText(result.getUsername()+"님의 정보");
+                txtRegist.setText(result.getUsername()+"님이 리뷰한 맛집");
 //                infoAcRange.setText(result.getActiveArea().toString());
 //                infoLiRange.setText(result.getLivingArea().toString());
                 Glide.with(getActivity()).load(result.getProfilePhotoUrl()).into(imgUser);
-                System.out.println("result.getProfilePhotoUrl(): "+result.getProfilePhotoUrl());
+                System.out.println("result.getProfilePhotoUrl(): " + result.getProfilePhotoUrl());
             } else {
                 // 네트워크 오류, 서버 오류, 기타등등
                 Toast.makeText(getActivity(), "회원정보를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
-        btnRegist = View.findViewById(R.id.btnRegist);
-        btnLike = View.findViewById(R.id.btnLike);
         userList = View.findViewById(R.id.userList);
-
-        btnRegist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AppState.getInstance(getActivity()).searchMatzip(new ArrayList<>(Arrays.asList("한식")), "", (success, result) -> {
-                    if (success) {
-                        // result 활용해 처리
-                        MatzipListAdapter adapter = new MatzipListAdapter(result, getActivity().getApplicationContext());
-                        LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
-                        userList.setLayoutManager(linear);
-                        userList.setAdapter(adapter);
-                    } else {
-                        // 네트워크 오류, 서버 오류, 기타등등
-                        Toast.makeText(getActivity(), "ERROR!", Toast.LENGTH_SHORT).show();
-                    }
+        AppState.getInstance(getActivity()).searchByReviewedUser((success, result) -> {
+            if (success) {
+                // result 활용해 처리
+                MatzipListAdapter adapter = new MatzipListAdapter(result, getActivity().getApplicationContext());
+                LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
+                adapter.setOnItemClickedListner((position, data) -> {
+                    Toast.makeText(getActivity(), data + ": " + position, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), Matzip_Detail.class);
+                    intent.putExtra("matzipInfo", result.get(position));
+                    startActivity(intent);
                 });
+                userList.setLayoutManager(linear);
+                userList.setAdapter(adapter);
+            } else {
+                // 네트워크 오류, 서버 오류, 기타등등
+                Toast.makeText(getActivity(), "ERROR!", Toast.LENGTH_SHORT).show();
             }
         });
 
-        btnLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AppState.getInstance(getActivity()).searchMatzip(new ArrayList<>(Arrays.asList("세계음식")), "", (success, result) -> {
-                    if (success) {
-                        // result 활용해 처리
-                        MatzipListAdapter adapter = new MatzipListAdapter(result, getActivity().getApplicationContext());
-                        LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
-                        userList.setLayoutManager(linear);
-                        userList.setAdapter(adapter);
-                    } else {
-                        // 네트워크 오류, 서버 오류, 기타등등
-                        Toast.makeText(getActivity(), "ERROR!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
         return View;
     }
 }
