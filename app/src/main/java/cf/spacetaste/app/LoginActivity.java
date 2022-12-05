@@ -77,7 +77,17 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin = (ImageButton) findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(v -> {
-            UserApiClient.getInstance().loginWithKakaoAccount(this, callback);
+//            UserApiClient.getInstance().loginWithKakaoAccount(this, callback);
+            boolean isNew = true; // 임의로 바꿔서 테스트 진행
+            if (isNew){
+                Toast.makeText(this, "새로운 회원입니다.", Toast.LENGTH_SHORT).show();
+                Intent intentAllow = new Intent(getApplicationContext(), PopActivity.class);
+                activityResultLauncher.launch(intentAllow); // 의사에 따라 갈 페이지가 달라짐
+            }else {
+                Toast.makeText(this, "기존 회원입니다.", Toast.LENGTH_SHORT).show();
+                Intent Intent = new Intent(getApplicationContext(),HomeActivity.class);
+                startActivity(Intent);
+            }
         });
     }
 }

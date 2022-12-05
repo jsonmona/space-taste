@@ -40,6 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtInfo"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@id/imgUser"
         android:text="닉네임 : "
@@ -126,11 +127,12 @@
         android:text="좋아요 맛집"
         android:textStyle="bold" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="10dp"
         android:layout_below="@+id/btnRegist"
-        android:background="@drawable/round_backgroud_border_orange" />
+        android:background="@drawable/round_backgroud_border_orange"/>
 
 </RelativeLayout>
