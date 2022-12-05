@@ -90,9 +90,10 @@ public class AddReview extends AppCompatActivity{
                             .create();
                     dialog.show();
                 } else {
-                    MatzipInfo matzip = new MatzipInfo(0,"","","",[],"",0);
+                    Intent inIntent = getIntent();
+                    MatzipInfo matzipInfo = (MatzipInfo) inIntent.getSerializableExtra("matzipInfo");
                     ReviewInfoDTO review = new ReviewInfoDTO(0,0,0, scoreTaste, scorePrice, scoreKindness, scoreClean, detail);
-                    AppState.getInstance(AddReview.this).postReview(matzip,review,((success) -> {
+                    AppState.getInstance(AddReview.this).postReview(matzipInfo,review,((success) -> {
                         if (success) {
                             builder = new AlertDialog.Builder(AddReview.this);
                             AlertDialog dialog = builder.setMessage("리뷰 작성이 완료되었습니다.")
