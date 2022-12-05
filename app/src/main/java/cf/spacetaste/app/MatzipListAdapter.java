@@ -70,7 +70,8 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        Glide.with(context.getApplicationContext()).load(matzipList.get(position).getPhotoUrl()).into(viewHolder.getBinding().matzipImage);
+        if (matzipList.get(position).getPhotoUrl() != null)
+            Glide.with(context.getApplicationContext()).load(matzipList.get(position).getPhotoUrl()).into(viewHolder.getBinding().matzipImage);
         viewHolder.getBinding().number.setText((position + 1) + ". ");
         viewHolder.getBinding().matzipName.setText(matzipList.get(position).getName());
         if (matzipList.get(position).getStar() != null)
