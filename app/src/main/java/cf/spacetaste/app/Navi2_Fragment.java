@@ -57,7 +57,6 @@ public class Navi2_Fragment extends Fragment {
         Log.d(TAG, "onCreateView: ");
         binding = Navi2FragmentBinding.inflate(inflater, container, false);
 
-
         try {
             System.loadLibrary("DaumMapEngineApi");
             mapView = new MapView(getActivity());
@@ -68,6 +67,7 @@ public class Navi2_Fragment extends Fragment {
             // 따라서 이 코드는 실제 환경에서는 트리거되지 않음
             Log.w(TAG, "Failed to load native library", e);
         }
+
         binding.searchMatzip.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -76,7 +76,21 @@ public class Navi2_Fragment extends Fragment {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
-                    Toast.makeText(getContext(), "클릭", Toast.LENGTH_SHORT).show();
+                    String word = String.valueOf(binding.searchMatzip.getText());
+
+                    AppState.getInstance(getActivity()).searchMatzip(null, word, (success, result) -> {
+                        if (success) {
+                            // result 활용해 처리
+                            adapter = new MatzipListAdapter(result, getActivity().getApplicationContext());
+                            LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
+                            binding.recyclerView.setLayoutManager(linear);
+                            binding.recyclerView.setAdapter(adapter);
+                        } else {
+                            // 네트워크 오류, 서버 오류, 기타등등
+                            Toast.makeText(getActivity(), "ERROR!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                     return true;
                 }
 
@@ -84,6 +98,7 @@ public class Navi2_Fragment extends Fragment {
             }
         });
 
+        // 프래그먼트 생성시 보여질 맛집 리스트
         AppState.getInstance(getActivity()).searchMatzip(new ArrayList<>(Arrays.asList("한식")), "", (success, result) -> {
             if (success) {
                 // result 활용해 처리
@@ -97,6 +112,7 @@ public class Navi2_Fragment extends Fragment {
             }
         });
 
+        // 위치권한 요청
         locationPermissionRequest.launch(new String[]{
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -110,6 +126,7 @@ public class Navi2_Fragment extends Fragment {
                 Log.d(TAG, location.getLatitude() + ", " + location.getLongitude());
             }
         };
+
 
         binding.locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
