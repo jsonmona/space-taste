@@ -381,4 +381,44 @@ public class RemoteService {
             }
         });
     }
+
+    public void getRandomTags(AsyncResultPromise<List<String>> cb) {
+        service.getRandomTags(auth()).enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    resolve(cb, response.body());
+                } else {
+                    Log.e(TAG, "Failed to get random tags with code="+response.code());
+                    reject(cb);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+                Log.e(TAG, "Failed to get random tags", t);
+                reject(cb);
+            }
+        });
+    }
+
+    public void getMainPhotoOfTag(String tag, AsyncResultPromise<String> cb) {
+        service.getMainPhotoOfTag(auth(), tag).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    resolve(cb, response.body());
+                } else {
+                    Log.e(TAG, "Failed to get tag main photo with code="+response.code());
+                    reject(cb);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.e(TAG, "Failed to get tag main photo", t);
+                reject(cb);
+            }
+        });
+    }
 }
