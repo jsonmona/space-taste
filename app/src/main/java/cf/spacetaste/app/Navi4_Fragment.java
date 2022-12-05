@@ -2,6 +2,7 @@ package cf.spacetaste.app;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -62,10 +63,29 @@ public class Navi4_Fragment extends Fragment {
 //                infoAcRange.setText(result.getActiveArea().toString());
 //                infoLiRange.setText(result.getLivingArea().toString());
                 Glide.with(getActivity()).load(result.getProfilePhotoUrl()).into(imgUser);
-                System.out.println("result.getProfilePhotoUrl(): "+result.getProfilePhotoUrl());
+                System.out.println("result.getProfilePhotoUrl(): " + result.getProfilePhotoUrl());
             } else {
                 // 네트워크 오류, 서버 오류, 기타등등
                 Toast.makeText(getActivity(), "회원정보를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        AppState.getInstance(getActivity()).searchMatzip(new ArrayList<>(Arrays.asList("한식")), "", (success, result) -> {
+            if (success) {
+                // result 활용해 처리
+                MatzipListAdapter adapter = new MatzipListAdapter(result, getActivity().getApplicationContext());
+                LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
+                adapter.setOnItemClickedListner((position, data) -> {
+                    Toast.makeText(getActivity(), data + ": " + position, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), Matzip_Detail.class);
+                    intent.putExtra("matzipInfo", result.get(position));
+                    startActivity(intent);
+                });
+                userList.setLayoutManager(linear);
+                userList.setAdapter(adapter);
+            } else {
+                // 네트워크 오류, 서버 오류, 기타등등
+                Toast.makeText(getActivity(), "ERROR!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -81,6 +101,12 @@ public class Navi4_Fragment extends Fragment {
                         // result 활용해 처리
                         MatzipListAdapter adapter = new MatzipListAdapter(result, getActivity().getApplicationContext());
                         LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
+                        adapter.setOnItemClickedListner((position, data) -> {
+                            Toast.makeText(getActivity(), data + ": " + position, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getActivity(), Matzip_Detail.class);
+                            intent.putExtra("matzipInfo", result.get(position));
+                            startActivity(intent);
+                        });
                         userList.setLayoutManager(linear);
                         userList.setAdapter(adapter);
                     } else {
@@ -99,6 +125,12 @@ public class Navi4_Fragment extends Fragment {
                         // result 활용해 처리
                         MatzipListAdapter adapter = new MatzipListAdapter(result, getActivity().getApplicationContext());
                         LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
+                        adapter.setOnItemClickedListner((position, data) -> {
+                            Toast.makeText(getActivity(), data + ": " + position, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getActivity(), Matzip_Detail.class);
+                            intent.putExtra("matzipInfo", result.get(position));
+                            startActivity(intent);
+                        });
                         userList.setLayoutManager(linear);
                         userList.setAdapter(adapter);
                     } else {
