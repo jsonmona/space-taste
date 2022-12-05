@@ -34,4 +34,7 @@ public interface RetrofitService {
 
     @PUT("/user/area")
     Call<Void> changeUserArea(@Header("Authorization") String token, @Body ChangeAreaRequestDTO info);
+
+    @GET("/matzip/{matzipId}/review")
+    Call<List<ReviewInfoDTO>> listReviewOfMatzip(@Header("Authorization") String token, @Path("matzipId") int matzipId);
 }

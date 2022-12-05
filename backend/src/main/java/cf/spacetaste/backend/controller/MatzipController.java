@@ -1,6 +1,7 @@
 package cf.spacetaste.backend.controller;
 
 import cf.spacetaste.backend.service.MatzipService;
+import cf.spacetaste.backend.service.PhotoService;
 import cf.spacetaste.backend.service.ReviewService;
 import cf.spacetaste.backend.service.TokenService;
 import cf.spacetaste.common.MatzipBasicInfoDTO;
@@ -23,6 +24,7 @@ public class MatzipController {
     private final MatzipService matzipService;
     private final TokenService tokenService;
     private final ReviewService reviewService;
+    private final PhotoService photoService;
 
     @PostMapping("/matzip")
     public MatzipInfoDTO createMatzip(@RequestHeader("authorization") String auth, @RequestBody MatzipBasicInfoDTO info) {
@@ -63,5 +65,28 @@ public class MatzipController {
             return ResponseEntity.internalServerError().build();
 
         return ResponseEntity.created(URI.create("/matzip/"+id+"/review/"+reviewId)).build();
+    }
+
+    @GetMapping("/matzip/{id}/review")
+    public List<ReviewInfoDTO> listReview(@PathVariable int id) {
+        if (!matzipService.checkExists(id))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+        return reviewService
+                .listFromMatzip(id)
+                .stream()
+                .map(x -> new ReviewInfoDTO(
+                        x.getReviewId(),
+                        x.getMatzipId(),
+                        x.getUserId(),
+                        x.getScoreTaste(),
+                        x.getScorePrice(),
+                        x.getScoreKindness(),
+                        x.getScoreClean(),
+                        x.getDetail(),
+                        x.getNickname(),
+                        x.getProfilePhoto() != null ? photoService.makeUrl(photoService.getFromId(x.getProfilePhoto())) : null
+                ))
+                .toList();
     }
 }

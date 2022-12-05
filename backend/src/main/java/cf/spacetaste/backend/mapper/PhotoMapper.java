@@ -13,4 +13,7 @@ public interface PhotoMapper {
 
     @Delete("DELETE FROM photo WHERE photo_id=#{photoId}")
     int delete(PhotoModel photo);
+
+    @Select("SELECT COUNT(*) FROM photo WHERE photo_id=#{photoId}")
+    int checkExists(int photoId);
 }
