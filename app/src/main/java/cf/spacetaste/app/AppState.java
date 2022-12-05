@@ -2,7 +2,12 @@ package cf.spacetaste.app;
 
 import android.content.Context;
 import android.util.Log;
+
 import androidx.annotation.NonNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cf.spacetaste.app.data.AuthResponse;
 import cf.spacetaste.app.data.MatzipCreateRequest;
 import cf.spacetaste.app.data.MatzipInfo;
@@ -13,9 +18,6 @@ import cf.spacetaste.app.network.RemoteService;
 import cf.spacetaste.common.AddressInfoDTO;
 import cf.spacetaste.common.CreateReviewRequestDTO;
 import cf.spacetaste.common.UserInfoDTO;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AppState {
     private static final String TAG = AppState.class.getSimpleName();

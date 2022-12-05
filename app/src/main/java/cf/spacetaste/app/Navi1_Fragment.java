@@ -23,7 +23,6 @@ public class Navi1_Fragment extends Fragment {
     private RecyclerView recyclerView;
     private MatzipTagAdapter adapter;
     private ArrayList<MatzipTag> list;
-    private HomeActivity homeActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,8 +45,7 @@ public class Navi1_Fragment extends Fragment {
         list.add(new MatzipTag("아침식사", R.drawable.tag8));
 
         adapter = new MatzipTagAdapter(list);
-
-        adapter.setOnItemClickedListner(new MatzipListAdapter.OnItemClickListner() {
+        adapter.setOnItemClickedListner(new MatzipTagAdapter.OnItemClickListner() {
             @Override
             public void onItemClicked(int position, String data) {
                 Log.d("debug", "Item has clicked.");

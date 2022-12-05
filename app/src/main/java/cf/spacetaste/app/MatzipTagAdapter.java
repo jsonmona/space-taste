@@ -13,13 +13,13 @@ import cf.spacetaste.app.databinding.Navi1ItemBinding;
 public class MatzipTagAdapter extends RecyclerView.Adapter<MatzipTagAdapter.ViewHolder> {
 
     private ArrayList<MatzipTag> matzipTagList;
-    private MatzipListAdapter.OnItemClickListner itemClickListner;
+    private OnItemClickListner itemClickListner;
 
     public interface OnItemClickListner {
         void onItemClicked(int position, String data);
     }
 
-    public void setOnItemClickedListner(MatzipListAdapter.OnItemClickListner listner) {
+    public void setOnItemClickedListner(OnItemClickListner listner) {
         this.itemClickListner = listner;
     }
 

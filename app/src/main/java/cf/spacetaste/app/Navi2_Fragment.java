@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -26,10 +28,14 @@ import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import cf.spacetaste.app.data.MatzipInfo;
 import cf.spacetaste.app.databinding.Navi2FragmentBinding;
+import lombok.SneakyThrows;
 
 public class Navi2_Fragment extends Fragment {
 
@@ -38,6 +44,7 @@ public class Navi2_Fragment extends Fragment {
     private final String TAG = "Navi2";
     private Location location;
     private MapView mapView = null;
+    private Geocoder geocoder;
     private final ActivityResultLauncher<String[]> locationPermissionRequest = registerForActivityResult(
             new ActivityResultContracts.RequestMultiplePermissions(),
             result -> {
@@ -68,6 +75,9 @@ public class Navi2_Fragment extends Fragment {
             Log.w(TAG, "Failed to load native library", e);
         }
 
+        // 도로명 주소 -> 위도, 경도 변환 라이브러리
+        geocoder = new Geocoder(getContext());
+
         binding.searchMatzip.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -81,10 +91,10 @@ public class Navi2_Fragment extends Fragment {
                     AppState.getInstance(getActivity()).searchMatzip(null, word, (success, result) -> {
                         if (success) {
                             // result 활용해 처리
-                            adapter = new MatzipListAdapter(result, getActivity().getApplicationContext());
-                            LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
-                            binding.recyclerView.setLayoutManager(linear);
-                            binding.recyclerView.setAdapter(adapter);
+                            if (!result.isEmpty()) {
+                                mapView.removeAllPOIItems();
+                                setMapView(result);
+                            }
                         } else {
                             // 네트워크 오류, 서버 오류, 기타등등
                             Toast.makeText(getActivity(), "ERROR!", Toast.LENGTH_SHORT).show();
@@ -102,10 +112,7 @@ public class Navi2_Fragment extends Fragment {
         AppState.getInstance(getActivity()).searchMatzip(new ArrayList<>(Arrays.asList("한식")), "", (success, result) -> {
             if (success) {
                 // result 활용해 처리
-                adapter = new MatzipListAdapter(result, getActivity().getApplicationContext());
-                LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
-                binding.recyclerView.setLayoutManager(linear);
-                binding.recyclerView.setAdapter(adapter);
+                setMapView(result);
             } else {
                 // 네트워크 오류, 서버 오류, 기타등등
                 Toast.makeText(getActivity(), "ERROR!", Toast.LENGTH_SHORT).show();
@@ -126,7 +133,6 @@ public class Navi2_Fragment extends Fragment {
                 Log.d(TAG, location.getLatitude() + ", " + location.getLongitude());
             }
         };
-
 
         binding.locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,5 +181,34 @@ public class Navi2_Fragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    // 어댑터 클릭 이벤트 세팅 등
+    private void setMapView(List<MatzipInfo> matzipList) {
+        adapter = new MatzipListAdapter(matzipList, getActivity().getApplicationContext());
+        adapter.setOnItemClickedListner(new MatzipListAdapter.OnItemClickListner() {
+            @Override
+            public void onItemClicked(int position, String data) throws IOException {
+                moveAndMark(matzipList, position);
+            }
+        });
+        LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
+        binding.recyclerView.setLayoutManager(linear);
+        binding.recyclerView.setAdapter(adapter);
+
+        moveAndMark(matzipList, 0);
+    }
+
+    @SneakyThrows
+    private void moveAndMark(List<MatzipInfo> matzipList, int position) {
+        List<Address> address = geocoder.getFromLocationName(matzipList.get(position).getBaseAddress(), 1);
+        MapPoint matzipLocation = MapPoint.mapPointWithGeoCoord(address.get(0).getLatitude(), address.get(0).getLongitude());
+        MapPOIItem marker = new MapPOIItem(); // 마커 생성
+        marker.setItemName(matzipList.get(position).getName());
+        marker.setMapPoint(matzipLocation);
+        marker.setTag(position);
+        mapView.addPOIItem(marker);
+        mapView.selectPOIItem(marker, true);
+        mapView.setMapCenterPoint(matzipLocation, true);
     }
 }
