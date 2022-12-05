@@ -1,5 +1,7 @@
 package cf.spacetaste.backend.controller;
 
+import cf.spacetaste.backend.model.HashtagModel;
+import cf.spacetaste.backend.service.HashtagService;
 import cf.spacetaste.backend.service.MatzipService;
 import cf.spacetaste.backend.service.SearchService;
 import cf.spacetaste.backend.service.TokenService;
@@ -16,8 +18,8 @@ public class SearchController {
 
     private final TokenService tokenService;
     private final SearchService searchService;
-
     private final MatzipService matzipService;
+    private final HashtagService hashtagService;
 
     @PostMapping("/search/v1")
     public List<MatzipInfoDTO> search(@RequestHeader("authorization") String token, @RequestBody SearchRequestDTO req) {
@@ -34,5 +36,15 @@ public class SearchController {
         int userId = tokenService.verifyToken(auth);
 
         return matzipService.listByReviewedUser(userId);
+    }
+
+    @GetMapping("/search/randomtags")
+    public List<String> getRandomTags(@RequestHeader("Authorization") String auth) {
+        tokenService.verifyToken(auth);
+
+        return hashtagService.listRandomValidHashtags()
+                .stream()
+                .map(HashtagModel::getContent)
+                .toList();
     }
 }
