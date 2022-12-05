@@ -24,7 +24,7 @@ public interface RetrofitService {
     Call<List<AddressInfoDTO>> listServiceArea();
 
     @POST("/matzip/{matzipId}/review")
-    Call<Void> postReview(@Header("Authorization") String token, @Body ReviewInfoDTO info);
+    Call<Void> postReview(@Header("Authorization") String token, @Body CreateReviewRequestDTO info);
 
     @GET("/user")
     Call<UserInfoDTO> getUserInfo(@Header("Authorization") String token);

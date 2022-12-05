@@ -3,7 +3,7 @@ package cf.spacetaste.backend.service;
 import cf.spacetaste.backend.mapper.MatzipMapper;
 import cf.spacetaste.backend.mapper.ReviewMapper;
 import cf.spacetaste.backend.model.ReviewModel;
-import cf.spacetaste.common.ReviewInfoDTO;
+import cf.spacetaste.common.CreateReviewRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ public class ReviewService {
     private final ReviewMapper reviewMapper;
     private final MatzipMapper matzipMapper;
 
-    public int createReview(int userId, int matzipId, ReviewInfoDTO info) {
+    public int createReview(int userId, int matzipId, CreateReviewRequestDTO info) {
         int matzipExists = matzipMapper.checkIdExists(matzipId);
         if (matzipExists == 0)
             return 0;
