@@ -92,7 +92,6 @@ public class Navi2_Fragment extends Fragment {
                         if (success) {
                             // result 활용해 처리
                             if (!result.isEmpty()) {
-                                mapView.removeAllPOIItems();
                                 setMapView(result);
                             }
                         } else {
@@ -112,7 +111,9 @@ public class Navi2_Fragment extends Fragment {
         AppState.getInstance(getActivity()).searchMatzip(new ArrayList<>(Arrays.asList("한식")), "", (success, result) -> {
             if (success) {
                 // result 활용해 처리
-                setMapView(result);
+                if (!result.isEmpty()) {
+                    setMapView(result);
+                }
             } else {
                 // 네트워크 오류, 서버 오류, 기타등등
                 Toast.makeText(getActivity(), "ERROR!", Toast.LENGTH_SHORT).show();
@@ -157,7 +158,7 @@ public class Navi2_Fragment extends Fragment {
 
                     // 에뮬레이터에서는 카카오맵 관련 기능 사용 불가
                     if (mapView == null) {
-                        Toast.makeText(getContext(), "Error: 에뮬레이터에서 사용 불가", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "에뮬레이터에서 사용 불가", Toast.LENGTH_SHORT).show();
                     } else {
                         // 현재 위치 갱신
                         MapPoint currentLocation = MapPoint.mapPointWithGeoCoord(location.getLatitude(), location.getLongitude());
@@ -186,17 +187,28 @@ public class Navi2_Fragment extends Fragment {
     // 어댑터 클릭 이벤트 세팅 등
     private void setMapView(List<MatzipInfo> matzipList) {
         adapter = new MatzipListAdapter(matzipList, getActivity().getApplicationContext());
-        adapter.setOnItemClickedListner(new MatzipListAdapter.OnItemClickListner() {
-            @Override
-            public void onItemClicked(int position, String data) throws IOException {
-                moveAndMark(matzipList, position);
-            }
-        });
+
+        if (mapView == null) { // 에뮬레이터에선 클릭 이벤트 사용 불가
+            adapter.setOnItemClickedListner(new MatzipListAdapter.OnItemClickListner() {
+                @Override
+                public void onItemClicked(int position, String data) throws IOException {
+                    Toast.makeText(getContext(), "에뮬레이터에서 사용 불가", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            mapView.removeAllPOIItems();
+            adapter.setOnItemClickedListner(new MatzipListAdapter.OnItemClickListner() {
+                @Override
+                public void onItemClicked(int position, String data) throws IOException {
+                    moveAndMark(matzipList, position);
+                }
+            });
+            moveAndMark(matzipList, 0);
+        }
+
         LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
         binding.recyclerView.setLayoutManager(linear);
         binding.recyclerView.setAdapter(adapter);
-
-        moveAndMark(matzipList, 0);
     }
 
     @SneakyThrows
