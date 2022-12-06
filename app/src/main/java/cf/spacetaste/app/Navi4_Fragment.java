@@ -36,6 +36,7 @@ public class Navi4_Fragment extends Fragment {
     private TextView txtUserName, txtInfo, txtRegist, infoAcRange, infoLiRange;
     private ImageView imgUser;
     private RecyclerView userList;
+    private Button btnIdentify;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,12 @@ public class Navi4_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup View = (ViewGroup) inflater.inflate(R.layout.activity_info, container, false);
 
+        btnIdentify = View.findViewById(R.id.btnIdentify);
+        btnIdentify.setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), NeighborhoodActivity.class);
+            startActivity(intent);
+        });
+
         txtUserName = View.findViewById(R.id.txtUserName);
         txtInfo = View.findViewById(R.id.txtInfo);
         txtRegist = View.findViewById(R.id.txtRegist);
@@ -57,8 +64,8 @@ public class Navi4_Fragment extends Fragment {
         AppState.getInstance(getActivity()).getUserInfo((success, result) -> {
             if (success) {
                 txtUserName.setText(result.getUsername());
-                txtInfo.setText(result.getUsername()+"님의 정보");
-                txtRegist.setText(result.getUsername()+"님이 리뷰한 맛집");
+                txtInfo.setText(result.getUsername() + "님의 정보");
+                txtRegist.setText(result.getUsername() + "님이 리뷰한 맛집");
 //                infoAcRange.setText(result.getActiveArea().toString());
 //                infoLiRange.setText(result.getLivingArea().toString());
                 Glide.with(getActivity()).load(result.getProfilePhotoUrl()).into(imgUser);
