@@ -19,4 +19,7 @@ public interface HashtagMapper {
 
     @Select("SELECT a.main_photo FROM matzip AS a NATURAL JOIN matzip_hashtag AS b WHERE b.hashtag_id=#{hashtagId} AND a.main_photo IS NOT NULL ORDER BY matzip_id DESC LIMIT 10")
     List<Integer> getMainPhotoOfTag(HashtagModel hashtag);
+
+    @Select("SELECT a.photo_id FROM review_photo AS a NATURAL JOIN review AS b NATURAL JOIN matzip AS c NATURAL JOIN matzip_hashtag AS d WHERE d.hashtag_id=#{hashtagId} ORDER BY a.review_id DESC LIMIT 10")
+    List<Integer> getReviewPhotoOfTag(HashtagModel hashtag);
 }

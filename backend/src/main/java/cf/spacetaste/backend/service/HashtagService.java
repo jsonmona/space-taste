@@ -32,6 +32,7 @@ public class HashtagService {
 
     public PhotoModel randomPhoto(HashtagModel hashtag) {
         List<Integer> photos = hashtagMapper.getMainPhotoOfTag(hashtag);
+        photos.addAll(hashtagMapper.getReviewPhotoOfTag(hashtag));
         if (photos.isEmpty())
             return null;
 
