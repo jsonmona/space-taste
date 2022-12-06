@@ -142,8 +142,7 @@
                 <RatingBar
                     style="@style/Widget.AppCompat.RatingBar.Small"
                     android:id="@+id/detail_rateTaste"
-                    android:isIndicator = "false"
-                    android:clickable="false"
+                    android:isIndicator = "true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="100dp"
@@ -167,8 +166,7 @@
                 <RatingBar
                     style="@style/Widget.AppCompat.RatingBar.Small"
                     android:id="@+id/detail_ratePrice"
-                    android:isIndicator = "false"
-                    android:clickable="false"
+                    android:isIndicator = "true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="100dp"
@@ -192,8 +190,7 @@
                 <RatingBar
                     style="@style/Widget.AppCompat.RatingBar.Small"
                     android:id="@+id/detail_ratePolite"
-                    android:isIndicator = "false"
-                    android:clickable="false"
+                    android:isIndicator = "true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="100dp"
@@ -217,8 +214,7 @@
                 <RatingBar
                     style="@style/Widget.AppCompat.RatingBar.Small"
                     android:id="@+id/detail_rateClean"
-                    android:isIndicator = "false"
-                    android:clickable="false"
+                    android:isIndicator = "true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="100dp"
