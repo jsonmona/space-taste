@@ -66,8 +66,15 @@ public class NeighborhoodActivity extends AppCompatActivity {
 
         btnNeiCom = (Button) findViewById(R.id.btnNeiCom);
         btnNeiCom.setOnClickListener(v -> {
-            Toast.makeText(getApplicationContext(), "동네인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+            AddressInfoDTO activeArea;
+            AddressInfoDTO livingArea;
             // 거주지 저장하고
+//            AppState.getInstance(getApplicationContext()).changeUserArea(activeArea, livingArea, (success) -> {
+//                if (success)
+//                    Toast.makeText(getApplicationContext(), "동네인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+//                else
+//                    Toast.makeText(getApplicationContext(), "Error!.", Toast.LENGTH_SHORT).show();
+//            });
             Intent Intent = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(Intent); // 메인페이지로 이동
         });
