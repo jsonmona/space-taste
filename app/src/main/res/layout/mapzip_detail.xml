@@ -43,7 +43,10 @@
                         android:layout_height="200px"
                         android:src="@drawable/default_image" />
                 </TableRow>
-                <TableRow android:layout_marginTop="5dp">
+                <TableRow
+                    android:id="@+id/secongImgRow"
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone">
                     <ImageView
                         android:id="@+id/detail_pic4"
                         android:layout_width="0dp"
@@ -65,16 +68,18 @@
                             android:id="@+id/detail_pic6"
                             android:layout_width="wrap_content"
                             android:layout_height="200px"
-                            android:alpha="0.4"
+                            android:alpha="1"
                             android:src="@drawable/default_image" />
 
                         <TextView
+                            android:id="@+id/txtImgMore"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="사진 더보기"
                             android:textStyle="bold"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/black"
+                            android:visibility="gone"/>
                     </FrameLayout>
                 </TableRow>
             </TableLayout>
