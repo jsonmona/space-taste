@@ -41,9 +41,11 @@ public class Navi2_Fragment extends Fragment {
 
     private Navi2FragmentBinding binding;
     private MatzipListAdapter adapter;
+    private List<MatzipInfo> matzipInfoList;
     private final String TAG = "Navi2";
     private Location location;
     private MapView mapView = null;
+    private Mylisetner mylisetner = new Mylisetner();
     private Geocoder geocoder;
     private final ActivityResultLauncher<String[]> locationPermissionRequest = registerForActivityResult(
             new ActivityResultContracts.RequestMultiplePermissions(),
@@ -67,6 +69,7 @@ public class Navi2_Fragment extends Fragment {
         try {
             System.loadLibrary("DaumMapEngineApi");
             mapView = new MapView(getActivity());
+            mapView.setPOIItemEventListener(this.mylisetner);
             binding.map.addView(mapView);
         } catch(UnsatisfiedLinkError e) {
             // 안드로이드 스튜디오에서 "실행"으로 실행했을때는 타 아키텍처의 라이브러리가 포함되지 않아 오류 발생
@@ -91,8 +94,11 @@ public class Navi2_Fragment extends Fragment {
                     AppState.getInstance(getActivity()).searchMatzip(null, word, (success, result) -> {
                         if (success) {
                             // result 활용해 처리
-                            if (!result.isEmpty()) {
-                                setMapView(result);
+                            if (result.isEmpty()) {
+                                Toast.makeText(getActivity(), "검색 결과가 없습니다", Toast.LENGTH_SHORT).show();
+                            } else {
+                                matzipInfoList = result;
+                                setMapView(matzipInfoList);
                             }
                         } else {
                             // 네트워크 오류, 서버 오류, 기타등등
@@ -112,7 +118,8 @@ public class Navi2_Fragment extends Fragment {
             if (success) {
                 // result 활용해 처리
                 if (!result.isEmpty()) {
-                    setMapView(result);
+                    this.matzipInfoList = result;
+                    setMapView(this.matzipInfoList);
                 }
             } else {
                 // 네트워크 오류, 서버 오류, 기타등등
@@ -223,4 +230,26 @@ public class Navi2_Fragment extends Fragment {
         mapView.selectPOIItem(marker, true);
         mapView.setMapCenterPoint(matzipLocation, true);
     }
+
+    class Mylisetner implements MapView.POIItemEventListener {
+        @Override
+        public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {}
+
+        @Override
+        public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {}
+
+        @Override
+        public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+            if (!mapPOIItem.getItemName().equals("현재 위치")) {
+                Toast.makeText(mapView.getContext(), mapPOIItem.getItemName(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mapView.getContext(), Matzip_Detail.class);
+                intent.putExtra("matzipInfo",  matzipInfoList.get(mapPOIItem.getTag()));
+                startActivity(intent);
+            }
+        }
+
+        @Override
+        public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {}
+    }
 }
+
