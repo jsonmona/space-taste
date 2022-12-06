@@ -31,9 +31,17 @@ public class HashtagService {
     }
 
     public PhotoModel randomPhoto(HashtagModel hashtag) {
-        List<Integer> photos = hashtagMapper.getMainPhotoOfTag(hashtag);
-        if (photos.isEmpty())
-            return null;
+        List<Integer> photos = hashtagMapper.getReviewPhotoOfTag(hashtag);
+
+        Collections.shuffle(photos);
+        for (int photoId : photos) {
+            PhotoModel ret = photoService.getFromId(photoId);
+            if (ret != null)
+                return ret;
+        }
+
+        // Did not find any photo; Try again with main photo
+        photos = hashtagMapper.getMainPhotoOfTag(hashtag);
 
         Collections.shuffle(photos);
         for (int photoId : photos) {
