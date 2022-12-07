@@ -65,6 +65,14 @@ public class RemoteService {
         }
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     private String auth() {
         return "Bearer " + token;
     }
@@ -103,6 +111,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "failed with status=" + response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
@@ -156,6 +166,8 @@ public class RemoteService {
                         } else {
                             Log.e(TAG, "Failed to create matzip with code=" + response.code());
                             reject(cb);
+                            if (response.code() == 401)
+                                logout();
                         }
                     }
 
@@ -181,6 +193,8 @@ public class RemoteService {
                         } else {
                             Log.e(TAG, "Failed to list matzip photos with code=" + response.code());
                             reject(cb);
+                            if (response.code() == 401)
+                                logout();
                         }
                     }
 
@@ -206,6 +220,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "Failed to list matzip photos with code=" + response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
@@ -226,6 +242,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "Failed to list service area with code="+response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
@@ -246,6 +264,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "Failed to post review with code="+response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
@@ -266,6 +286,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "Failed to get user info with code="+response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
@@ -290,6 +312,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "Failed to search matzip by reviewed user with code="+response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
@@ -312,6 +336,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "Failed to change user area with code="+response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
@@ -332,6 +358,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "Failed to list review of matzip with code="+response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
@@ -391,6 +419,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "Failed to get random tags with code="+response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
@@ -411,6 +441,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "Failed to get tag main photo with code="+response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
