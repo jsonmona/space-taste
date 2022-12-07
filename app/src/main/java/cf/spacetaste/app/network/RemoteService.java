@@ -65,6 +65,14 @@ public class RemoteService {
         }
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     private String auth() {
         return "Bearer " + token;
     }
@@ -103,6 +111,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "failed with status=" + response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
@@ -156,6 +166,8 @@ public class RemoteService {
                         } else {
                             Log.e(TAG, "Failed to create matzip with code=" + response.code());
                             reject(cb);
+                            if (response.code() == 401)
+                                logout();
                         }
                     }
 
@@ -181,6 +193,8 @@ public class RemoteService {
                         } else {
                             Log.e(TAG, "Failed to list matzip photos with code=" + response.code());
                             reject(cb);
+                            if (response.code() == 401)
+                                logout();
                         }
                     }
 
@@ -206,6 +220,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "Failed to list matzip photos with code=" + response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
@@ -226,6 +242,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "Failed to list service area with code="+response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
@@ -246,6 +264,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "Failed to post review with code="+response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
@@ -266,6 +286,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "Failed to get user info with code="+response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
@@ -290,6 +312,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "Failed to search matzip by reviewed user with code="+response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
@@ -312,6 +336,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "Failed to change user area with code="+response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
@@ -332,6 +358,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "Failed to list review of matzip with code="+response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
@@ -391,6 +419,8 @@ public class RemoteService {
                 } else {
                     Log.e(TAG, "Failed to get random tags with code="+response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
@@ -402,20 +432,27 @@ public class RemoteService {
         });
     }
 
+    /**
+     * 해당 태그의 대표사진 하나를 랜덤하게 뽑아서 리턴함. URL 형식임.
+     * @param tag 원하는 태그
+     * @param cb 콜백
+     */
     public void getMainPhotoOfTag(String tag, AsyncResultPromise<String> cb) {
-        service.getMainPhotoOfTag(auth(), tag).enqueue(new Callback<String>() {
+        service.getMainPhotoOfTag(auth(), tag).enqueue(new Callback<List<String>>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    resolve(cb, response.body());
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
+                    resolve(cb, response.body().get(0));
                 } else {
                     Log.e(TAG, "Failed to get tag main photo with code="+response.code());
                     reject(cb);
+                    if (response.code() == 401)
+                        logout();
                 }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<List<String>> call, Throwable t) {
                 Log.e(TAG, "Failed to get tag main photo", t);
                 reject(cb);
             }

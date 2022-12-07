@@ -47,6 +47,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if (AppState.getInstance(this).isLoggedIn()) {
+            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         String keyHash = Utility.INSTANCE.getKeyHash(this);
         System.out.println("keyHash: " + keyHash);
 
@@ -66,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(this, "기존 회원입니다.", Toast.LENGTH_SHORT).show();
                             Intent Intent = new Intent(getApplicationContext(), HomeActivity.class);
                             startActivity(Intent);
+                            finish();
                         }
                     } else {
                         Toast.makeText(this, "네트워크에 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
