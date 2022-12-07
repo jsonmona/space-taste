@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -20,11 +21,11 @@ public class HashtagController {
     private final PhotoService photoService;
 
     @GetMapping("/hashtag/photo")
-    public String getHashtagPhotoUrl(@RequestParam String tag) {
+    public List<String> getHashtagPhotoUrl(@RequestParam String tag) {
         List<HashtagModel> hashtags = hashtagService.getFromContent(tag);
         if (hashtags.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
-        return photoService.makeUrl(hashtagService.randomPhoto(hashtags.get(0)));
+        return Collections.singletonList(photoService.makeUrl(hashtagService.randomPhoto(hashtags.get(0))));
     }
 }
