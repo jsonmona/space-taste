@@ -100,8 +100,7 @@ public class AddReview extends AppCompatActivity{
                                     .setNegativeButton("확인", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            Intent intent = new Intent( AddReview.this, Matzip_Detail.class );
-                                            startActivity( intent );
+                                            finish();
                                         }
                                     })
                                     .create();
