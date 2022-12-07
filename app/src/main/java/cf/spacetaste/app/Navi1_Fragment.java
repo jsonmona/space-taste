@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import cf.spacetaste.app.databinding.Navi1FragmentBinding;
 
@@ -23,7 +22,6 @@ public class Navi1_Fragment extends Fragment {
     private Navi1FragmentBinding binding;
     private RecyclerView recyclerView;
     private MatzipTagAdapter adapter;
-    private List<MatzipTag> list;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,32 +32,7 @@ public class Navi1_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        list = new ArrayList<>();
-        AppState.getInstance(getActivity()).getRandomTags((success, result) -> {
-            if (success) {
-                for (int i = 0; i < result.size(); i++) {
-                    AppState.getInstance(getActivity()).getMainPhotoOfTag(result.get(i), (_success, _result) -> {
-                        if (_success) {
-                            list.add(new MatzipTag(result.get(0), _result));
-                        }
-                    });
-                }
-            } else {
-                // 네트워크 오류, 서버 오류, 기타등등
-                Toast.makeText(getActivity(), "ERROR!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-//        list.add(new MatzipTag("주점", R.drawable.tag2));
-//        list.add(new MatzipTag("혼밥하기 좋은", R.drawable.tag3));
-//        list.add(new MatzipTag("양식", R.drawable.tag4));
-//        list.add(new MatzipTag("세계음식", R.drawable.tag5));
-//        list.add(new MatzipTag("양이 많은", R.drawable.tag6));
-//        list.add(new MatzipTag("가성비 좋은", R.drawable.tag7));
-//        list.add(new MatzipTag("아침식사", R.drawable.tag8));
-
-        adapter = new MatzipTagAdapter(list);
+        adapter = new MatzipTagAdapter(getContext());
         adapter.setOnItemClickedListner(new MatzipTagAdapter.OnItemClickListner() {
             @Override
             public void onItemClicked(int position, String data) {
@@ -96,16 +69,6 @@ public class Navi1_Fragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-}
-
-class MatzipTag {
-    String tag;
-    String thumbnail;
-
-    public MatzipTag(String tag, String thumbnail) {
-        this.tag = tag;
-        this.thumbnail = thumbnail;
     }
 }
 
