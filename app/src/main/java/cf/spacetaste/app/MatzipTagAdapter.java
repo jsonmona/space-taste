@@ -1,19 +1,21 @@
 package cf.spacetaste.app;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
+import java.util.List;
 
 import cf.spacetaste.app.databinding.Navi1ItemBinding;
+import com.bumptech.glide.Glide;
 
 public class MatzipTagAdapter extends RecyclerView.Adapter<MatzipTagAdapter.ViewHolder> {
 
-    private ArrayList<MatzipTag> matzipTagList;
+    private List<MatzipTag> matzipTagList;
     private OnItemClickListner itemClickListner;
+    private Context context;
 
     public interface OnItemClickListner {
         void onItemClicked(int position, String data);
@@ -35,7 +37,7 @@ public class MatzipTagAdapter extends RecyclerView.Adapter<MatzipTagAdapter.View
         }
     }
 
-    public MatzipTagAdapter(ArrayList<MatzipTag> matzipTagList) {
+    public MatzipTagAdapter(List<MatzipTag> matzipTagList) {
         this.matzipTagList = matzipTagList;
     }
 
@@ -58,7 +60,8 @@ public class MatzipTagAdapter extends RecyclerView.Adapter<MatzipTagAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         viewHolder.getBinding().tag.setText("#" + matzipTagList.get(position).tag);
-        viewHolder.getBinding().matzipImage.setImageResource(matzipTagList.get(position).thumbnail);
+        if (matzipTagList.get(position).thumbnail != null)
+            Glide.with(context.getApplicationContext()).load(matzipTagList.get(position).thumbnail).into(viewHolder.getBinding().matzipImage);
     }
 
     // Return the size of your dataset (invoked by the layout manager)

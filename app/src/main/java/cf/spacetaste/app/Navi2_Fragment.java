@@ -29,8 +29,6 @@ import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import cf.spacetaste.app.data.MatzipInfo;
@@ -114,18 +112,18 @@ public class Navi2_Fragment extends Fragment {
         });
 
         // 프래그먼트 생성시 보여질 맛집 리스트
-        AppState.getInstance(getActivity()).searchMatzip(new ArrayList<>(Arrays.asList("한식")), "", (success, result) -> {
-            if (success) {
-                // result 활용해 처리
-                if (!result.isEmpty()) {
-                    this.matzipInfoList = result;
-                    setMapView(this.matzipInfoList);
-                }
-            } else {
-                // 네트워크 오류, 서버 오류, 기타등등
-                Toast.makeText(getActivity(), "ERROR!", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        AppState.getInstance(getActivity()).searchMatzip(new ArrayList<>(Arrays.asList("한식")), "", (success, result) -> {
+//            if (success) {
+//                // result 활용해 처리
+//                if (!result.isEmpty()) {
+//                    this.matzipInfoList = result;
+//                    setMapView(this.matzipInfoList);
+//                }
+//            } else {
+//                // 네트워크 오류, 서버 오류, 기타등등
+//                Toast.makeText(getActivity(), "ERROR!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         // 위치권한 요청
         locationPermissionRequest.launch(new String[]{
@@ -175,6 +173,7 @@ public class Navi2_Fragment extends Fragment {
                         marker.setItemName("현재 위치");
                         marker.setMapPoint(currentLocation);
                         mapView.addPOIItem(marker);
+                        mapView.selectPOIItem(marker, true);
                         mapView.setMapCenterPoint(currentLocation, true);
                     }
                 }
