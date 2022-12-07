@@ -101,4 +101,12 @@ public class AppState {
     public void getLastReviewOfMatzipBatched(List<MatzipInfo> matzip, AsyncResultPromise<List<ReviewInfoDTO>> cb) {
         remoteService.getLastReviewOfMatzipBatched(matzip, cb);
     }
+
+    public void getRandomTags(AsyncResultPromise<List<String>> cb) {
+        remoteService.getRandomTags(cb);
+    }
+
+    public void getMainPhotoOfTag(String tag, AsyncResultPromise<String> cb) {
+        remoteService.getMainPhotoOfTag(tag, cb);
+    }
 }
