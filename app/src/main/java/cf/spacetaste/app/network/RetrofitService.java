@@ -42,5 +42,5 @@ public interface RetrofitService {
     Call<List<String>> getRandomTags(@Header("Authorization") String token);
 
     @GET("/hashtag/photo")
-    Call<String> getMainPhotoOfTag(@Header("Authorization") String token, @Query("tag") String tag);
+    Call<List<String>> getMainPhotoOfTag(@Header("Authorization") String token, @Query("tag") String tag);
 }

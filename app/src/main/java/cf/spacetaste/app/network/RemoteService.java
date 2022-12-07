@@ -432,12 +432,17 @@ public class RemoteService {
         });
     }
 
+    /**
+     * 해당 태그의 대표사진 하나를 랜덤하게 뽑아서 리턴함. URL 형식임.
+     * @param tag 원하는 태그
+     * @param cb 콜백
+     */
     public void getMainPhotoOfTag(String tag, AsyncResultPromise<String> cb) {
-        service.getMainPhotoOfTag(auth(), tag).enqueue(new Callback<String>() {
+        service.getMainPhotoOfTag(auth(), tag).enqueue(new Callback<List<String>>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    resolve(cb, response.body());
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
+                    resolve(cb, response.body().get(0));
                 } else {
                     Log.e(TAG, "Failed to get tag main photo with code="+response.code());
                     reject(cb);
@@ -447,7 +452,7 @@ public class RemoteService {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<List<String>> call, Throwable t) {
                 Log.e(TAG, "Failed to get tag main photo", t);
                 reject(cb);
             }
