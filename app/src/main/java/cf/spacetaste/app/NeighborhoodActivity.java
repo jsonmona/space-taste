@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import com.kakao.sdk.user.UserApiClient;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import cf.spacetaste.common.AddressInfoDTO;
@@ -32,14 +34,15 @@ public class NeighborhoodActivity extends AppCompatActivity {
         acDong = findViewById(R.id.acDong);
         liDong = findViewById(R.id.liDong);
 
-        ArrayList items = new ArrayList();
+        ArrayList<String> items = new ArrayList<>();
+        HashMap<String, AddressInfoDTO> mapper = new HashMap<>();
 
         AppState.getInstance(getApplicationContext()).listServiceArea((success, result) -> {
             if (success) {
-                System.out.println(result);
                 for (AddressInfoDTO element : result) {
                     String addressElement = element.getSiDo() + " " + element.getSiGunGu() + " " + element.getEupMyeonDong() + " " + element.getDongRi();
                     items.add(addressElement);
+                    mapper.put(addressElement, element);
                 }
                 ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, items);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -50,6 +53,7 @@ public class NeighborhoodActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "ERROR!", Toast.LENGTH_SHORT).show();
             }
         });
+
 //        acDong.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
 //            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -66,15 +70,22 @@ public class NeighborhoodActivity extends AppCompatActivity {
 
         btnNeiCom = (Button) findViewById(R.id.btnNeiCom);
         btnNeiCom.setOnClickListener(v -> {
-            AddressInfoDTO activeArea;
-            AddressInfoDTO livingArea;
-            // 거주지 저장하고
-//            AppState.getInstance(getApplicationContext()).changeUserArea(activeArea, livingArea, (success) -> {
-//                if (success)
-//                    Toast.makeText(getApplicationContext(), "동네인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-//                else
-//                    Toast.makeText(getApplicationContext(), "Error!.", Toast.LENGTH_SHORT).show();
-//            });
+            String acString = (String) acDong.getSelectedItem();
+            String liString = (String) liDong.getSelectedItem();
+
+            AddressInfoDTO activeArea = mapper.get(acString);
+            AddressInfoDTO livingArea = mapper.get(liString);
+
+            AppState.getInstance(getApplicationContext()).changeUserArea(activeArea, livingArea, (success) -> {
+                if (success) {
+                    Toast.makeText(getApplicationContext(), "동네인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    Log.d("d", "onCreate: " + activeArea.getSiDo());
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Error!.", Toast.LENGTH_SHORT).show();
+                }
+
+            });
             Intent Intent = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(Intent); // 메인페이지로 이동
         });
