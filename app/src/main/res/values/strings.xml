@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Space Taste</string>
+    <string name="app_name">우주맛 - 우리 주변 맛집</string>
 
     <string-array name="HashTag">
         <item>한식</item>
