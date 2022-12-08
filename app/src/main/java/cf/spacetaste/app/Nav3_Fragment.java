@@ -101,7 +101,7 @@ public class Nav3_Fragment extends Fragment {
                 String detailAddress = et_addrDetail.getText().toString();
 
                 if(name.equals("")||bcode.equals("")||baseAddress.equals("")||detailAddress.equals("")||SelectedHashTag.equals("")){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.MyAlertDialogStyle);
+                    builder = new AlertDialog.Builder(getActivity());
                     dialog = builder.setMessage("빈 칸 없이 입력해주세요")
                             .setNegativeButton("확인",null)
                             .create();
