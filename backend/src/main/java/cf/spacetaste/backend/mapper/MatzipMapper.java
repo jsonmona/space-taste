@@ -1,5 +1,6 @@
 package cf.spacetaste.backend.mapper;
 
+import cf.spacetaste.backend.model.AverageStarModel;
 import cf.spacetaste.backend.model.MatzipModel;
 import cf.spacetaste.backend.model.UserModel;
 import org.apache.ibatis.annotations.*;
@@ -50,6 +51,9 @@ public interface MatzipMapper {
     @Insert("INSERT INTO matzip (name, address_code, address_base, address_detail, main_photo) VALUES (#{name}, #{addressCode}, #{addressBase}, #{addressDetail}, #{mainPhoto})")
     @Options(useGeneratedKeys = true, keyProperty = "matzipId")
     int create(MatzipModel matzip);
+
+    @Update("UPDATE matzip SET average_score_taste=#{info.taste}, average_score_price=#{info.price}, average_score_kindness=#{info.kindness}, average_score_clean=#{info.clean} WHERE matzip_id=#{matzip.matzipId}")
+    int updateStar(MatzipModel matzip, AverageStarModel info);
 
     //int update(MatzipModel matzip);
 
