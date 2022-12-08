@@ -101,7 +101,7 @@ public class Nav3_Fragment extends Fragment {
                 String detailAddress = et_addrDetail.getText().toString();
 
                 if(name.equals("")||bcode.equals("")||baseAddress.equals("")||detailAddress.equals("")||SelectedHashTag.equals("")){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.MyAlertDialogStyle);
+                    builder = new AlertDialog.Builder(getActivity());
                     dialog = builder.setMessage("빈 칸 없이 입력해주세요")
                             .setNegativeButton("확인",null)
                             .create();
@@ -111,8 +111,9 @@ public class Nav3_Fragment extends Fragment {
                     AppState.getInstance(getActivity()).createMatzip(req,((success, result) -> {
                         if (success) {
                             Toast.makeText(getActivity(), "추가되었습니다. 첫번째로 리뷰를 남겨주세요", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getActivity(), AddReview.class);
-                    getSearchResult.launch(intent);
+                            Intent intent = new Intent(getActivity(), AddReview.class);
+                            intent.putExtra("matzipInfo", result);
+                            getSearchResult.launch(intent);
                         } else {
                             Toast.makeText(getActivity(), "맛집 추가에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                             return;

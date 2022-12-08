@@ -129,8 +129,7 @@
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:maxWidth="200dp"
-                android:maxHeight="200dp"
-                android:onClick="onClick" />
+                android:maxHeight="200dp" />
             <Button
                 android:id="@+id/addbtn"
                 android:layout_width="match_parent"
