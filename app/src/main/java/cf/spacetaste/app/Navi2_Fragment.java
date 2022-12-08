@@ -113,7 +113,7 @@ public class Navi2_Fragment extends Fragment {
             }
         });
 
-        // 프래그먼트 생성시 보여질 맛집 리스트
+//         프래그먼트 생성시 보여질 맛집 리스트
         AppState.getInstance(getActivity()).searchMatzip(new ArrayList<>(Arrays.asList("한식")), "", (success, result) -> {
             if (success) {
                 // result 활용해 처리
@@ -175,6 +175,7 @@ public class Navi2_Fragment extends Fragment {
                         marker.setItemName("현재 위치");
                         marker.setMapPoint(currentLocation);
                         mapView.addPOIItem(marker);
+                        mapView.selectPOIItem(marker, true);
                         mapView.setMapCenterPoint(currentLocation, true);
                     }
                 }

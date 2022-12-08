@@ -74,10 +74,12 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
             Glide.with(context.getApplicationContext()).load(matzipList.get(position).getPhotoUrl()).into(viewHolder.getBinding().matzipImage);
         viewHolder.getBinding().number.setText((position + 1) + ". ");
         viewHolder.getBinding().matzipName.setText(matzipList.get(position).getName());
+
         if (matzipList.get(position).getStar() != null)
             viewHolder.getBinding().rating.setText(String.format("%.2f", matzipList.get(position).getStar().average()));
         if (matzipList.get(position).getStar() != null)
             viewHolder.getBinding().starRating.setRating(matzipList.get(position).getStar().average());
+
         viewHolder.getBinding().address1.setText(matzipList.get(position).getBaseAddress());
         viewHolder.getBinding().address2.setText(matzipList.get(position).getDetailAddress());
         AppState.getInstance(context.getApplicationContext()).listMatzipReviews(matzipList.get(position), (success, result) -> {
