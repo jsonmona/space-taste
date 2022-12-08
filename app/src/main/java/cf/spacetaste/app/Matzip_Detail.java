@@ -11,9 +11,12 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
@@ -33,6 +36,7 @@ public class Matzip_Detail extends AppCompatActivity {
     private EditText addReview_ettext;
     private RatingBar detail_rateTaste, detail_ratePrice, detail_ratePolite, detail_rateClean;
     private TableRow secongImgRow;
+    private RecyclerView reviewList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +46,21 @@ public class Matzip_Detail extends AppCompatActivity {
         Intent inIntent = getIntent();
         MatzipInfo matzipInfo = (MatzipInfo) inIntent.getSerializableExtra("matzipInfo");
 
+        reviewList = findViewById(R.id.reviewList);
         AppState.getInstance(getApplicationContext()).listMatzipReviews(matzipInfo, (success, result) -> {
-            if (result.size() != 0) {
-
+            if (success) {
+                if (result.size() != 0) {
+                    // result 활용해 처리
+                    ReviewListAdapter adapter = new ReviewListAdapter(result, getApplicationContext());
+                    LinearLayoutManager linear = new LinearLayoutManager(getApplicationContext());
+                    reviewList.setLayoutManager(linear);
+                    reviewList.setAdapter(adapter);
+                } else {
+                    Toast.makeText(getApplicationContext(), "리뷰가 없습니다.", Toast.LENGTH_SHORT).show();
+                }
             } else {
+                // 네트워크 오류, 서버 오류, 기타등등
+                Toast.makeText(getApplicationContext(), "ERROR!", Toast.LENGTH_SHORT).show();
             }
         });
 
