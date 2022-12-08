@@ -31,12 +31,18 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import cf.spacetaste.common.AddressInfoDTO;
+
 public class Navi4_Fragment extends Fragment {
 
     private TextView txtUserName, txtInfo, txtRegist, infoAcRange, infoLiRange;
     private ImageView imgUser;
     private RecyclerView userList;
     private Button btnIdentify;
+
+    private String formatLocation(AddressInfoDTO x) {
+        return x.getSiGunGu() + " " + x.getEupMyeonDong() + " " + x.getDongRi();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,8 +72,8 @@ public class Navi4_Fragment extends Fragment {
                 txtUserName.setText(result.getUsername());
                 txtInfo.setText(result.getUsername() + "님의 정보");
                 txtRegist.setText(result.getUsername() + "님이 리뷰한 맛집");
-//                infoAcRange.setText(result.getActiveArea().toString());
-//                infoLiRange.setText(result.getLivingArea().toString());
+                infoAcRange.setText(formatLocation(result.getActiveArea()));
+                infoLiRange.setText(formatLocation(result.getLivingArea()));
                 Glide.with(getActivity()).load(result.getProfilePhotoUrl()).into(imgUser);
                 System.out.println("result.getProfilePhotoUrl(): " + result.getProfilePhotoUrl());
             } else {
