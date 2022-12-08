@@ -30,8 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgLogo"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
         android:background="@drawable/round_backgroud_border_orange"
         android:orientation="horizontal"
         android:padding="20dp">
