@@ -17,11 +17,13 @@ import java.util.List;
 
 import cf.spacetaste.app.data.MatzipInfo;
 import cf.spacetaste.app.databinding.ActivityMatzipListItemBinding;
+import cf.spacetaste.common.ReviewInfoDTO;
 import lombok.SneakyThrows;
 
 public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.ViewHolder> {
 
     private List<MatzipInfo> matzipList;
+    private List<ReviewInfoDTO> newReviewList;
     private Context context;
     private OnItemClickListner itemClickListner;
 
@@ -49,6 +51,11 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
     public MatzipListAdapter(List matzipList, Context context) {
         this.matzipList = matzipList;
         this.context = context;
+        AppState.getInstance(context.getApplicationContext()).getLastReviewOfMatzipBatched(matzipList, (success, result) -> {
+            if (success) {
+                this.newReviewList = result;
+            }
+        });
     }
 
     // Create new views (invoked by the layout manager)
@@ -82,14 +89,12 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
 
         viewHolder.getBinding().address1.setText(matzipList.get(position).getBaseAddress());
         viewHolder.getBinding().address2.setText(matzipList.get(position).getDetailAddress());
-        AppState.getInstance(context.getApplicationContext()).listMatzipReviews(matzipList.get(position), (success, result) -> {
-            if (result.size() != 0) {
-                Glide.with(context.getApplicationContext()).load(result.get(0).getProfileUrl()).into(viewHolder.getBinding().userProfile);
-                viewHolder.getBinding().review.setText(result.get(0).getDetail());
-            } else {
-                viewHolder.getBinding().review.setText("최근에 작성한 리뷰가 없습니다.");
-            }
-        });
+        if (newReviewList != null && newReviewList.get(position) != null) {
+            Glide.with(context.getApplicationContext()).load(newReviewList.get(position).getProfileUrl()).into(viewHolder.getBinding().userProfile);
+            viewHolder.getBinding().review.setText(newReviewList.get(position).getDetail());
+        } else {
+            viewHolder.getBinding().review.setText("최근에 작성한 리뷰가 없습니다.");
+        }
 
         viewHolder.getBinding().tagLayout.removeAllViews();
         for (int i = 0; i < matzipList.get(position).getHashtags().size(); i++) {
