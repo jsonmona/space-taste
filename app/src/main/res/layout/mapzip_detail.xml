@@ -5,11 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     //상단 고정
-    <ImageButton
-        android:id="@+id/detail_backbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_arrow_back_24"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"

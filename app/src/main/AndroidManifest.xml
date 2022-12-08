@@ -55,8 +55,8 @@
         </activity>
         <activity android:name=".MatzipListActivity"/>
         <activity android:name=".Nav3_Fragment_addr"/>
-        <activity android:name=".AddReview"/>
-        <activity android:name=".Matzip_Detail"/>
+        <activity android:name=".AddReview" android:parentActivityName=".Matzip_Detail"/>
+        <activity android:name=".Matzip_Detail" android:parentActivityName=".HomeActivity"/>
         <activity android:name=".NeighborhoodActivity" android:label="동네인증"/>
         <activity android:name=".PopActivity"  android:theme="@style/Theme.Design.NoActionBar" />
         <meta-data
