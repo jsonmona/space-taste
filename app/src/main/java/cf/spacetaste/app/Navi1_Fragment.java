@@ -43,7 +43,6 @@ public class Navi1_Fragment extends Fragment {
                 AppState.getInstance(getActivity()).searchMatzip(new ArrayList<>(Arrays.asList(data)), data, (success, result) -> {
                     if (success) {
                         // result 활용해 처리
-                        Toast.makeText(getContext(), data + ": " + position, Toast.LENGTH_SHORT).show();
                         ((HomeActivity) getActivity()).showMatzipList(result);
                     } else {
                         // 네트워크 오류, 서버 오류, 기타등등
