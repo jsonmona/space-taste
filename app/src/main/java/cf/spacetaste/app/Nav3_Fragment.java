@@ -111,8 +111,9 @@ public class Nav3_Fragment extends Fragment {
                     AppState.getInstance(getActivity()).createMatzip(req,((success, result) -> {
                         if (success) {
                             Toast.makeText(getActivity(), "추가되었습니다. 첫번째로 리뷰를 남겨주세요", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getActivity(), AddReview.class);
-                    getSearchResult.launch(intent);
+                            Intent intent = new Intent(getActivity(), AddReview.class);
+                            intent.putExtra("matzipInfo", result);
+                            getSearchResult.launch(intent);
                         } else {
                             Toast.makeText(getActivity(), "맛집 추가에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                             return;
