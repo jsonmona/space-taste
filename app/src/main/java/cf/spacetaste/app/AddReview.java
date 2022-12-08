@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,16 +19,16 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import cf.spacetaste.app.data.MatzipInfo;
 import cf.spacetaste.common.CreateReviewRequestDTO;
-import cf.spacetaste.common.ReviewInfoDTO;
 
 
 public class AddReview extends AppCompatActivity{
@@ -43,9 +44,8 @@ public class AddReview extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addreview);
-//        Toolbar toolbar = (Toolbar)findViewById(R.id.my_toolbar);
-//        toolbar.setTitle("맛집 리뷰");
-//        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         addReview_ettext = findViewById(R.id.addReview_ettext);
         //저장할때 불러와야하니 가져옴.
@@ -70,14 +70,6 @@ public class AddReview extends AppCompatActivity{
         ratePolite.setOnRatingBarChangeListener(new politeListener());
         rateClean.setOnRatingBarChangeListener(new cleanListener());
 
-        reveiwBackbtn = findViewById(R.id.reveiw_backbtn);
-        reveiwBackbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent( AddReview.this, Matzip_Detail.class );
-                startActivity( intent );
-            }
-        });
         okButton = findViewById(R.id.okButton);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +109,16 @@ public class AddReview extends AppCompatActivity{
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     class tasteListener implements RatingBar.OnRatingBarChangeListener {

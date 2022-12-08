@@ -4,20 +4,8 @@
     android:background="#FFFFFF"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/my_toolbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?attr/actionBarSize"-->
-<!--        android:background="?attr/colorPrimary"-->
-<!--        android:elevation="4dp"-->
-<!--        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>-->
 
     //상단 고정
-    <ImageButton
-        android:id="@+id/reveiw_backbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_arrow_back_24"/>
     <TextView
         android:id="@+id/addReview_info"
         android:layout_width="match_parent"
