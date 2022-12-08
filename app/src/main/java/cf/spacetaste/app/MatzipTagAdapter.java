@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cf.spacetaste.app.databinding.Navi1ItemBinding;
@@ -23,9 +24,11 @@ public class MatzipTagAdapter extends RecyclerView.Adapter<MatzipTagAdapter.View
 
     public MatzipTagAdapter(Context context) {
         this.context = context;
+        this.matzipTagList = new ArrayList<>();
         AppState.getInstance(this.context.getApplicationContext()).getRandomTags((success, result) -> {
             if (success) {
                 this.matzipTagList = result;
+                notifyDataSetChanged();
                 Log.d("debug", "서버로부터 받아온 태그의 개수: " + result.size());
             } else {
                 // 네트워크 오류, 서버 오류, 기타등등

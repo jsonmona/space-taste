@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import cf.spacetaste.app.databinding.Navi1FragmentBinding;
 
@@ -71,7 +72,19 @@ public class Navi1_Fragment extends Fragment {
         binding = null;
     }
 }
+class MatzipTag {
+    String tag;
+    Integer thumbnail;
 
+    public MatzipTag(String tag, Integer thumbnail) {
+        this.tag = tag;
+        this.thumbnail = thumbnail;
+    }
+
+    public MatzipTag(String tag) {
+        this(tag, null);
+    }
+}
 class Spacing extends RecyclerView.ItemDecoration {
 
     private int spacing;
