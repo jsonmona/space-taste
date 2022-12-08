@@ -72,8 +72,10 @@ public class Navi4_Fragment extends Fragment {
                 txtUserName.setText(result.getUsername());
                 txtInfo.setText(result.getUsername() + "님의 정보");
                 txtRegist.setText(result.getUsername() + "님이 리뷰한 맛집");
-                infoAcRange.setText(formatLocation(result.getActiveArea()));
-                infoLiRange.setText(formatLocation(result.getLivingArea()));
+                if (result.getActiveArea() != null)
+                    infoAcRange.setText(formatLocation(result.getActiveArea()));
+                if (result.getLivingArea() != null)
+                    infoLiRange.setText(formatLocation(result.getLivingArea()));
                 Glide.with(getActivity()).load(result.getProfilePhotoUrl()).into(imgUser);
                 System.out.println("result.getProfilePhotoUrl(): " + result.getProfilePhotoUrl());
             } else {
