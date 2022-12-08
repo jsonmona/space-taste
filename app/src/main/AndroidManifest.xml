@@ -78,7 +78,7 @@
             android:name=".PopActivity"
             android:theme="@style/Theme.Design.NoActionBar"
             android:screenOrientation="portrait" />
-
+      
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="d7810fa2cc5a492d8ca2c29b4914f651" />

@@ -218,7 +218,7 @@ public class RemoteService {
                     }
                     resolve(cb, res);
                 } else {
-                    Log.e(TAG, "Failed to list matzip photos with code=" + response.code());
+                    Log.e(TAG, "Failed to search photos with code=" + response.code());
                     reject(cb);
                     if (response.code() == 401)
                         logout();
