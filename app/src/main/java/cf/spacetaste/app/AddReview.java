@@ -20,6 +20,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -42,6 +43,9 @@ public class AddReview extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addreview);
+//        Toolbar toolbar = (Toolbar)findViewById(R.id.my_toolbar);
+//        toolbar.setTitle("맛집 리뷰");
+//        setSupportActionBar(toolbar);
 
         addReview_ettext = findViewById(R.id.addReview_ettext);
         //저장할때 불러와야하니 가져옴.
@@ -83,8 +87,8 @@ public class AddReview extends AppCompatActivity{
                 int scorePrice = ratePrice.getNumStars();
                 int scoreKindness = ratePolite.getNumStars();
                 int scoreClean = rateClean.getNumStars();
-                if(addReview_ettext.equals("")){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(AddReview.this,R.style.MyAlertDialogStyle);
+                if(detail.equals("")){
+                    builder = new AlertDialog.Builder(AddReview.this);
                     AlertDialog dialog = builder.setMessage("짧은 한마디를 입력해주세요")
                             .setNegativeButton("확인",null)
                             .create();
