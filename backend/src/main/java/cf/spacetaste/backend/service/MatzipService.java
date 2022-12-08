@@ -1,9 +1,6 @@
 package cf.spacetaste.backend.service;
 
-import cf.spacetaste.backend.mapper.HashtagMapper;
-import cf.spacetaste.backend.mapper.MatzipHashtagMapper;
-import cf.spacetaste.backend.mapper.MatzipMapper;
-import cf.spacetaste.backend.mapper.ReviewPhotoMapper;
+import cf.spacetaste.backend.mapper.*;
 import cf.spacetaste.backend.model.HashtagModel;
 import cf.spacetaste.backend.model.MatzipModel;
 import cf.spacetaste.backend.model.PhotoModel;
