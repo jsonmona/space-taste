@@ -14,7 +14,7 @@ public interface RetrofitService {
     @POST("/matzip")
     Call<MatzipInfoDTO> createMatzip(@Header("Authorization") String token, @Body MatzipBasicInfoDTO info);
 
-    @GET("/matzip/{matzipId}/photos")
+    @GET("/matzip/{matzipId}/photo")
     Call<List<String>> listMatzipPhotos(@Header("Authorization") String token, @Path("matzipId") int matzipId);
 
     @POST("/search/v1")
