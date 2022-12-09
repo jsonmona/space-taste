@@ -139,7 +139,7 @@
             android:id="@+id/review"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="사용자가 제일 최근에 작성한 리뷰"
+            android:text="작성된 리뷰가 없습니다"
             android:layout_marginLeft="10dp"
             android:textSize="15dp"
             android:maxLines="1"
