@@ -1,5 +1,6 @@
 package cf.spacetaste.app;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import cf.spacetaste.app.databinding.Navi1FragmentBinding;
 
@@ -43,7 +43,9 @@ public class Navi1_Fragment extends Fragment {
                 AppState.getInstance(getActivity()).searchMatzip(new ArrayList<>(Arrays.asList(data)), data, (success, result) -> {
                     if (success) {
                         // result 활용해 처리
-                        ((HomeActivity) getActivity()).showMatzipList(result);
+                        Intent intent = new Intent(getActivity(), MatzipListActivity.class);
+                        intent.putExtra("matzipList", new ArrayList<>(result));
+                        startActivity(intent);
                     } else {
                         // 네트워크 오류, 서버 오류, 기타등등
                         Toast.makeText(getActivity(), "ERROR!", Toast.LENGTH_SHORT).show();
@@ -71,19 +73,7 @@ public class Navi1_Fragment extends Fragment {
         binding = null;
     }
 }
-class MatzipTag {
-    String tag;
-    Integer thumbnail;
 
-    public MatzipTag(String tag, Integer thumbnail) {
-        this.tag = tag;
-        this.thumbnail = thumbnail;
-    }
-
-    public MatzipTag(String tag) {
-        this(tag, null);
-    }
-}
 class Spacing extends RecyclerView.ItemDecoration {
 
     private int spacing;
