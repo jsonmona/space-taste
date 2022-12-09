@@ -2,7 +2,7 @@ name: Android Build APK CI
 
 on:
   push:
-    branches: [ "main, feat/LM-134" ]
+    branches: [ "main", "feat/LM-134" ]
 
 jobs:
   build:
