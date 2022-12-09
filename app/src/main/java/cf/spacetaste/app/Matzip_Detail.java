@@ -118,10 +118,10 @@ public class Matzip_Detail extends AppCompatActivity {
         detail_rateClean = findViewById(R.id.detail_rateClean);
 
         if (matzipInfo.getStar() != null) {
-            num1.setText(String.format("%.2f", matzipInfo.getStar().getScoreTaste()));
-            num2.setText(String.format("%.2f", matzipInfo.getStar().getScorePrice()));
-            num3.setText(String.format("%.2f", matzipInfo.getStar().getScoreKindness()));
-            num4.setText(String.format("%.2f", matzipInfo.getStar().getScoreClean()));
+            num1.setText(String.format("%.1f", matzipInfo.getStar().getScoreTaste()));
+            num2.setText(String.format("%.1f", matzipInfo.getStar().getScorePrice()));
+            num3.setText(String.format("%.1f", matzipInfo.getStar().getScoreKindness()));
+            num4.setText(String.format("%.1f", matzipInfo.getStar().getScoreClean()));
         }
         if (matzipInfo.getStar() != null) {
             detail_rateTaste.setRating(matzipInfo.getStar().getScoreTaste());

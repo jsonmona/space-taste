@@ -76,7 +76,7 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
         viewHolder.getBinding().matzipName.setText(matzipList.get(position).getName());
 
         if (matzipList.get(position).getStar() != null)
-            viewHolder.getBinding().rating.setText(String.format("%.2f", matzipList.get(position).getStar().average()));
+            viewHolder.getBinding().rating.setText(String.format("%.1f", matzipList.get(position).getStar().average()));
         if (matzipList.get(position).getStar() != null)
             viewHolder.getBinding().starRating.setRating(matzipList.get(position).getStar().average());
 
