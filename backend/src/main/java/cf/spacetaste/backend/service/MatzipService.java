@@ -31,12 +31,9 @@ public class MatzipService {
     public MatzipModel createMatzip(MatzipBasicInfoDTO info) {
         Integer photoId = null;
         String photoBase64 = info.getPhotoBase64();
-        if (photoBase64 != null && photoBase64.length() != 0) {
-            byte[] image = Base64.getUrlDecoder().decode(photoBase64);
-            PhotoModel photo = photoService.createPhotoWithBytes(image);
-            if (photo != null && photo.getPhotoId() > 0)
-                photoId = photo.getPhotoId();
-        }
+        PhotoModel photo = photoService.createPhotoWithBase64(info.getPhotoBase64());
+        if (photo != null && photo.getPhotoId() > 0)
+            photoId = photo.getPhotoId();
 
         MatzipModel model = new MatzipModel(
                 0,

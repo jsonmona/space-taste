@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Base64;
 
 @RequiredArgsConstructor
 @Service
@@ -67,6 +68,15 @@ public class PhotoService {
         }
 
         return photo;
+    }
+
+    public PhotoModel createPhotoWithBase64(String base64) {
+        if (base64 != null && base64.length() != 0) {
+            byte[] image = Base64.getUrlDecoder().decode(base64);
+            return createPhotoWithBytes(image);
+        } else {
+            return null;
+        }
     }
 
     public byte[] readPhoto(PhotoModel photo) {

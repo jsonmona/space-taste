@@ -2,10 +2,8 @@ package cf.spacetaste.backend.service;
 
 import cf.spacetaste.backend.mapper.MatzipMapper;
 import cf.spacetaste.backend.mapper.ReviewMapper;
-import cf.spacetaste.backend.model.AverageStarModel;
-import cf.spacetaste.backend.model.MatzipModel;
-import cf.spacetaste.backend.model.ReviewModel;
-import cf.spacetaste.backend.model.ReviewWithUserInfoModel;
+import cf.spacetaste.backend.mapper.ReviewPhotoMapper;
+import cf.spacetaste.backend.model.*;
 import cf.spacetaste.common.CreateReviewRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +15,9 @@ import java.util.List;
 @Service
 public class ReviewService {
 
+    private final PhotoService photoService;
     private final ReviewMapper reviewMapper;
+    private final ReviewPhotoMapper reviewPhotoMapper;
     private final MatzipMapper matzipMapper;
 
     public int createReview(int userId, int matzipId, CreateReviewRequestDTO info) {
@@ -48,6 +48,12 @@ public class ReviewService {
 
         AverageStarModel stars = reviewMapper.getAverageStar(matzip);
         matzipMapper.updateStar(matzip, stars);
+
+        for (String photoBase64 : info.getPhotoEncoded()) {
+            PhotoModel photo = photoService.createPhotoWithBase64(photoBase64);
+            if (photo != null)
+                reviewPhotoMapper.attachPhoto(review, photo);
+        }
 
         return review.getReviewId();
     }

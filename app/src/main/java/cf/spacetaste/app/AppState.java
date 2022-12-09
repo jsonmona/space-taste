@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import cf.spacetaste.app.data.AuthResponse;
 import cf.spacetaste.app.data.MatzipCreateRequest;
 import cf.spacetaste.app.data.MatzipInfo;
+import cf.spacetaste.app.data.ReviewCreationInfo;
 import cf.spacetaste.app.network.AsyncNotifyPromise;
 import cf.spacetaste.app.network.AsyncResultPromise;
 import cf.spacetaste.app.network.RemoteService;
@@ -103,7 +104,7 @@ public class AppState {
         remoteService.listServiceArea(cb);
     }
 
-    public void postReview(MatzipInfo matzip, CreateReviewRequestDTO review, AsyncNotifyPromise cb) {
+    public void postReview(MatzipInfo matzip, ReviewCreationInfo review, AsyncNotifyPromise cb) {
         saveToken();
         remoteService.postReview(matzip, review, cb);
     }
