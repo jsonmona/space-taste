@@ -23,7 +23,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
       - name: build prod
-        run: ./gradlew app:bundleRelease
+        run: ./gradlew :app:assembleRelease
         env:
           SIGNING_KEY_ALIAS: ${{ secrets.ANDROID_KEYSTORE_KEYNAME }}
           SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
@@ -31,5 +31,5 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
-          name: Build Artifacts
+          name: Android APK
           path: app/build/outputs/
