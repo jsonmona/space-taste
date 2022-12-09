@@ -1,6 +1,5 @@
 package cf.spacetaste.app;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -10,11 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import cf.spacetaste.app.data.MatzipInfo;
 
 public class HomeActivity extends AppCompatActivity {
     FrameLayout main_ly;
@@ -41,12 +35,6 @@ public class HomeActivity extends AppCompatActivity {
     private void SettingListener() {
         //선택 리스너 등록
         bottomNavigationView.setOnItemSelectedListener(new TabSelectedListener());
-    }
-
-    void showMatzipList(List list) {
-        Intent intent = new Intent(HomeActivity.this, MatzipListActivity.class);
-        intent.putExtra("matzipList", new ArrayList<MatzipInfo>(list));
-        startActivity(intent);
     }
 
     private void addFragment(int naviPosition) {
