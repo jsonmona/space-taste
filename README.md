@@ -40,3 +40,7 @@ Gradle을 이용해 빌드할 수 있습니다.
 * MariaDB JDBC Connector: MariaDB 서버와 연동에 사용
 * okhttp: 토큰을 검증하기 위해서 카카오 REST API 호출에 사용
 * auth0-jwt: 자체 액세스 토큰을 발급하고 검증하는데 사용
+
+## 라이센스
+MIT 라이센스가 부착되어 있습니다.
+자세한 내용은 LICENSE.txt 참고 바랍니다.
