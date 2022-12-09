@@ -22,7 +22,7 @@ android {
 
             if (allFilesFromDir != null) {
                 def keystoreFile = allFilesFromDir.first()
-                keystoreFile.renameTo("keystore/keystore.jks")
+                keystoreFile.renameTo("keystore.jks")
             }
 
             storeFile = file("keystore/keystore.jks")
