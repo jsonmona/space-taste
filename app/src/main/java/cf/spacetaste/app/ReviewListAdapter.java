@@ -53,6 +53,12 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Vi
         Glide.with(context.getApplicationContext()).load(reviewList.get(position).getProfileUrl()).into(viewHolder.getBinding().userImage);
         viewHolder.getBinding().userName.setText(reviewList.get(position).getNickname());
         viewHolder.getBinding().userReview.setText("“" + reviewList.get(position).getDetail() + "”");
+        float userRatingAvg = (reviewList.get(position).getScoreTaste()
+                + reviewList.get(position).getScoreKindness()
+                + reviewList.get(position).getScoreClean()
+                + reviewList.get(position).getScorePrice()) / 4;
+        viewHolder.getBinding().userRating.setText(String.format("%.1f", userRatingAvg));
+        viewHolder.getBinding().userStar.setRating(userRatingAvg);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
