@@ -26,8 +26,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import cf.spacetaste.app.data.MatzipInfo;
+import cf.spacetaste.app.data.ReviewCreationInfo;
 import cf.spacetaste.common.CreateReviewRequestDTO;
 
 
@@ -88,7 +91,7 @@ public class AddReview extends AppCompatActivity{
                 } else {
                     Intent inIntent = getIntent();
                     MatzipInfo matzipInfo = (MatzipInfo) inIntent.getSerializableExtra("matzipInfo");
-                    CreateReviewRequestDTO review = new CreateReviewRequestDTO(scoreTaste, scorePrice, scoreKindness, scoreClean, detail);
+                    ReviewCreationInfo review = new ReviewCreationInfo(scoreTaste, scorePrice, scoreKindness, scoreClean, detail, Collections.singletonList(uri));
                     AppState.getInstance(AddReview.this).postReview(matzipInfo,review,((success) -> {
                         if (success) {
                             builder = new AlertDialog.Builder(AddReview.this);

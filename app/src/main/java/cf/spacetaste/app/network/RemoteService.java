@@ -1,6 +1,7 @@
 package cf.spacetaste.app.network;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Base64;
@@ -9,6 +10,7 @@ import android.util.Log;
 import cf.spacetaste.app.data.AuthResponse;
 import cf.spacetaste.app.data.MatzipCreateRequest;
 import cf.spacetaste.app.data.MatzipInfo;
+import cf.spacetaste.app.data.ReviewCreationInfo;
 import cf.spacetaste.common.*;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,10 +19,13 @@ import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -74,6 +79,11 @@ public class RemoteService {
     }
 
     private String auth() {
+        if (token == null) {
+            Log.e(TAG, "Not logged in");
+            return null;
+        }
+
         return "Bearer " + token;
     }
 
@@ -91,6 +101,26 @@ public class RemoteService {
 
     private void reject(AsyncNotifyPromise cb) {
         runOnUiThread(() -> cb.onResult(false));
+    }
+
+    private String encodePhoto(Uri uri) throws IOException {
+        if (uri == null)
+            return null;
+
+        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+        Base64OutputStream encoder = new Base64OutputStream(bout, Base64.NO_PADDING | Base64.NO_WRAP | Base64.URL_SAFE);
+        byte[] buf = new byte[4096];
+        try (InputStream in = context.getContentResolver().openInputStream(uri)) {
+            while (true) {
+                int len = in.read(buf);
+                if (len <= 0)
+                    break;
+                encoder.write(buf, 0, len);
+            }
+        }
+
+        encoder.flush();
+        return bout.toString("US-ASCII");
     }
 
     public boolean isLoggedIn() {
@@ -133,22 +163,7 @@ public class RemoteService {
 
         es.submit(() -> {
             try {
-                String photoData = null;
-                if (req.getPhoto() != null) {
-                    ByteArrayOutputStream bout = new ByteArrayOutputStream();
-                    Base64OutputStream encoder = new Base64OutputStream(bout, Base64.NO_PADDING | Base64.NO_WRAP | Base64.URL_SAFE);
-                    byte[] buf = new byte[4096];
-                    try (InputStream in = context.getContentResolver().openInputStream(req.getPhoto())) {
-                        while (true) {
-                            int len = in.read(buf);
-                            if (len <= 0)
-                                break;
-                            encoder.write(buf, 0, len);
-                        }
-                        encoder.flush();
-                        photoData = bout.toString("US-ASCII");
-                    }
-                }
+                String photoData = encodePhoto(req.getPhoto());
 
                 MatzipBasicInfoDTO info = new MatzipBasicInfoDTO(
                         req.getName(),
@@ -184,7 +199,7 @@ public class RemoteService {
     }
 
     public void listMatzipPhotos(MatzipInfo info, AsyncResultPromise<List<String>> cb) {
-        service.listMatzipPhotos(token, info.getMatzipId())
+        service.listMatzipPhotos(auth(), info.getMatzipId())
                 .enqueue(new Callback<List<String>>() {
                     @Override
                     public void onResponse(Call<List<String>> call, Response<List<String>> response) {
@@ -208,7 +223,7 @@ public class RemoteService {
 
     public void searchMatzip(List<String> tags, String term, AsyncResultPromise<List<MatzipInfo>> cb) {
         SearchRequestDTO req = new SearchRequestDTO(tags, term);
-        service.searchMatzip(token, req).enqueue(new Callback<List<MatzipInfoDTO>>() {
+        service.searchMatzip(auth(), req).enqueue(new Callback<List<MatzipInfoDTO>>() {
             @Override
             public void onResponse(Call<List<MatzipInfoDTO>> call, Response<List<MatzipInfoDTO>> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -255,30 +270,72 @@ public class RemoteService {
         });
     }
 
-    public void postReview(MatzipInfo matzip, CreateReviewRequestDTO review, AsyncNotifyPromise cb) {
-        service.postReview(token, matzip.getMatzipId(), review).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    resolve(cb);
-                } else {
-                    Log.e(TAG, "Failed to post review with code="+response.code());
-                    reject(cb);
-                    if (response.code() == 401)
-                        logout();
+    public void postReview(MatzipInfo matzip, ReviewCreationInfo review, AsyncNotifyPromise cb) {
+        es.submit(() -> {
+            List<String> photoData = Collections.emptyList();
+
+            if (review.getPhotos() != null) {
+                // Concurrently read photo data
+
+                photoData = new ArrayList<>(review.getPhotos().size());
+
+                List<Future<String>> futures = new ArrayList<>(review.getPhotos().size());
+                for (int i = 0; i < review.getPhotos().size(); i++) {
+                    int idx = i;
+                    futures.add(es.submit(() -> encodePhoto(review.getPhotos().get(idx))));
+                }
+
+                for (int i = 0; i < review.getPhotos().size(); i++) {
+                    String now = null;
+                    while (true) {
+                        try {
+                            now = futures.get(i).get();
+                            break;
+                        } catch(InterruptedException e) {
+                            Log.w(TAG, "unexpectedly interrupted", e);
+                        } catch (ExecutionException e) {
+                            Log.e(TAG, "got unexpected exception", e);
+                            break;
+                        }
+                    }
+
+                    if (now != null)
+                        photoData.add(now);
                 }
             }
 
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.e(TAG, "Failed to pose review", t);
-                reject(cb);
-            }
+            CreateReviewRequestDTO info = new CreateReviewRequestDTO(
+                    review.getScoreTaste(),
+                    review.getScorePrice(),
+                    review.getScoreKindness(),
+                    review.getScoreClean(),
+                    review.getDetail(),
+                    photoData
+            );
+            service.postReview(auth(), matzip.getMatzipId(), info).enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        resolve(cb);
+                    } else {
+                        Log.e(TAG, "Failed to create matzip with code=" + response.code());
+                        reject(cb);
+                        if (response.code() == 401)
+                            logout();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Log.e(TAG, "Failed to create matzip", t);
+                    reject(cb);
+                }
+            });
         });
     }
 
     public void getUserInfo(AsyncResultPromise<UserInfoDTO> cb) {
-        service.getUserInfo(token).enqueue(new Callback<UserInfoDTO>() {
+        service.getUserInfo(auth()).enqueue(new Callback<UserInfoDTO>() {
             @Override
             public void onResponse(Call<UserInfoDTO> call, Response<UserInfoDTO> response) {
                 if (response.isSuccessful() && response.body() != null) {
