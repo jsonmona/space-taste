@@ -14,8 +14,10 @@ jobs:
         with:
           fileName: 'keystore/keystore.jks'
           encodedString: ${{ secrets.ANDROID_KEYSTORE }}
+      - name: print
+        run: echo $RUNNER_TEMP
       - name: list
-        run: find /home/runner/work/
+        run: find $RUNNER_TEMP
       - name: Checkout
         uses: actions/checkout@v2
       - name: set up JDK 11
