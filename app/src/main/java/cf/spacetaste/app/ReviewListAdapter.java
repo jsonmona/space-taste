@@ -17,21 +17,11 @@ import java.util.List;
 
 import cf.spacetaste.app.databinding.ActivityReviewListItemBinding;
 import cf.spacetaste.common.ReviewInfoDTO;
-import lombok.SneakyThrows;
 
 public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.ViewHolder> {
 
     private List<ReviewInfoDTO> reviewList;
     private Context context;
-    private OnItemClickListner itemClickListner;
-
-    public interface OnItemClickListner {
-        void onItemClicked(int position, String data) throws IOException;
-    }
-
-    public void setOnItemClickedListner(OnItemClickListner listner) {
-        this.itemClickListner = listner;
-    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private ActivityReviewListItemBinding binding;
@@ -62,7 +52,7 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Vi
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         Glide.with(context.getApplicationContext()).load(reviewList.get(position).getProfileUrl()).into(viewHolder.getBinding().userImage);
         viewHolder.getBinding().userName.setText(reviewList.get(position).getNickname());
-        viewHolder.getBinding().userReview.setText(reviewList.get(position).getDetail());
+        viewHolder.getBinding().userReview.setText("“" + reviewList.get(position).getDetail() + "”");
     }
 
     // Return the size of your dataset (invoked by the layout manager)

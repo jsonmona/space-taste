@@ -242,7 +242,6 @@ public class Navi2_Fragment extends Fragment {
         @Override
         public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
             if (!mapPOIItem.getItemName().equals("현재 위치")) {
-                Toast.makeText(mapView.getContext(), mapPOIItem.getItemName(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(mapView.getContext(), Matzip_Detail.class);
                 intent.putExtra("matzipInfo",  matzipInfoList.get(mapPOIItem.getTag()));
                 startActivity(intent);
