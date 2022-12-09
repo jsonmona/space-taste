@@ -2,7 +2,7 @@ name: Android Build APK CI
 
 on:
   push:
-    branches: [ "main", "feat/LM-134" ]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -14,10 +14,6 @@ jobs:
         with:
           fileName: 'keystore/keystore.jks'
           encodedString: ${{ secrets.ANDROID_KEYSTORE }}
-      - name: print
-        run: echo $RUNNER_TEMP
-      - name: list
-        run: find $RUNNER_TEMP
       - name: Checkout
         uses: actions/checkout@v2
       - name: set up JDK 11
