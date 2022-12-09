@@ -24,10 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cf.spacetaste.app.data.MatzipInfo;
-import cf.spacetaste.app.data.StarGroup;
 
 public class Matzip_Detail extends AppCompatActivity {
     private Uri uri;
@@ -37,6 +35,7 @@ public class Matzip_Detail extends AppCompatActivity {
     private Button goReviewbtn;
     private AlertDialog.Builder builder;
     private EditText addReview_ettext;
+    private TextView num1, num2, num3, num4;
     private RatingBar detail_rateTaste, detail_ratePrice, detail_ratePolite, detail_rateClean;
     private TableRow secongImgRow;
     private RecyclerView reviewList;
@@ -109,11 +108,27 @@ public class Matzip_Detail extends AppCompatActivity {
         }
         detail_ethashtag.setText(hashTags);
 
+        num1 = findViewById(R.id.num1);
+        num2 = findViewById(R.id.num2);
+        num3 = findViewById(R.id.num3);
+        num4 = findViewById(R.id.num4);
         detail_rateTaste = findViewById(R.id.detail_rateTaste);
         detail_ratePrice = findViewById(R.id.detail_ratePrice);
         detail_ratePolite = findViewById(R.id.detail_ratePolite);
         detail_rateClean = findViewById(R.id.detail_rateClean);
 
+        if (matzipInfo.getStar() != null) {
+            num1.setText(String.format("%.2f", matzipInfo.getStar().getScoreTaste()));
+            num2.setText(String.format("%.2f", matzipInfo.getStar().getScorePrice()));
+            num3.setText(String.format("%.2f", matzipInfo.getStar().getScoreKindness()));
+            num4.setText(String.format("%.2f", matzipInfo.getStar().getScoreClean()));
+        }
+        if (matzipInfo.getStar() != null) {
+            detail_rateTaste.setRating(matzipInfo.getStar().getScoreTaste());
+            detail_ratePrice.setRating(matzipInfo.getStar().getScorePrice());
+            detail_ratePolite.setRating(matzipInfo.getStar().getScoreKindness());
+            detail_rateClean.setRating(matzipInfo.getStar().getScoreClean());
+        }
 
         goReviewbtn = findViewById(R.id.goReviewbtn);
         goReviewbtn.setOnClickListener(view -> {

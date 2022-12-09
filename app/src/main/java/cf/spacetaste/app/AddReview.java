@@ -75,10 +75,10 @@ public class AddReview extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 String detail = addReview_ettext.getText().toString();
-                int scoreTaste = rateTaste.getNumStars();
-                int scorePrice = ratePrice.getNumStars();
-                int scoreKindness = ratePolite.getNumStars();
-                int scoreClean = rateClean.getNumStars();
+                int scoreTaste = (int) rateTaste.getRating();
+                int scorePrice = (int) ratePrice.getRating();
+                int scoreKindness = (int) ratePolite.getRating();
+                int scoreClean = (int) rateClean.getRating();
                 if(detail.equals("")){
                     builder = new AlertDialog.Builder(AddReview.this);
                     AlertDialog dialog = builder.setMessage("짧은 한마디를 입력해주세요")

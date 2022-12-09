@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#FFFFFF"
     android:layout_width="match_parent"
@@ -90,7 +91,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="15dp"
+                android:layout_marginVertical="15dp"
+                android:textSize="30dp"
                 android:text="식당 이름"
                 android:textStyle="bold"/>
             <TextView
@@ -98,6 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginBottom="10dp"
                 android:drawableStart="@drawable/ic_baseline_location_on_24"
                 android:drawablePadding="10dp"
                 android:textSize="15dp"
@@ -116,7 +119,9 @@
             <TextView
                 android:id="@+id/detail_ethashtag"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"/>
             <TextView
                 android:id="@+id/detail_rate"
                 android:layout_width="wrap_content"
@@ -127,101 +132,147 @@
                 android:textSize="15dp"
                 android:text="별점"
                 android:textStyle="bold"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/detail_rate1"
                     android:layout_width="68dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:text="맛" />
 
+                <TextView
+                    android:id="@+id/num1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:text="5.0"
+                    app:layout_constraintRight_toLeftOf="@id/detail_rateTaste"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
                 <RatingBar
-                    style="@style/Widget.AppCompat.RatingBar.Small"
                     android:id="@+id/detail_rateTaste"
-                    android:isIndicator = "true"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="100dp"
+                    android:isIndicator="true"
                     android:numStars="5"
                     android:rating="5"
-                    android:stepSize="1" />
-            </LinearLayout>
-
-            <LinearLayout
+                    android:stepSize="1"
+                    app:layout_constraintBottom_toBottomOf="@id/num1"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/num1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
+                android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/detail_rate2"
                     android:layout_width="68dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:text="가격" />
 
+                <TextView
+                    android:id="@+id/num2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:text="5.0"
+                    app:layout_constraintRight_toLeftOf="@id/detail_ratePrice"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
                 <RatingBar
-                    style="@style/Widget.AppCompat.RatingBar.Small"
                     android:id="@+id/detail_ratePrice"
-                    android:isIndicator = "true"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="100dp"
+                    android:isIndicator="true"
                     android:numStars="5"
                     android:rating="5"
-                    android:stepSize="1" />
-            </LinearLayout>
+                    android:stepSize="1"
+                    app:layout_constraintBottom_toBottomOf="@id/num2"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/num2" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/detail_rate3"
                     android:layout_width="68dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
-                    android:text="친절" />
+                    android:text="친절"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/num3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:text="5.0"
+                    app:layout_constraintRight_toLeftOf="@id/detail_ratePolite"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <RatingBar
-                    style="@style/Widget.AppCompat.RatingBar.Small"
                     android:id="@+id/detail_ratePolite"
-                    android:isIndicator = "true"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="100dp"
+                    android:isIndicator="true"
                     android:numStars="5"
                     android:rating="5"
-                    android:stepSize="1" />
-            </LinearLayout>
-
-            <LinearLayout
+                    android:stepSize="1"
+                    app:layout_constraintBottom_toBottomOf="@id/num3"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/num3" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
+                android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/detail_rate4"
                     android:layout_width="68dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:text="청결" />
 
+                <TextView
+                    android:id="@+id/num4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:text="5.0"
+                    app:layout_constraintRight_toLeftOf="@id/detail_rateClean"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
                 <RatingBar
-                    style="@style/Widget.AppCompat.RatingBar.Small"
                     android:id="@+id/detail_rateClean"
-                    android:isIndicator = "true"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="100dp"
+                    android:isIndicator="true"
                     android:numStars="5"
                     android:rating="5"
-                    android:stepSize="1" />
-            </LinearLayout>
+                    android:stepSize="1"
+                    app:layout_constraintBottom_toBottomOf="@id/num4"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/num4" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
             <View
                 android:layout_marginTop="10dp"
@@ -253,7 +304,6 @@
                 android:id="@+id/reviewList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="10dp"
                 android:paddingVertical="10dp" />
         </LinearLayout>
     </ScrollView>

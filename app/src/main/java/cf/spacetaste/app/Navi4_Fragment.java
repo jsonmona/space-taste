@@ -91,7 +91,6 @@ public class Navi4_Fragment extends Fragment {
                 MatzipListAdapter adapter = new MatzipListAdapter(result, getActivity().getApplicationContext());
                 LinearLayoutManager linear = new LinearLayoutManager(getActivity().getApplicationContext());
                 adapter.setOnItemClickedListner((position, data) -> {
-                    Toast.makeText(getActivity(), data + ": " + position, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), Matzip_Detail.class);
                     intent.putExtra("matzipInfo", result.get(position));
                     startActivity(intent);

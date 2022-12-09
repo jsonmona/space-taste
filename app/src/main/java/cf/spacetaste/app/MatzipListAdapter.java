@@ -85,7 +85,7 @@ public class MatzipListAdapter extends RecyclerView.Adapter<MatzipListAdapter.Vi
         AppState.getInstance(context.getApplicationContext()).listMatzipReviews(matzipList.get(position), (success, result) -> {
             if (result.size() != 0) {
                 Glide.with(context.getApplicationContext()).load(result.get(0).getProfileUrl()).into(viewHolder.getBinding().userProfile);
-                viewHolder.getBinding().review.setText(result.get(0).getDetail());
+                viewHolder.getBinding().review.setText("“" + result.get(0).getDetail() + "”");
             } else {
                 viewHolder.getBinding().review.setText("최근에 작성한 리뷰가 없습니다.");
             }
