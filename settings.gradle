@@ -3,6 +3,7 @@ pluginManagement {
         gradlePluginPortal()
         google()
         maven { url 'https://repo.spring.io/release' }
+        maven { url 'https://repo.spring.io/milestone' }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
         mavenCentral()
     }
